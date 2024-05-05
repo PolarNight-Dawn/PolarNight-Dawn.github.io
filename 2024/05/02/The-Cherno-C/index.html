@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
 <meta property="article:published_time" content="2024-05-02T08:28:18.000Z">
-<meta property="article:modified_time" content="2024-05-04T09:31:58.455Z">
+<meta property="article:modified_time" content="2024-05-05T14:21:08.655Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -272,7 +272,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            2k words 
+            3.1k words 
           </div>
         </div>
         
@@ -326,6 +326,29 @@
 
 <h3 id="【32】C-字符串"><a href="#【32】C-字符串" class="headerlink" title="【32】C++ 字符串"></a>【32】C++ 字符串</h3><p><code>std::string</code>的本质是一个<code>const char*</code>数组，很多<code>std::string</code>可行而<code>const char*</code>不可行的操作都是基于对操作符的重载后实现的</p>
 <p>举个例子，不引入头文件<code>string</code>时<code>&lt;&lt;</code>会报错，这是因为<code>&lt;&lt;</code>允许我们发送字符串到流中的重载版本是在<code>string</code>头文件内部</p>
+<h3 id="【34】C-中的-CONST"><a href="#【34】C-中的-CONST" class="headerlink" title="【34】C++ 中的 CONST"></a>【34】C++ 中的 CONST</h3><p><code>const</code>是一种承诺，它承诺了一些东西是不变的，但并不意味着不可以违背，在这里提出来只是想告诉你在计算机中没有什么是真正一成不变的，话说回来这是一个承诺，你应该遵守承诺</p>
+<p>最基本的用法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> kMaxAge = <span class="number">90</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> *ptr = <span class="keyword">new</span> <span class="type">int</span>;</span><br><span class="line"></span><br><span class="line">ptr = &amp;kMaxAge <span class="comment">// 这是不被允许的，kMaxAge 是常量</span></span><br><span class="line">ptr = (<span class="type">int</span> *)&amp;kMaxAge <span class="comment">// 这是可行的，正如我们所说`const`只是一个可以被绕过的承诺</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>还有几种用法，首先是指针：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> *ptr = <span class="keyword">new</span> <span class="type">int</span>; <span class="comment">// int int const *ptr = new int;</span></span><br><span class="line"></span><br><span class="line">*ptr = <span class="number">2</span>; <span class="comment">// 这是不被允许的，不可修改指针指向的内容</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> * <span class="type">const</span> ptr = <span class="keyword">new</span> <span class="type">int</span>;</span><br><span class="line"></span><br><span class="line">ptr = &amp;val <span class="comment">// 这是不被允许的，不可修改指针指向的地址</span></span><br><span class="line">    </span><br><span class="line"><span class="type">const</span> <span class="type">int</span> * <span class="type">const</span> ptr = <span class="keyword">new</span> <span class="type">int</span>; <span class="comment">// 猜测一下？ ok，这行代码意味着指针指向的地址和内容同时不可修改</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>最后是在类中以及方法中使用<code>const</code>：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Entitty</span> &#123;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    	<span class="type">int</span> m_x_, m_y_; <span class="comment">// 如果是指针`int *m_x_, *m_y_;`，那就得`const int * const get_m_x() const &#123; return m_x_; &#125;</span></span><br><span class="line">    pulic:</span><br><span class="line">    	<span class="function"><span class="type">int</span> <span class="title">get_m_x</span><span class="params">()</span> <span class="type">const</span> </span>&#123; <span class="comment">// `const`影响函数，对类成员变量只读不写</span></span><br><span class="line">            <span class="keyword">return</span> m_x_;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">    	<span class="function"><span class="type">int</span> <span class="title">set_m_x</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            m_x_ = <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">PrintEntity</span><span class="params">(<span class="type">const</span> Entity&amp; e)</span> </span>&#123; <span class="comment">// 常量引用，引用就是内容，这里不会有指针指向的地址和内容的区别了</span></span><br><span class="line">    std::cout &lt;&lt; e.<span class="built_in">get_m_x</span>() &lt;&lt; std::endl; <span class="comment">// 如果int get_m_x() &#123; return m_x_; &#125;，那么就不可调用 get_m_x 函数了，get_m_x 函数不能保证它不会写入 Entity 了</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>有一种<code>const</code>的情况，你确实想要标记方法为<code>const</code>，但由于某些原因，又确实需要修改一些变量：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Entitty</span> &#123;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    	<span class="type">int</span> m_x_, m_y_;</span><br><span class="line">    	<span class="keyword">mutable</span> <span class="type">int</span> val; <span class="comment">// `mutable`允许函数是常量方法，但可以修改变量</span></span><br><span class="line">    pulic:</span><br><span class="line">    	<span class="function"><span class="type">int</span> <span class="title">get_m_x</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">            val = <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">return</span> m_x_;</span><br><span class="line">        &#125;</span><br><span class="line">    	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 
         
       </div>
