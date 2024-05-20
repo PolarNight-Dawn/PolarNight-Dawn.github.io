@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
 <meta property="article:published_time" content="2024-05-02T08:28:18.000Z">
-<meta property="article:modified_time" content="2024-05-06T15:23:00.373Z">
+<meta property="article:modified_time" content="2024-05-20T14:42:26.415Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -272,7 +272,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            4.3k words 
+            4.6k words 
           </div>
         </div>
         
@@ -372,6 +372,11 @@
 
 
 <p>这就是我们创建对象的两种方法，如何选择呢，如果对象太大或者你要显示的控制对象的生存期，那就在堆上创建；如果你忽略这两个选择的话，那就在栈上分配，栈上分配自动化而且更快，而在堆上分配，需要你手动<code>delete</code>，对此你可以使用智能指针，这点之后再谈</p>
+<h3 id="【39】C-new-关键字"><a href="#【39】C-new-关键字" class="headerlink" title="【39】C++ new 关键字"></a>【39】C++ new 关键字</h3><p><code>new</code>返回指向你分配的内存的空指针（空指针基本上是一个没有类型的指针，指针只是一个内存地址，指针之所以需要类型，是因为你需要类型来操纵它）。<code>new</code>不仅分配内存，它还调用构造函数，这背后的真相是它是一个操作符，这意味着你可以重载这个操作符，并改变它的行为。通常调用<code>new</code>，会调用隐藏在里面的 C 函数。关于<code>new</code>想说的最后一点是当使用了<code>new</code>关键字时，得记住必须要用<code>delete</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Entity* e = <span class="keyword">new</span> <span class="built_in">Entity</span>();</span><br><span class="line">Entity* e = (Entity*) <span class="built_in">malloc</span> (<span class="built_in">sizeof</span>(Entity)); <span class="comment">// 这两行代码之间仅有的区别是`new`还调用了`Entity`构造函数</span></span><br></pre></td></tr></table></figure>
+
+
+
 
         
       </div>
