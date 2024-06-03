@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
 <meta property="article:published_time" content="2024-05-29T14:53:49.000Z">
-<meta property="article:modified_time" content="2024-05-30T15:45:30.807Z">
+<meta property="article:modified_time" content="2024-06-03T15:21:39.081Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -278,7 +278,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            361 words 
+            860 words 
           </div>
         </div>
         
@@ -295,6 +295,23 @@
 <h3 id="【54】C-的堆与栈内存的比较"><a href="#【54】C-的堆与栈内存的比较" class="headerlink" title="【54】C++ 的堆与栈内存的比较"></a>【54】C++ 的堆与栈内存的比较</h3><p>当我们在栈中分配变量时，发生的是栈指针基本上移动变量大小的字节，如果我们想分配一个4个字节的整数，就把栈指针移动4个字节。栈的做法只是把东西堆在一起，这就是为什么栈分配非常快，它就像一条 CPU 指令，我们所做的就是移动栈指针，然后返回栈指针的地址</p>
 <p><code>new</code>关键字实际上调用了<code>malloc</code>函数，当你使用<code>malloc</code>请求堆内存时，它可以浏览空闲列表（跟踪哪些内存块是空闲的），然后找到一个至少和你要的一样大的空闲内存，做一堆记录，然后返回给你一个指针。更麻烦的是如果你想要更多的内存，超过了空闲列表，超过了操作系统给你的初始分配，会有一堆事情</p>
 <p>在堆上分配内存是一堆的事情，而在栈上分配内存就像一条 CPU 指令，这是这两种主要的内存分配方法的区别</p>
+<h3 id="【58】C-的函数指针"><a href="#【58】C-的函数指针" class="headerlink" title="【58】C++ 的函数指针"></a>【58】C++ 的函数指针</h3><ol>
+<li><p>原始风格的函数指针，来自 C 语言</p>
+</li>
+<li><p>C++ 的方式使用函数指针</p>
+</li>
+<li><p><code>lambda</code>匿名函数</p>
+</li>
+</ol>
+<p>函数指针，是将一个函数赋值给一个变量的方法</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//! \1 得到一个指向该函数的函数指针，此处存在一个隐式转换`HelloWorld`-&gt;`&amp;HelloWorld`</span></span><br><span class="line"><span class="built_in">void</span>(*function)() = HelloWorld;</span><br><span class="line"></span><br><span class="line"><span class="built_in">function</span>();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span><span class="params">(*HelloWorldFunction)</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">HelloWorldFunction function = HelloWorld;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">HelloWorld</span><span class="params">(<span class="type">int</span> x)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Output</span><span class="params">(<span class="type">const</span> std::vector&lt;<span class="type">int</span>&gt; &amp;values, <span class="type">void</span>(*haven)(<span class="type">int</span>))</span></span>;</span><br><span class="line">    </span><br><span class="line"><span class="built_in">Output</span>(values, HelloWorld);</span><br><span class="line"><span class="comment">//! \2</span></span><br><span class="line"><span class="built_in">Output</span>(values, [](<span class="type">int</span> value) -&gt; <span class="type">void</span> &#123;std::cout &lt;&lt; x &lt;&lt; <span class="string">&quot; ,Hello World?&quot;</span> &lt;&lt; std::endl;&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
 
         
       </div>
