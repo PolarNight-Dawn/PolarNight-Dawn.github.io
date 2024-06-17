@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 
-<html theme="dark" showBanner="true" hasBanner="true" > 
+<html theme="dark" showBanner="true" hasBanner="desktop" > 
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
@@ -14,23 +14,26 @@
   
 
   
-  <title>Dawn&#39;s Blog</title>
+  <title>The Cherno C++ 1 | Dawn&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="Table of Contents  generated with DocToc  【6】C++ 编译器是如何工作的 【7】C++ 链接器是如何工作的     title: The Cherno C++ 1date: 2024-06-17 21:45:33photos: https:&#x2F;&#x2F;fastly.jsdelivr.net&#x2F;gh&#x2F;PolarNight-Dawn&#x2F;ImageHost@main&#x2F;">
+  <meta name="description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第一部分">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dawn&#39;s Blog">
+<meta property="og:title" content="The Cherno C++ 1">
 <meta property="og:url" content="http://example.com/2024/06/17/The-Cherno-C-1/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="Table of Contents  generated with DocToc  【6】C++ 编译器是如何工作的 【7】C++ 链接器是如何工作的     title: The Cherno C++ 1date: 2024-06-17 21:45:33photos: https:&#x2F;&#x2F;fastly.jsdelivr.net&#x2F;gh&#x2F;PolarNight-Dawn&#x2F;ImageHost@main&#x2F;">
+<meta property="og:description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第一部分">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-06-17T13:45:33.508Z">
-<meta property="article:modified_time" content="2024-06-17T16:54:09.998Z">
+<meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
+<meta property="article:published_time" content="2024-06-17T13:45:33.000Z">
+<meta property="article:modified_time" content="2024-06-17T16:57:07.881Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
   
     <link rel="alternate" href="/atom.xml" title="Dawn's Blog" type="application/atom+xml">
   
@@ -157,7 +160,7 @@
         
             <a class="category-link" href="/categories/CS/">
                 CS
-                <div class="category-count">2</div>
+                <div class="category-count">3</div>
             </a>
         
             <a class="category-link" href="/categories/%E6%9D%82%E8%B0%88/">
@@ -207,9 +210,9 @@
       <h3 class="widget-title">Recent Posts</h3>
       <ul>
         
-          <a class="recent-link" href="/2024/06/17/The-Cherno-C-1/" title="" >
+          <a class="recent-link" href="/2024/06/17/The-Cherno-C-1/" title="The Cherno C++ 1" >
             <div class="recent-link-text">
-              (no title)
+              The Cherno C++ 1
             </div>
           </a>
         
@@ -252,6 +255,16 @@
 <article id="post-The-Cherno-C-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
     
+<div class="article-gallery">
+  <div class="article-gallery-photos">
+    
+      <a class="article-gallery-img" rel="gallery_clxj5ybgs000005c245be2jfn">
+        <img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png" itemprop="image">
+      </a>
+    
+  </div>
+</div>
+
    
   <div class="article-inner">
     <div class="article-main">
@@ -262,7 +275,7 @@
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        Untitled
+        The Cherno C++ 1
       </h1>
     
   
@@ -270,35 +283,27 @@
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2024-06-17T13:45:33.508Z" itemprop="datePublished">2024-06-17</time>
+  <time class="dt-published" datetime="2024-06-17T13:45:33.000Z" itemprop="datePublished">2024-06-17</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
   
-    Uncategorized 
+  <a class="meta-cate-link" href="/categories/CS/">CS</a>
    
 </div>
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            746 words 
+            545 words 
           </div>
         </div>
         
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
+
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<p><strong>Table of Contents</strong>  <em>generated with <a target="_blank" rel="noopener" href="https://github.com/thlorenz/doctoc">DocToc</a></em></p>
-<ul>
-<li><a href="#6c-%E7%BC%96%E8%AF%91%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">【6】C++ 编译器是如何工作的</a></li>
-<li><a href="#7c-%E9%93%BE%E6%8E%A5%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">【7】C++ 链接器是如何工作的</a></li>
-</ul>
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-<hr>
-<h2 id="title-The-Cherno-C-1date-2024-06-17-21-45-33photos-https-fastly-jsdelivr-net-gh-PolarNight-Dawn-ImageHost-main-1714642661091wallhaven-jxl31y-pngcategories-CStags-C"><a href="#title-The-Cherno-C-1date-2024-06-17-21-45-33photos-https-fastly-jsdelivr-net-gh-PolarNight-Dawn-ImageHost-main-1714642661091wallhaven-jxl31y-pngcategories-CStags-C" class="headerlink" title="title: The Cherno C++ 1date: 2024-06-17 21:45:33photos: https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.pngcategories:- CStags:- C++"></a>title: The Cherno C++ 1<br>date: 2024-06-17 21:45:33<br>photos: <a target="_blank" rel="noopener" href="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png</a><br>categories:<br>- CS<br>tags:<br>- C++</h2><p>在观看了 Cherno 的 C++ 系列视频后的一些记录——第一部分</p>
+          <p>在观看了 Cherno 的 C++ 系列视频后的一些记录——第一部分</p>
 <span id="more"></span>
 
 
@@ -307,19 +312,14 @@
 <li><a href="#6c-%E7%BC%96%E8%AF%91%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">【6】C++ 编译器是如何工作的</a></li>
 <li><a href="#7c-%E9%93%BE%E6%8E%A5%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">【7】C++ 链接器是如何工作的</a></li>
 </ul>
-<!--toc-->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
-
-<!--- START doctoc -->
-
-
-
-
-
-
-
-<!--- END doctoc -->
+<ul>
+<li><a href="#6c-%E7%BC%96%E8%AF%91%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">【6】C++ 编译器是如何工作的</a></li>
+<li><a href="#7c-%E9%93%BE%E6%8E%A5%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">【7】C++ 链接器是如何工作的</a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 <h1 id="【6】C-编译器是如何工作的"><a href="#【6】C-编译器是如何工作的" class="headerlink" title="【6】C++ 编译器是如何工作的"></a>【6】C++ 编译器是如何工作的</h1><p>C++ 不关心文件，文件是不存在于 C++ 中的东西</p>
 <p>一个程序包含一个或多个翻译单元。一个翻译单元由一个实现（<code>.cpp</code>或<code>.cxx</code>）文件及其直接或间接包含的所有标头（<code>.h</code>或<code>.hpp</code>）组成。每个翻译单元由编译器独立编译</p>
