@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
 <meta property="article:published_time" content="2024-05-29T14:53:49.000Z">
-<meta property="article:modified_time" content="2024-06-16T13:14:51.022Z">
+<meta property="article:modified_time" content="2024-06-17T15:56:31.999Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -160,7 +160,7 @@
         
             <a class="category-link" href="/categories/CS/">
                 CS
-                <div class="category-count">2</div>
+                <div class="category-count">3</div>
             </a>
         
             <a class="category-link" href="/categories/%E6%9D%82%E8%B0%88/">
@@ -191,7 +191,7 @@
       
         <a class="archive-link" href="/archives/2024/06 ">
           June 2024 
-          <div class="archive-count">1 </div>
+          <div class="archive-count">2 </div>
         </a>
       
         <a class="archive-link" href="/archives/2024/05 ">
@@ -209,6 +209,12 @@
     <div class="widget">
       <h3 class="widget-title">Recent Posts</h3>
       <ul>
+        
+          <a class="recent-link" href="/2024/06/17/The-Cherno-C-1/" title="The Cherno C++ 1" >
+            <div class="recent-link-text">
+              The Cherno C++ 1
+            </div>
+          </a>
         
           <a class="recent-link" href="/2024/06/16/%E5%91%BC%E5%90%B8%E4%B9%8B%E9%87%8E/" title="呼吸之野" >
             <div class="recent-link-text">
@@ -231,12 +237,6 @@
           <a class="recent-link" href="/2024/05/01/My-New-Post/" title="My New Post" >
             <div class="recent-link-text">
               My New Post
-            </div>
-          </a>
-        
-          <a class="recent-link" href="/2024/05/01/hello-world/" title="Hello World" >
-            <div class="recent-link-text">
-              Hello World
             </div>
           </a>
         
@@ -308,10 +308,11 @@
 
 
 
-<h3 id="【54】C-的堆与栈内存的比较"><a href="#【54】C-的堆与栈内存的比较" class="headerlink" title="【54】C++ 的堆与栈内存的比较"></a>【54】C++ 的堆与栈内存的比较</h3><p>当我们在栈中分配变量时，发生的是栈指针基本上移动变量大小的字节，如果我们想分配一个4个字节的整数，就把栈指针移动4个字节。栈的做法只是把东西堆在一起，这就是为什么栈分配非常快，它就像一条 CPU 指令，我们所做的就是移动栈指针，然后返回栈指针的地址</p>
+<p>[TOC]</p>
+<h1 id="【54】C-的堆与栈内存的比较"><a href="#【54】C-的堆与栈内存的比较" class="headerlink" title="【54】C++ 的堆与栈内存的比较"></a>【54】C++ 的堆与栈内存的比较</h1><p>当我们在栈中分配变量时，发生的是栈指针基本上移动变量大小的字节，如果我们想分配一个4个字节的整数，就把栈指针移动4个字节。栈的做法只是把东西堆在一起，这就是为什么栈分配非常快，它就像一条 CPU 指令，我们所做的就是移动栈指针，然后返回栈指针的地址</p>
 <p><code>new</code>关键字实际上调用了<code>malloc</code>函数，当你使用<code>malloc</code>请求堆内存时，它可以浏览空闲列表（跟踪哪些内存块是空闲的），然后找到一个至少和你要的一样大的空闲内存，做一堆记录，然后返回给你一个指针。更麻烦的是如果你想要更多的内存，超过了空闲列表，超过了操作系统给你的初始分配，会有一堆事情</p>
 <p>在堆上分配内存是一堆的事情，而在栈上分配内存就像一条 CPU 指令，这是这两种主要的内存分配方法的区别</p>
-<h3 id="【58】C-的函数指针"><a href="#【58】C-的函数指针" class="headerlink" title="【58】C++ 的函数指针"></a>【58】C++ 的函数指针</h3><ol>
+<h1 id="【58】C-的函数指针"><a href="#【58】C-的函数指针" class="headerlink" title="【58】C++ 的函数指针"></a>【58】C++ 的函数指针</h1><ol>
 <li><p>原始风格的函数指针，来自 C 语言</p>
 </li>
 <li><p>C++ 的方式使用函数指针</p>
@@ -328,11 +329,11 @@
 
 
 
-<h3 id="【60】为什么不使用using-namespace-std"><a href="#【60】为什么不使用using-namespace-std" class="headerlink" title="【60】为什么不使用using namespace std"></a>【60】为什么不使用<code>using namespace std</code></h3><h3 id="【65】C-的排序"><a href="#【65】C-的排序" class="headerlink" title="【65】C++ 的排序"></a>【65】C++ 的排序</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>(), [](<span class="type">int</span> a, <span class="type">int</span> b) &#123;</span><br><span class="line">    <span class="keyword">if</span> (a == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> ture;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="【60】为什么不使用using-namespace-std"><a href="#【60】为什么不使用using-namespace-std" class="headerlink" title="【60】为什么不使用using namespace std"></a>【60】为什么不使用<code>using namespace std</code></h1><h1 id="【65】C-的排序"><a href="#【65】C-的排序" class="headerlink" title="【65】C++ 的排序"></a>【65】C++ 的排序</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>(), [](<span class="type">int</span> a, <span class="type">int</span> b) &#123;</span><br><span class="line">    <span class="keyword">if</span> (a == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> ture;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="【66】C-的类型双关"><a href="#【66】C-的类型双关" class="headerlink" title="【66】C++ 的类型双关"></a>【66】C++ 的类型双关</h3><p>我们可以用不同的方式（转换成指针）解析一段内存，从而得到不同的结果，类型只是约定的解析内存的方式</p>
+<h1 id="【66】C-的类型双关"><a href="#【66】C-的类型双关" class="headerlink" title="【66】C++ 的类型双关"></a>【66】C++ 的类型双关</h1><p>我们可以用不同的方式（转换成指针）解析一段内存，从而得到不同的结果，类型只是约定的解析内存的方式</p>
 
         
       </div>
