@@ -59,15 +59,15 @@ var _hmt = _hmt || [];
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在博客中添加目录 补充inline关键字">
+  <meta name="description" content="在博客中添加目录目前我知道的在网页端MarkDown中有两种实现目录的书写格式 Markdown 锚点任何级别的标题都可以直接作为锚点目标，如果标题的内容比较固定的话，可以直接使用标题作为锚点： 1234567## 目录[标题内容](#标题内容)············### 标题内容    使用这个方法，标题需要进行一些处理：  大写字母改成小写（这点好像不需要严格遵守，大写字母也可以） 特殊字">
 <meta property="og:type" content="website">
 <meta property="og:title" content="about">
 <meta property="og:url" content="http://example.com/about/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在博客中添加目录 补充inline关键字">
+<meta property="og:description" content="在博客中添加目录目前我知道的在网页端MarkDown中有两种实现目录的书写格式 Markdown 锚点任何级别的标题都可以直接作为锚点目标，如果标题的内容比较固定的话，可以直接使用标题作为锚点： 1234567## 目录[标题内容](#标题内容)············### 标题内容    使用这个方法，标题需要进行一些处理：  大写字母改成小写（这点好像不需要严格遵守，大写字母也可以） 特殊字">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-05-01T05:43:17.000Z">
-<meta property="article:modified_time" content="2024-06-17T16:29:34.734Z">
+<meta property="article:modified_time" content="2024-06-18T18:18:07.816Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -318,14 +318,26 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            19 words 
+            259 words 
           </div>
         </div>
         
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <p>在博客中添加目录</p>
+          <h3 id="在博客中添加目录"><a href="#在博客中添加目录" class="headerlink" title="在博客中添加目录"></a>在博客中添加目录</h3><p>目前我知道的在网页端MarkDown中有两种实现目录的书写格式</p>
+<h4 id="Markdown-锚点"><a href="#Markdown-锚点" class="headerlink" title="Markdown 锚点"></a>Markdown 锚点</h4><p>任何级别的标题都可以直接作为锚点目标，如果标题的内容比较固定的话，可以直接使用标题作为锚点：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## 目录</span></span><br><span class="line">[<span class="string">标题内容</span>](<span class="link">#标题内容</span>)</span><br><span class="line"></span><br><span class="line">······</span><br><span class="line">······</span><br><span class="line"></span><br><span class="line"><span class="section">### 标题内容</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用这个方法，标题需要进行一些处理：</p>
+<ul>
+<li><del>大写字母改成小写</del>（这点好像不需要严格遵守，大写字母也可以）</li>
+<li>特殊字符全删除（请注意 C++ 的 ++ 是特殊字符！！！可恶啊，排查了老久才发现了问题）</li>
+<li>空格改成横线（-）</li>
+</ul>
+<p>awaiting more…</p>
 <p>补充<code>inline</code>关键字</p>
 
         
