@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 
-<html theme="dark" showBanner="true" hasBanner="desktop" > 
+<html theme="dark" showBanner="true" hasBanner="true" > 
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
@@ -26,26 +26,24 @@ var _hmt = _hmt || [];
   
 
   
-  <title>The Cherno C++ 1 | Dawn&#39;s Blog</title>
+  <title>Git 使用小结 | Dawn&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第一部分">
+  <meta name="description" content="总结了一些在工作中常用的 Git 命令和常见的使用场景">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Cherno C++ 1">
-<meta property="og:url" content="http://example.com/2024/06/17/The-Cherno-C-1/index.html">
+<meta property="og:title" content="Git 使用小结">
+<meta property="og:url" content="http://example.com/2024/06/20/Git-%E4%BD%BF%E7%94%A8%E5%B0%8F%E7%BB%93/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第一部分">
+<meta property="og:description" content="总结了一些在工作中常用的 Git 命令和常见的使用场景">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
-<meta property="article:published_time" content="2024-06-17T13:45:33.000Z">
-<meta property="article:modified_time" content="2024-06-18T18:18:28.684Z">
+<meta property="article:published_time" content="2024-06-20T15:06:59.000Z">
+<meta property="article:modified_time" content="2024-06-20T15:23:12.242Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
   
     <link rel="alternate" href="/atom.xml" title="Dawn's Blog" type="application/atom+xml">
   
@@ -264,19 +262,9 @@ var _hmt = _hmt || [];
        
 
 
-<article id="post-The-Cherno-C-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-Git-使用小结" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
     
-<div class="article-gallery">
-  <div class="article-gallery-photos">
-    
-      <a class="article-gallery-img" rel="gallery_clxj5ybgs000005c245be2jfn">
-        <img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png" itemprop="image">
-      </a>
-    
-  </div>
-</div>
-
    
   <div class="article-inner">
     <div class="article-main">
@@ -287,7 +275,7 @@ var _hmt = _hmt || [];
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        The Cherno C++ 1
+        Git 使用小结
       </h1>
     
   
@@ -295,7 +283,7 @@ var _hmt = _hmt || [];
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2024-06-17T13:45:33.000Z" itemprop="datePublished">2024-06-17</time>
+  <time class="dt-published" datetime="2024-06-20T15:06:59.000Z" itemprop="datePublished">2024-06-20</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -306,37 +294,50 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            518 words 
+            1.3k words 
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C++</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <p>在观看了 Cherno 的 C++ 系列视频后的一些记录——第一部分</p>
+          <p>总结了一些在工作中常用的 Git 命令和常见的使用场景</p>
 <span id="more"></span>
 
 
 
-<h1 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h1><p><a href="#%E3%80%906%E3%80%91C-%E7%BC%96%E8%AF%91%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">【6】C++ 编译器是如何工作的</a></p>
-<p><a href="#%E3%80%907%E3%80%91C-%E9%93%BE%E6%8E%A5%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">【7】C++ 链接器是如何工作的</a></p>
-<hr>
-<h1 id="【6】C-编译器是如何工作的"><a href="#【6】C-编译器是如何工作的" class="headerlink" title="【6】C++ 编译器是如何工作的"></a>【6】C++ 编译器是如何工作的</h1><p>C++ 不关心文件，文件是不存在于 C++ 中的东西</p>
-<p>一个程序包含一个或多个翻译单元。一个翻译单元由一个实现（<code>.cpp</code>或<code>.cxx</code>）文件及其直接或间接包含的所有标头（<code>.h</code>或<code>.hpp</code>）组成。每个翻译单元由编译器独立编译</p>
-<h1 id="【7】C-链接器是如何工作的"><a href="#【7】C-链接器是如何工作的" class="headerlink" title="【7】C++ 链接器是如何工作的"></a>【7】C++ 链接器是如何工作的</h1><p>编译完成后，链接器会将编译后的翻译单元合并到单个程序。ODR（单一定义规则）的冲突通常显示为链接器错误。在多个翻译单元中定义同一名称时，将发生链接器错误</p>
-<p>默认情况下，非常量全局变量和 Free 函数具有外部链接，它们在程序中的任何翻译单元内可见。具有内部链接或无链接的符号仅在声明它的翻译单元内可见</p>
-<p>如果要强制一个全局名称具有内部链接，可以将它显示声明为<code>static</code>，此关键字将它的可见性限制在声明它的同一翻译单元内</p>
-<p>默认情况下，以下对象具有内部链接：</p>
-<ul>
-<li><code>const</code>对象</li>
-<li><code>constexpr</code>对象</li>
-<li><code>typedef</code>对象</li>
-<li>命名空间范围中<code>static</code>对象</li>
+<h1 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h1><!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+
+
+<h2 id="常见命令一览"><a href="#常见命令一览" class="headerlink" title="常见命令一览"></a>常见命令一览</h2><ul>
+<li><code>git branch -M main</code> 强制重命名分支，修改分支名称为 main。执行命令前，请确保没有其他重要的未提交更改，以免意外丢失</li>
+<li><code>git clone &lt;url&gt;</code> 克隆远端仓库 repo 到本地</li>
+<li><code>git checkout &lt;files&gt;:</code> 使用仓库区的文件覆盖当前工作区的文件，即放弃工作区目前的修改</li>
+<li><code>git checkout -b &lt;branch&gt;</code> 新建分支并切换到该分支</li>
+<li><code>git status</code> 查看当前工作区中文件的增删改状态</li>
+<li><code>git diff</code> 查看当前工作区中文件的增删改细节，具体到哪一行发生了什么变化</li>
+<li><code>git add &lt;files&gt;</code> 提交files中的修改到暂存区，此时并未合并到仓库区</li>
+<li><code>git commit -m &lt;commit_msg&gt;</code> 将暂存区的内容提交到仓库区并记录下这些更新的log信息</li>
+<li><code>git reset &lt;arg&gt;</code> 重置已经通过git add提交到暂存区的代码</li>
+<li><code>git pull</code> 拉取当前分支最新的代码到本地</li>
+<li><code>git push</code> 将仓库区的更新推送到远端仓库</li>
 </ul>
-<p>若要为<code>const</code>对象提供外部链接，请将其声明为<code>extern</code>并为其赋值：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">const</span> <span class="type">int</span> value = <span class="number">42</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="场景1：需要拉取远程仓库的某一指定分支"><a href="#场景1：需要拉取远程仓库的某一指定分支" class="headerlink" title="场景1：需要拉取远程仓库的某一指定分支"></a>场景1：需要拉取远程仓库的某一指定分支</h2><p>有三种方法，这里选取的是我常用的一种：<code>git checkout -b</code>命令拉取</p>
+<p>大致思路是，将远程仓库克隆到本地仓库，然后执行<code>git checkout -b &lt;本地分支名称&gt; origin/&lt;远程分支名称&gt;</code></p>
+<p>具体步骤如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 通过 HTTPS URL 或者 SSH URL 克隆远程仓库到本地仓库</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/xxx/xxx.git 或者 git@github.com:xxx/xxx.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入项目主目录（此时处于 main 主分支上），可以使用`git branch`进行验证，* 号表示当前所处分支</span></span><br><span class="line"><span class="built_in">cd</span> xxx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拉取远程仓库的某一指定分支 xxxx 到本地的 xxx 分支上</span></span><br><span class="line">git checkout -b xxx origin/xxxx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拉取分支 xxxx 的最新代码</span></span><br><span class="line">git pull origin xxx</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果想要了解另外两种方法，请点击参考链接进行查看：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/you18131371836/article/details/110404967">Git三种方法从远程仓库拉取指定的某一个分支</a></p>
+<h2 id="场景2：将本地代码推送到远程仓库"><a href="#场景2：将本地代码推送到远程仓库" class="headerlink" title="场景2：将本地代码推送到远程仓库"></a>场景2：将本地代码推送到远程仓库</h2><p>这个场景主要针对的是：你写好了代码，然后选择了一个远程仓库进行推送，此前你的本地仓库与远程仓库没有任何联系</p>
+<p>此时有人会说为什么不克隆远程仓库，然后直接<code>git push</code> 。有没有可能是本地内存不够导致不想拉取代码，或者远程仓库就没有代码 好吧，我承认了——我是 sb ，当时代码只是个展示用的测试 demo ，并没有上传到远程入库的需求，因此就在本地直接写了，后面需要上传的时候就傻眼了…</p>
+<p>言归正传，具体步骤如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看本地仓库与远程仓库的关联</span></span><br><span class="line">git remote -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果列表没有显示相关的远程仓库，请手动添加</span></span><br><span class="line">git remote add origin git@github.com:xxx/xxx.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 确保本地仓库与远程仓库同步，拉取远程仓库的最新更改</span></span><br><span class="line">git pull</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将本地仓库的更改推送到远程仓库</span></span><br><span class="line">git push</span><br></pre></td></tr></table></figure>
 
         
       </div>
@@ -349,27 +350,22 @@ var _hmt = _hmt || [];
   
     
 <nav id="article-nav">
-  <a class="article-nav-btn left "
-    
-      href="/2024/06/20/Git-%E4%BD%BF%E7%94%A8%E5%B0%8F%E7%BB%93/"
-      title="Git 使用小结"
+  <a class="article-nav-btn left  disabled "
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
-      
-        Git 使用小结
         
     </p>
   </a>
   <a class="article-nav-btn right "
     
-      href="/2024/06/16/%E5%91%BC%E5%90%B8%E4%B9%8B%E9%87%8E/"
-      title="呼吸之野"
+      href="/2024/06/17/The-Cherno-C-1/"
+      title="The Cherno C++ 1"
      >
 
     <p class="title-text">
       
-        呼吸之野
+        The Cherno C++ 1
         
     </p>
     <i class="fa-solid fa-angle-right"></i>
