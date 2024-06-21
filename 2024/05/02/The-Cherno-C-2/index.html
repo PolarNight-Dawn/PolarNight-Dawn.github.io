@@ -41,7 +41,7 @@ var _hmt = _hmt || [];
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
 <meta property="article:published_time" content="2024-05-02T08:28:18.000Z">
-<meta property="article:modified_time" content="2024-06-20T15:41:53.857Z">
+<meta property="article:modified_time" content="2024-06-21T14:31:47.124Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -306,7 +306,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            6.8k words 
+            4.8k words 
           </div>
         </div>
         
@@ -340,46 +340,6 @@ var _hmt = _hmt || [];
 <p><a href="#%E3%80%9047%E3%80%91C-%E7%9A%84%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%EF%BC%88std::vector%EF%BC%89">【47】C++ 的动态数组（std::vector）</a></p>
 <p><a href="#%E3%80%9048%E3%80%91C-%E4%B8%ADstd::vector%E7%9A%84%E4%BC%98%E5%8C%96%E4%BD%BF%E7%94%A8-C-%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%BA%93">【48】 C++ 中std::vector的优化使用C++ 中使用库</a></p>
 <hr>
-<h2 id="【22】C-类和结构体中的静态（static）"><a href="#【22】C-类和结构体中的静态（static）" class="headerlink" title="【22】C++ 类和结构体中的静态（static）"></a>【22】C++ 类和结构体中的静态（static）</h2><p>静态方法不能访问非静态变量，因为静态方法没有类实例。本质上在类中写的每一个方法总是获得当前类的一个实例作为参数，在类中你看不到这种东西，它们通过隐藏参数发挥作用，而静态方法不会得到这个隐藏参数。静态方法与在类外部编写方法相同</p>
-<h2 id="【23】C-中的局部静态（static）"><a href="#【23】C-中的局部静态（static）" class="headerlink" title="【23】C++ 中的局部静态（static）"></a>【23】C++ 中的局部静态（static）</h2><p>局部静态牵扯到了单例类，不了解单例类，暂时搁置</p>
-<h2 id="【24】C-枚举"><a href="#【24】C-枚举" class="headerlink" title="【24】C++ 枚举"></a>【24】C++ 枚举</h2><p>枚举只是一种命名值的方法，如果你有一个数值集合，而你想用数字来表示它们，枚举就是你想要的</p>
-<h2 id="【25】C-构造函数"><a href="#【25】C-构造函数" class="headerlink" title="【25】C++ 构造函数"></a>【25】C++ 构造函数</h2><p>当你不希望有人创建类实例时，有两种不同的解决方法：</p>
-<ul>
-<li><p>可以通过设置为<code>private</code>来隐藏构造函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">Log</span>() &#123;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>C++ 为我们提供了一个默认构造函数，我们可以告诉编译器，我不想要那个默认构造函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Log</span>() = <span class="keyword">delete</span>;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="【26】C-析构函数"><a href="#【26】C-析构函数" class="headerlink" title="【26】C++ 析构函数"></a>【26】C++ 析构函数</h2><p>析构函数同时适用于堆和栈分配的对象，如果你使用<code>new</code>分配一个对象，当你调用<code>delete</code>时，析构函数就会被调用。而如果只是一个栈对象，当作用域结束，栈对象将被删除，析构函数也会被调用</p>
-<h2 id="【28】C-虚函数"><a href="#【28】C-虚函数" class="headerlink" title="【28】C++  虚函数"></a>【28】C++  虚函数</h2><p>虚函数引入了一种叫做 Dynamic Dispatch（动态联编）的东西，它通过虚函数表来实现编译，虚函数表就是一个表，它包含基类中所有虚函数的映射，这样我们可以在它运行时，将它们映射到正确的<code>override</code>函数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Entity</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> std::string <span class="title">GetName</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">&quot;Entity&quot;</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">player</span> : <span class="keyword">public</span> Entity &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	std::string m_name_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Player</span>(<span class="type">const</span> std::string &amp;name) : <span class="built_in">m_name_</span>(name) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">	<span class="function">std::string <span class="title">GetName</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> m_name_; &#125; <span class="comment">// C++11 引入`override`关键字来标记`override`函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>虚函数并不是免费的（无额外开销的），有两种与虚函数相关的运行时成本：</p>
-<ul>
-<li>我们需要额外的内存来存储虚函数表，这样就可以分配到正确的函数，包括基类中要有一个成员指针，指向虚函数表</li>
-<li>每次我们调用虚函数表时，我们需要遍历这个表，来确定要映射到哪个函数</li>
-</ul>
-<p>可能在一些嵌入式平台上 cpu 性能很差，避免使用虚函数，除此之外，它的影响小到你可能都不会注意到</p>
-<h2 id="【29】C-接口（纯虚函数）"><a href="#【29】C-接口（纯虚函数）" class="headerlink" title="【29】C++ 接口（纯虚函数）"></a>【29】C++ 接口（纯虚函数）</h2><p>纯虚函数本质上与其他语言（如Java或C#）中的抽象方法或接口相同，它允许我们在基类中定义一个没有实现的函数，然后强制子类去实现该函数，只有实现了纯虚函数之后，才能够实例化</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Entity</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> std::string <span class="title">GetName</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">player</span> : <span class="keyword">public</span> Entity &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	std::string m_name_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Player</span>(<span class="type">const</span> std::string &amp;name) : <span class="built_in">m_name_</span>(name) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">	<span class="function">std::string <span class="title">GetName</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> m_name_; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="【31】C-数组"><a href="#【31】C-数组" class="headerlink" title="【31】C++ 数组"></a>【31】C++ 数组</h2><p>对于<code>for</code>循环，一般不采用 &lt;&#x3D; 或 &gt;&#x3D; ，这涉及到性能问题，因为你在做小于以及等于的比较，所以它必须做等于比较，而不仅是小于比较</p>
-<p>在堆上创建数组，动态地用<code>new</code>来分配，最大的原因是生存期，用<code>new</code>分配的内存，它将一直存在，直到你删除它。在栈上创建数组可以避免间接寻址，因为在内存中跳跃肯定会影响性能。</p>
-<p>实际上没有办法计算出原始数组的大小，需要自己维护自己的数组大小</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">int</span> size = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> example[size];</span><br><span class="line"><span class="type">int</span> *example = <span class="keyword">new</span> <span class="type">int</span>[size];</span><br></pre></td></tr></table></figure>
-
-<p>在 C++11 中引入了标准数组<code>std:::array</code>，它有边界检查，可以记录数组大小</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">std::array&lt;<span class="type">int</span>, 5&gt; another;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="【32】C-字符串"><a href="#【32】C-字符串" class="headerlink" title="【32】C++ 字符串"></a>【32】C++ 字符串</h2><p><code>std::string</code>的本质是一个<code>const char*</code>数组，很多<code>std::string</code>可行而<code>const char*</code>不可行的操作都是基于对操作符的重载后实现的</p>
-<p>举个例子，不引入头文件<code>string</code>时<code>&lt;&lt;</code>会报错，这是因为<code>&lt;&lt;</code>允许我们发送字符串到流中的重载版本是在<code>string</code>头文件内部</p>
 <h2 id="【34】C-中的-CONST"><a href="#【34】C-中的-CONST" class="headerlink" title="【34】C++ 中的 CONST"></a>【34】C++ 中的 CONST</h2><p><code>const</code>是一种承诺，它承诺了一些东西是不变的，但并不意味着不可以违背，在这里提出来只是想告诉你在计算机中没有什么是真正一成不变的，话说回来这是一个承诺，你应该遵守承诺</p>
 <p>最基本的用法：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> kMaxAge = <span class="number">90</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> *ptr = <span class="keyword">new</span> <span class="type">int</span>;</span><br><span class="line"></span><br><span class="line">ptr = &amp;kMaxAge <span class="comment">// 这是不被允许的，kMaxAge 是常量</span></span><br><span class="line">ptr = (<span class="type">int</span> *)&amp;kMaxAge <span class="comment">// 这是可行的，正如我们所说`const`只是一个可以被绕过的承诺</span></span><br></pre></td></tr></table></figure>
