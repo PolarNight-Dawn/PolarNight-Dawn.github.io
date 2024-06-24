@@ -32,16 +32,16 @@ var _hmt = _hmt || [];
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分 updated on 2024-06-24 23:08:18">
+  <meta name="description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分 :clock11: 2024-06-24 23:41:36">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The Cherno C++ 3">
 <meta property="og:url" content="http://example.com/2024/05/29/The-Cherno-C-3/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分 updated on 2024-06-24 23:08:18">
+<meta property="og:description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分 :clock11: 2024-06-24 23:41:36">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
 <meta property="article:published_time" content="2024-05-29T14:53:49.000Z">
-<meta property="article:modified_time" content="2024-06-24T15:12:21.940Z">
+<meta property="article:modified_time" content="2024-06-24T15:42:26.246Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -306,7 +306,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;1.4k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;2.2k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -322,7 +322,7 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分</p>
-<p>updated on 2024-06-24 23:08:18</p>
+<p>:clock11: 2024-06-24 23:41:36</p>
 <span id="more"></span>
 
 
@@ -333,6 +333,7 @@ var _hmt = _hmt || [];
 <p><a href="#%E3%80%9065%E3%80%91C-%E7%9A%84%E6%8E%92%E5%BA%8F">【65】C++ 的排序</a></p>
 <p><a href="#%E3%80%9066%E3%80%91C-%E7%9A%84%E7%B1%BB%E5%9E%8B%E5%8F%8C%E5%85%B3">【66】C++ 的类型双关</a></p>
 <p><a href="#%E3%80%9067%E3%80%91C-%E7%9A%84%E8%81%94%E5%90%88%E4%BD%93">【67】C++ 的联合体</a></p>
+<p><a href="#%E3%80%9068%E3%80%91C-%E7%9A%84%E8%99%9A%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0">【68】C++ 的虚析构函数</a></p>
 <hr>
 <h2 id="【54】C-的堆与栈内存的比较"><a href="#【54】C-的堆与栈内存的比较" class="headerlink" title="【54】C++ 的堆与栈内存的比较"></a>【54】C++ 的堆与栈内存的比较</h2><p>当我们在栈中分配变量时，发生的是栈指针基本上移动变量大小的字节，如果我们想分配一个4个字节的整数，就把栈指针移动4个字节。栈的做法只是把东西堆在一起，这就是为什么栈分配非常快，它就像一条 CPU 指令，我们所做的就是移动栈指针，然后返回栈指针的地址</p>
 <p><code>new</code>关键字实际上调用了<code>malloc</code>函数，当你使用<code>malloc</code>请求堆内存时，它可以浏览空闲列表（跟踪哪些内存块是空闲的），然后找到一个至少和你要的一样大的空闲内存，做一堆记录，然后返回给你一个指针。更麻烦的是如果你想要更多的内存，超过了空闲列表，超过了操作系统给你的初始分配，会有一堆事情</p>
@@ -361,6 +362,9 @@ var _hmt = _hmt || [];
 <h2 id="【66】C-的类型双关"><a href="#【66】C-的类型双关" class="headerlink" title="【66】C++ 的类型双关"></a>【66】C++ 的类型双关</h2><p>我们可以用不同的方式（转换成指针）解析一段内存，从而得到不同的结果，类型只是约定的解析内存的方式</p>
 <h2 id="【67】C-的联合体"><a href="#【67】C-的联合体" class="headerlink" title="【67】C++ 的联合体"></a>【67】C++ 的联合体</h2><p>联合体一次只能占据一个成员的内存，假如 union 内定义了<code>float x, y, z, w;</code>，这里换成类或者结构体所占用的内存应该是 16 个字节，但是联合体所占内存为 4 个 字节，并且如果初始化 w 为 5.0f，那么其他三个成员数据的值均为 5.0f</p>
 <p>现在是不是有点眼熟啊，没错，这里联合体就是起到了类似类型双关的作用，将一块内存用不同的变量（或者类型）来解释。有一点需要提及的是，联合体通常是匿名使用，匿名联合体不能包含成员函数</p>
+<h2 id="【68】C-的虚析构函数"><a href="#【68】C-的虚析构函数" class="headerlink" title="【68】C++ 的虚析构函数"></a>【68】C++ 的虚析构函数</h2><p>你如果允许一个类有子类，一定得确保析构函数为<code>virtual</code>，否则没人能安全的扩展这个类。标记<code>virtual</code>，意味着 C++ 编译器知道可能会有一个在层次结构下的重写方法，虚析构函数有些特殊，它不是覆写函数，而是加上一个析构函数。理论有些难以理解，举个例子，你需要根据类的基类类型来处理该类，扩展一点就是你把一个派生类的对象指针传递给一个函数（只接受基类指针），该函数做了删除基类指针之类的操作，这个时候就会出现问题了，会导致内存泄露</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="built_in">Base</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Base Constructor\n&quot;</span>; &#125;</span><br><span class="line">    	~<span class="built_in">Base</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Base Destructor\n&quot;</span>; &#125;</span><br><span class="line">    	<span class="comment">//! \correct: virtual ~Base() &#123; std::cout &lt;&lt; &quot;Base Destructor\n&quot;; &#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived</span> : <span class="keyword">public</span> Base &#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="built_in">Derived</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Derived Constructor\n&quot;</span>; &#125;</span><br><span class="line">    	~<span class="built_in">Derived</span>() &#123; std::cout &lt;&lt; <span class="string">&quot;Derived Destructor\n&quot;</span>; &#125;</span><br><span class="line">    	<span class="comment">//! \wrong: 派生类的析构函数不会被调用，内存没有释放干净</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Base* ptr = <span class="keyword">new</span> <span class="built_in">Derived</span>();</span><br><span class="line">    <span class="keyword">delete</span> ptr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
         
       </div>
