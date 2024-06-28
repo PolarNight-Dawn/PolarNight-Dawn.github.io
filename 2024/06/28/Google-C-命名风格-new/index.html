@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 
-<html theme="dark" showBanner="true" hasBanner="desktop" > 
+<html theme="dark" showBanner="true" hasBanner="true" > 
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
 <link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
@@ -26,26 +26,24 @@ var _hmt = _hmt || [];
   
 
   
-  <title>My New Post | Dawn&#39;s Blog</title>
+  <title>Google C++ 命名风格 | Dawn&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="对于功能的简单测试">
+  <meta name="description" content="节选自 Google C++ Style Guide的命名约定，有时总会忘记一些命名规则，在这里记录一下方便查询  2024-06-27 22:11:02">
 <meta property="og:type" content="article">
-<meta property="og:title" content="My New Post">
-<meta property="og:url" content="http://example.com/2024/05/01/My-New-Post/index.html">
+<meta property="og:title" content="Google C++ 命名风格">
+<meta property="og:url" content="http://example.com/2024/06/28/Google-C-%E5%91%BD%E5%90%8D%E9%A3%8E%E6%A0%BC-new/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="对于功能的简单测试">
+<meta property="og:description" content="节选自 Google C++ Style Guide的命名约定，有时总会忘记一些命名规则，在这里记录一下方便查询  2024-06-27 22:11:02">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714626299949%E9%9B%A8%E4%B8%8E%E5%B0%91%E5%A5%B3.jpg">
-<meta property="article:published_time" content="2024-05-01T15:02:33.000Z">
-<meta property="article:modified_time" content="2024-05-02T05:05:54.743Z">
+<meta property="article:published_time" content="2024-06-28T14:49:47.000Z">
+<meta property="article:modified_time" content="2024-06-28T15:36:07.915Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="Test">
+<meta property="article:tag" content="代码规范">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714626299949%E9%9B%A8%E4%B8%8E%E5%B0%91%E5%A5%B3.jpg">
   
     <link rel="alternate" href="/atom.xml" title="Dawn's Blog" type="application/atom+xml">
   
@@ -264,19 +262,9 @@ var _hmt = _hmt || [];
        
 
 
-<article id="post-My-New-Post" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-Google-C-命名风格-new" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
     
-<div class="article-gallery">
-  <div class="article-gallery-photos">
-    
-      <a class="article-gallery-img" rel="gallery_clxq31zib00032vc2aaq66qs0">
-        <img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714626299949%E9%9B%A8%E4%B8%8E%E5%B0%91%E5%A5%B3.jpg" itemprop="image">
-      </a>
-    
-  </div>
-</div>
-
    
   <div class="article-inner">
     <div class="article-main">
@@ -287,7 +275,7 @@ var _hmt = _hmt || [];
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        My New Post
+        Google C++ 命名风格
       </h1>
     
   
@@ -295,18 +283,18 @@ var _hmt = _hmt || [];
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <i class="fa-regular fa-clock"></i>&nbsp;<time class="dt-published" datetime="2024-05-01T15:02:33.000Z" itemprop="datePublished">2024-05-01</time>
+  <i class="fa-regular fa-clock"></i>&nbsp;<time class="dt-published" datetime="2024-06-28T14:49:47.000Z" itemprop="datePublished">2024-06-28</time>
 </div>
           <div class="need-seperator meta-info">
             <i class="fa-solid fa-list"></i>&nbsp;<div class="meta-cate-flex">
   
-  <a class="meta-cate-link" href="/categories/Test/">Test</a>
+  <a class="meta-cate-link" href="/categories/CS/">CS</a>
    
 </div>
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;41
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;1.4k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -316,25 +304,49 @@ var _hmt = _hmt || [];
           
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Test/" rel="tag">Test</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/" rel="tag">代码规范</a></li></ul>
 
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <p>对于功能的简单测试</p>
+          <ul>
+<li></li>
+</ul>
+<p>节选自 Google C++ Style Guide<br>的命名约定，有时总会忘记一些命名规则，在这里记录一下方便查询</p>
+<p><i class="fa-regular fa-clock"></i> 2024-06-27 22:11:02</p>
 <span id="more"></span>
 
+<h2 id="通用命名规则"><a href="#通用命名规则" class="headerlink" title="通用命名规则"></a>通用命名规则</h2><p>Tip：函数命名、变量命名、文件命名要有描述性，少用缩写</p>
+<p>对于一些常见的变量缩写名，可以是适当采用，你知道我的意思吧，例如<code>cnt</code>、<code>num</code>等，但是对于<code>n</code>这种变量名最好还是不要采用了</p>
+<h2 id="文件命名"><a href="#文件命名" class="headerlink" title="文件命名"></a>文件命名</h2><p>Tip：文件名要全部小写，可以包含下划线（_）或连字符（-）。如果没有项目约定，下划线更好</p>
+<h2 id="类型命名"><a href="#类型命名" class="headerlink" title="类型命名"></a>类型命名</h2><p>Tip：类型名称的每个单词首字母均大写，不包含下划线：MyExcitingClass，MyexcitingEnum</p>
+<p>所有类型命名——类，结构体，类型定义（typedef），枚举——均使用相同约定</p>
+<h2 id="变量命名"><a href="#变量命名" class="headerlink" title="变量命名"></a>变量命名</h2><p>Tip：变量名一律小写，单词之间用下划线连接，类的成员变量以下划线结尾，但结构体不用，如：a_class_data_member_，a_struct_data_member</p>
+<p>类数据成员：不管是静态的还是非静态的，类数据成员都可以和普通变量一样，但要接下划线</p>
+<p>结构体变量：不管是静态的还是非静态的，类数据成员都可以和普通变量一样，不用像类那样接下划线</p>
+<p>全局变量：对全局变量没有特别要求，少用就好，如果你要，可以用 g_<br>或其他标志作为前缀，以便更好的区分局部变量</p>
+<h2 id="常量命名"><a href="#常量命名" class="headerlink" title="常量命名"></a>常量命名</h2><p>Tip：在全局或类里的常量名称前加 k：kDaysInAWeek，切出去开头的 k<br>之外每个单词开头字母均大写。所有编译时常量，无论是局部的，全局的还是类中的，和其他变量稍微区别一下，k<br>后接字母大写的单词</p>
+<p>这规则适用于编译时的局部作用域常量，不过按变量规则来命名也可以</p>
+<h2 id="函数命名"><a href="#函数命名" class="headerlink" title="函数命名"></a>函数命名</h2><p>Tip：常规函数使用大小写混合，取值和设置函数则要求与变量名匹配</p>
+<p>常规函数：函数名的每个单词首字母大写，没有下划线</p>
+<p>取值和设置函数：取值（Accessors）和设置（Mutators）函数要与存取的变量名匹配</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class MyClass &#123;</span><br><span class="line">    public:</span><br><span class="line">        ...</span><br><span class="line">        int num_entries() const &#123; return num_entries_; &#125;</span><br><span class="line">        void set_num_entries(int num_entries) const &#123; num_entires_ = num_entries; &#125;</span><br><span class="line">    private:</span><br><span class="line">        int num_entires_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-
-<ul>
-<li><p>检测文章字数统计是否生效</p>
-</li>
-<li><p>检测标签生成是否生效</p>
-</li>
-<li><p>检测图片是否正常显示</p>
-</li>
-</ul>
-<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714626299949%E9%9B%A8%E4%B8%8E%E5%B0%91%E5%A5%B3.jpg" alt="1714626299949雨与少女.jpg"></p>
+<h2 id="命名空间命名"><a href="#命名空间命名" class="headerlink" title="命名空间命名"></a>命名空间命名</h2><p>Tip：命名空间用小写字母命名，并基于项目名称和目录名称：google_awesome_project</p>
+<h2 id="枚举命名"><a href="#枚举命名" class="headerlink" title="枚举命名"></a>枚举命名</h2><p>Tip：枚举的命名应当与常量或宏一致：kEnumName 或是 ENUM_NAME</p>
+<p>新代码的枚举值应该优先采用常量的命名方式，因为枚举值和宏之间的命名冲突，会直接导致很多问题</p>
+<h2 id="宏命名"><a href="#宏命名" class="headerlink" title="宏命名"></a>宏命名</h2><p>Tip：你并不打算使用宏对吧？如果你一定要用，像这样命名：MY_MACRO_THAT_SCARES_SMALL_CHILDREN</p>
+<h2 id="命名规则的特例"><a href="#命名规则的特例" class="headerlink" title="命名规则的特例"></a>命名规则的特例</h2><p>Tip：如果你命名的实体与已有 C&#x2F;C++ 实体相似，可参考现有命名策略</p>
+<p>bigopen():</p>
+<p>函数名, 参照 open() 的形式</p>
+<p>uint:</p>
+<p>typedef</p>
+<p>bigpos:</p>
+<p>struct 或 class, 参照 pos 的形式</p>
+<p>sparse_hash_map:</p>
+<p>STL 相似实体; 参照 STL 命名约定</p>
+<p>LONGLONG_MAX:</p>
+<p>常量, 如同 INT_MAX</p>
 
         
       </div>
@@ -347,27 +359,22 @@ var _hmt = _hmt || [];
   
     
 <nav id="article-nav">
-  <a class="article-nav-btn left "
-    
-      href="/2024/05/02/The-Cherno-C-2/"
-      title="The Cherno C++ 2"
+  <a class="article-nav-btn left  disabled "
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
-      
-        The Cherno C++ 2
         
     </p>
   </a>
   <a class="article-nav-btn right "
     
-      href="/2024/05/01/hello-world/"
-      title="Hello World"
+      href="/2024/06/28/Google-C-%E5%91%BD%E5%90%8D%E9%A3%8E%E6%A0%BC/"
+      title="Google C++ 命名风格"
      >
 
     <p class="title-text">
       
-        Hello World
+        Google C++ 命名风格
         
     </p>
     <i class="fa-solid fa-angle-right"></i>
