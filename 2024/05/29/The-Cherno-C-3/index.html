@@ -32,16 +32,16 @@ var _hmt = _hmt || [];
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分  2024-07-15 20:21:31">
+  <meta name="description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分  2024-07-15 21:04:42">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The Cherno C++ 3">
 <meta property="og:url" content="http://example.com/2024/05/29/The-Cherno-C-3/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分  2024-07-15 20:21:31">
+<meta property="og:description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分  2024-07-15 21:04:42">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
 <meta property="article:published_time" content="2024-05-29T14:53:49.000Z">
-<meta property="article:modified_time" content="2024-07-15T12:21:42.160Z">
+<meta property="article:modified_time" content="2024-07-15T13:05:36.537Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -311,7 +311,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;11k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;12k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -327,7 +327,7 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分</p>
-<p><i class="fa-regular fa-clock"></i> 2024-07-15 20:21:31</p>
+<p><i class="fa-regular fa-clock"></i> 2024-07-15 21:04:42</p>
 <span id="more"></span>
 
 
@@ -346,6 +346,8 @@ var _hmt = _hmt || [];
 <p><a href="#%E5%A6%82%E4%BD%95%E8%AE%A9-C-%E8%BF%90%E8%A1%8C%E5%BE%97%E6%9B%B4%E5%BF%AB">如何让 C++ 运行得更快</a></p>
 <p><a href="#%E5%A6%82%E4%BD%95%E8%AE%A9-C-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9B%B4%E5%BF%AB">如何让 C++ 字符串更快</a></p>
 <p><a href="#C-%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F">C++ 的单例模式</a></p>
+<p><a href="#C-%E7%9A%84%E5%B0%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BC%98%E5%8C%96">C++ 的小字符串优化</a></p>
+<p><a href="#C-%E7%9A%84%E5%B7%A6%E5%80%BC%E5%92%8C%E5%8F%B3%E5%80%BC">C++ 的左值和右值</a></p>
 <hr>
 <h2 id="【54】C-的堆与栈内存的比较"><a href="#【54】C-的堆与栈内存的比较" class="headerlink" title="【54】C++ 的堆与栈内存的比较"></a>【54】C++ 的堆与栈内存的比较</h2><p>当我们在栈中分配变量时，发生的是栈指针基本上移动变量大小的字节，如果我们想分配一个4个字节的整数，就把栈指针移动4个字节。栈的做法只是把东西堆在一起，这就是为什么栈分配非常快，它就像一条 CPU 指令，我们所做的就是移动栈指针，然后返回栈指针的地址</p>
 <p><code>new</code>关键字实际上调用了<code>malloc</code>函数，当你使用<code>malloc</code>请求堆内存时，它可以浏览空闲列表（跟踪哪些内存块是空闲的），然后找到一个至少和你要的一样大的空闲内存，做一堆记录，然后返回给你一个指针。更麻烦的是如果你想要更多的内存，超过了空闲列表，超过了操作系统给你的初始分配，会有一堆事情</p>
@@ -438,6 +440,9 @@ var _hmt = _hmt || [];
 <li>内部缓冲区：16 个字节（15 个字符 +  1 个空终止符）</li>
 </ul>
 <p>对于 15 个及以下字符的小字符串，字符数据可以直接存储在<code>std::string</code>对象内部，超过 15 个字符的字符串将会触发内存分配，字符数据将存储在堆上，而对象内部只存储一个指向该数据的指针</p>
+<h2 id="C-的左值和右值"><a href="#C-的左值和右值" class="headerlink" title="C++ 的左值和右值"></a>C++ 的左值和右值</h2><p>搞清楚左值和右值对于理解更高级的 C++ 特性，比如移动语义是如何工作的，有很大的帮助。</p>
+<p>左值是有某种存储支持的变量，右值是临时值，左值引用仅仅接受左值，如果是常量左值引用（const） ，兼容临时的右值和实际存在的左值，而右值引用仅仅接受右值。在这里提醒一点，函数重载同时存在常量左值引用和右值引用，并传递右值对象的情况下，编译器会选择走右值引用的函数</p>
+<p>右值引用的主要优势在于优化，如果我们知道传入的是一个临时对象的话，就不用在意是否活着、是否完整、是否拷贝，我们可以简单的偷它的资源给到特定的对象，或者在其他地方使用它，因为我们知道它是暂时的，不会存在很长时间</p>
 
         
       </div>
