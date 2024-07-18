@@ -32,16 +32,16 @@ var _hmt = _hmt || [];
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分  2024-07-18 10:38:06">
+  <meta name="description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分  2024-07-19 00:22:05">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The Cherno C++ 3">
 <meta property="og:url" content="http://example.com/2024/05/29/The-Cherno-C-3/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分  2024-07-18 10:38:06">
+<meta property="og:description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分  2024-07-19 00:22:05">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
 <meta property="article:published_time" content="2024-05-29T14:53:49.000Z">
-<meta property="article:modified_time" content="2024-07-18T02:38:18.842Z">
+<meta property="article:modified_time" content="2024-07-18T16:22:16.437Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -311,7 +311,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;14k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;15k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -327,7 +327,7 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>在观看了 Cherno 的 C++ 系列视频后的一些记录——第三部分</p>
-<p><i class="fa-regular fa-clock"></i> 2024-07-18 10:38:06</p>
+<p><i class="fa-regular fa-clock"></i> 2024-07-19 00:22:05</p>
 <span id="more"></span>
 
 
@@ -382,6 +382,16 @@ var _hmt = _hmt || [];
 
 
 
+<h2 id="C-的类型转换"><a href="#C-的类型转换" class="headerlink" title="C++ 的类型转换"></a>C++ 的类型转换</h2><p>C++ 是强类型语言，意味着在 C++ 中，每个变量都有一个明确的数据类型，并且该类型在编译时就已经确定，但它的类型系统具有一定的灵活性和宽容性——类型转换和类型推导。我们执行类型转换的方法：隐式类型转换和显示类型转换，显示类型转换有 C 语言风格和 C++ 语言风格的</p>
+<p>C 语言风格类型转换，在圆括号中制定了要强制转换的类型，然后是我们要强制转换的变量，例如<code>(int)a</code>或者<code>(int)(a) + 3</code></p>
+<p>C++ 语言风格类型转换，有四种类型转换操作符。必须要认识到的是，它们不做任何 C 风格类型转换不能做的事情，它们可能会做其它的事情（可读性、类型安全和维护性），但是实际结果也只是一个成功的类型转换而已。通过使用 C++ 语言风格类型转换，可以提高代码的安全性、可读性和维护性，你可以在代码库中直接通过英文单词搜索它们</p>
+<ul>
+<li>static_cast：用于编译时类型检查的转换</li>
+<li>dynamic_cast：主要用于运行时类型检查和多态类型的安全转换</li>
+<li>const_cast：用于修改变量的常量性（即去掉或添加<code>const</code>和<code>volatile</code>）</li>
+<li>reinterpret_cast：进行低级别（位级操作）的重新解释类型转换（类型双关）</li>
+</ul>
+<p><code>dynamic_cast</code>更像是一个函数，它不像编译时进行的类型转换，而是在运行时计算，正因为如此，它确实有相关的运行成本。<code>dynamic_cast</code>是专门用于沿继承层次结构进行的强制类型转换，只用于多态类类型，这是因为需要有虚函数（通常是虚析构函数）以启用 RTTI （runtime type information 运行时类型信息）。RTTI 存储了运行时所有的类型信息，<code>dynamic_cast</code>依赖 RTTI 来检查实际类型，RTTI 引入了一定的运行时开销，因为需要维护和查询类型信息</p>
 <h2 id="【75】C-的结构化绑定"><a href="#【75】C-的结构化绑定" class="headerlink" title="【75】C++ 的结构化绑定"></a>【75】C++ 的结构化绑定</h2><p>C++ 17 的新特性，可以更好的处理多返回值（这一点在之前的 P52 中讲过），如果某组多返回值只处理一次，就不必使用结构体</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;tuple&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">std::tuple&lt;std::string, <span class="type">int</span>&gt; <span class="title">CreatePerson</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;<span class="string">&quot;Dawn&quot;</span>, <span class="number">21</span>&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 处理一</span></span><br><span class="line">  <span class="keyword">auto</span> person = <span class="built_in">CreatePerson</span>();</span><br><span class="line">  <span class="keyword">auto</span> name = std::<span class="built_in">get</span>&lt;<span class="number">0</span>&gt;(person);</span><br><span class="line">  <span class="keyword">auto</span> age = std::<span class="built_in">get</span>&lt;<span class="number">1</span>&gt;(person);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 处理二</span></span><br><span class="line">  std::string name_tie;</span><br><span class="line">  <span class="type">int</span> age_tie;</span><br><span class="line">  std::<span class="built_in">tie</span>(name_tie, age_tie) = <span class="built_in">CreatePerson</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 处理三</span></span><br><span class="line">  <span class="keyword">auto</span> [name_auto, age_auto] = <span class="built_in">CreatePerson</span>();</span><br><span class="line"></span><br><span class="line">  std::cin.<span class="built_in">get</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
