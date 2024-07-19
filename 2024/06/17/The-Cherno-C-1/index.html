@@ -26,22 +26,22 @@ var _hmt = _hmt || [];
   
 
   
-  <title>The Cherno C++ 1 | Dawn&#39;s Blog</title>
+  <title>C++ 基础篇 | Dawn&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第一部分">
+  <meta name="description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——基础篇  2024-07-19 19:58:53">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Cherno C++ 1">
+<meta property="og:title" content="C++ 基础篇">
 <meta property="og:url" content="http://example.com/2024/06/17/The-Cherno-C-1/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——第一部分">
+<meta property="og:description" content="在观看了 Cherno 的 C++ 系列视频后的一些记录——基础篇  2024-07-19 19:58:53">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
 <meta property="article:published_time" content="2024-06-17T13:45:33.000Z">
-<meta property="article:modified_time" content="2024-06-27T14:51:56.379Z">
+<meta property="article:modified_time" content="2024-07-19T11:59:09.439Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -245,9 +245,9 @@ var _hmt = _hmt || [];
             </div>
           </a>
         
-          <a class="recent-link" href="/2024/06/17/The-Cherno-C-1/" title="The Cherno C++ 1" >
+          <a class="recent-link" href="/2024/06/17/The-Cherno-C-1/" title="C++ 基础篇" >
             <div class="recent-link-text">
-              The Cherno C++ 1
+              C++ 基础篇
             </div>
           </a>
         
@@ -292,7 +292,7 @@ var _hmt = _hmt || [];
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        The Cherno C++ 1
+        C++ 基础篇
       </h1>
     
   
@@ -326,48 +326,29 @@ var _hmt = _hmt || [];
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <p>在观看了 Cherno 的 C++ 系列视频后的一些记录——第一部分</p>
+          <p>在观看了 Cherno 的 C++ 系列视频后的一些记录——基础篇</p>
+<p><i class="fa-regular fa-clock"></i> 2024-07-19 19:58:53</p>
 <span id="more"></span>
 
 
 
-<h2 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h2><p><a href="#%E3%80%906%E3%80%91C-%E7%BC%96%E8%AF%91%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">【6】C++ 编译器是如何工作的</a></p>
-<p><a href="#%E3%80%907%E3%80%91C-%E9%93%BE%E6%8E%A5%E5%99%A8%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">【7】C++ 链接器是如何工作的</a></p>
-<p><a href="#%E3%80%9010%E3%80%91C-%E5%A4%B4%E6%96%87%E4%BB%B6">【10】C++ 头文件</a></p>
-<p><a href="#%E3%80%9014%E3%80%91C-%E5%BE%AA%E7%8E%AF%EF%BC%88forwhile%EF%BC%89">【14】C++ 循环（for、while）</a></p>
-<p><a href="#%E3%80%9022%E3%80%91C-%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%EF%BC%88static%EF%BC%89">【22】C++ 类和结构体中的静态（static）</a></p>
-<p><a href="#%E3%80%9023%E3%80%91C-%E4%B8%AD%E7%9A%84%E5%B1%80%E9%83%A8%E9%9D%99%E6%80%81%EF%BC%88static%EF%BC%89">【23】C++ 中的局部静态（static）</a></p>
-<p><a href="#%E3%80%9024%E3%80%91C-%E6%9E%9A%E4%B8%BE">【24】C++ 枚举</a></p>
-<p><a href="#%E3%80%9025%E3%80%91C-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0">【25】C++ 构造函数</a></p>
-<p><a href="#%E3%80%9026%E3%80%91C-%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0">【26】C++ 析构函数</a></p>
-<p><a href="#%E3%80%9028%E3%80%91C-%E8%99%9A%E5%87%BD%E6%95%B0">【28】C++ 虚函数</a></p>
-<p><a href="#%E3%80%9029%E3%80%91C-%E6%8E%A5%E5%8F%A3%EF%BC%88%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0%EF%BC%89">【29】C++ 接口（纯虚函数）</a></p>
-<p><a href="#%E3%80%9031%E3%80%91C-%E6%95%B0%E7%BB%84">【31】C++ 数组</a></p>
-<p><a href="#%E3%80%9032%E3%80%91C-%E5%AD%97%E7%AC%A6%E4%B8%B2">【32】C++ 字符串</a></p>
-<p><a href="#%E3%80%9034%E3%80%91C-%E4%B8%AD%E7%9A%84-CONST">【34】C++ 中的 CONST</a></p>
-<p><a href="#%E3%80%9035%E3%80%91C-%E7%9A%84-mutable-%E5%85%B3%E9%94%AE%E5%AD%97">【35】C++ 的 mutable 关键字</a></p>
+<h2 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h2><p><a href="#%E5%A4%B4%E6%96%87%E4%BB%B6">头文件</a></p>
+<p><a href="#%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%EF%BC%88for%E3%80%81while%EF%BC%89">循环语句（for、while）</a></p>
+<p><a href="#%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%EF%BC%88static%EF%BC%89">类和结构体中的静态（static）</a></p>
+<p><a href="#%E5%B1%80%E9%83%A8%E9%9D%99%E6%80%81%EF%BC%88static%EF%BC%89">局部静态（static）</a></p>
+<p><a href="#%E6%9E%9A%E4%B8%BE">枚举</a></p>
+<p><a href="#%E6%9E%84%E9%80%A0%E3%80%81%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0">构造、析构函数</a></p>
+<p><a href="#%E8%99%9A%E5%87%BD%E6%95%B0%E3%80%81%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0%EF%BC%88%E6%8E%A5%E5%8F%A3%EF%BC%89">虚函数、纯虚函数（接口）</a></p>
+<p><a href="#%E6%95%B0%E7%BB%84">数组</a></p>
+<p><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2">字符串</a></p>
+<p>[const 关键字](#const 关键字)</p>
+<p>[mutable 关键字](#mutable 关键字)</p>
 <hr>
-<h2 id="【6】C-编译器是如何工作的"><a href="#【6】C-编译器是如何工作的" class="headerlink" title="【6】C++ 编译器是如何工作的"></a>【6】C++ 编译器是如何工作的</h2><p>C++ 不关心文件，文件是不存在于 C++ 中的东西</p>
-<p>一个程序包含一个或多个翻译单元。一个翻译单元由一个实现（<code>.cpp</code>或<code>.cxx</code>）文件及其直接或间接包含的所有标头（<code>.h</code>或<code>.hpp</code>）组成。每个翻译单元由编译器独立编译</p>
-<h2 id="【7】C-链接器是如何工作的"><a href="#【7】C-链接器是如何工作的" class="headerlink" title="【7】C++ 链接器是如何工作的"></a>【7】C++ 链接器是如何工作的</h2><p>编译完成后，链接器会将编译后的翻译单元合并到单个程序。ODR（单一定义规则）的冲突通常显示为链接器错误。在多个翻译单元中定义同一名称时，将发生链接器错误</p>
-<p>默认情况下，非常量全局变量和 Free 函数具有外部链接，它们在程序中的任何翻译单元内可见。具有内部链接或无链接的符号仅在声明它的翻译单元内可见</p>
-<p>如果要强制一个全局名称具有内部链接，可以将它显示声明为<code>static</code>，此关键字将它的可见性限制在声明它的同一翻译单元内</p>
-<p>默认情况下，以下对象具有内部链接：</p>
-<ul>
-<li><code>const</code>对象</li>
-<li><code>constexpr</code>对象</li>
-<li><code>typedef</code>对象</li>
-<li>命名空间范围中<code>static</code>对象</li>
-</ul>
-<p>若要为<code>const</code>对象提供外部链接，请将其声明为<code>extern</code>并为其赋值：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="type">const</span> <span class="type">int</span> value = <span class="number">42</span>;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="【10】C-头文件"><a href="#【10】C-头文件" class="headerlink" title="【10】C++ 头文件"></a>【10】C++ 头文件</h2><p><code>#include</code>指令在编译之前将头文件的副本插入 .cpp 文件</p>
-<p>引号可以引用所有文件，但是一般用于源文件所在目录的头文件，而尖括号仅用于标准库标头</p>
-<p>是否有 .h 扩展是一种区分 C 标准库和 C++ 标准库的方法</p>
-<h2 id="【14】C-循环（for、while）"><a href="#【14】C-循环（for、while）" class="headerlink" title="【14】C++ 循环（for、while）"></a>【14】C++ 循环（for、while）</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (init-statement condition; expression) statement</span><br><span class="line"><span class="comment">// init-statement 和 statement 被非正式描述为后随分号的表达式或声明</span></span><br></pre></td></tr></table></figure>
+<h2 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h2><p>C++ 采用了使用头文件来包含声明的约定。在一个头文件中进行声明，然后在每个<code>.cpp</code>文件或其他需要该声明的头文件中使用<code>#include</code>指令，<code>#include</code>指令在编译之前将头文件的副本插入<code>.cpp</code>文件。</p>
+<p>引号可以引用所有文件，但是一般用于源文件所在目录的头文件，而尖括号仅用于标准库标头。是否有<code>.h</code>扩展是一种区分 C 标准库和 C++ 标准库的方法。</p>
+<p>通常，头文件有一个 include 防范或 <code>#pragma once</code> 指令，用于确保它们不会多次插入到单个 .cpp 文件中。</p>
+<h2 id="循环语句（for、while）"><a href="#循环语句（for、while）" class="headerlink" title="循环语句（for、while）"></a>循环语句（for、while）</h2><p>语法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (init-statement condition; expression) statement</span><br><span class="line"><span class="comment">// init-statement 和 statement 被非正式描述为后随分号的表达式或声明</span></span><br></pre></td></tr></table></figure>
 
 
 
@@ -376,15 +357,22 @@ var _hmt = _hmt || [];
 
 
 
-<p>但有以下不同：</p>
+<p>以下是两者的异同：</p>
 <ul>
 <li>init-statement 和 condition 的作用域相同</li>
 <li>statement 和 expression 的作用域不相交，但都内嵌在 init-statement 和 condition 的作用域中</li>
 </ul>
-<h2 id="【22】C-类和结构体中的静态（static）"><a href="#【22】C-类和结构体中的静态（static）" class="headerlink" title="【22】C++ 类和结构体中的静态（static）"></a>【22】C++ 类和结构体中的静态（static）</h2><p>静态方法不能访问非静态变量，因为静态方法没有类实例。本质上在类中写的每一个方法总是获得当前类的一个实例作为参数，在类中你看不到这种东西，它们通过隐藏参数发挥作用，而静态方法不会得到这个隐藏参数。静态方法与在类外部编写方法相同</p>
-<h2 id="【23】C-中的局部静态（static）"><a href="#【23】C-中的局部静态（static）" class="headerlink" title="【23】C++ 中的局部静态（static）"></a>【23】C++ 中的局部静态（static）</h2><p>局部静态牵扯到了单例类，不了解单例类，暂时搁置</p>
-<h2 id="【24】C-枚举"><a href="#【24】C-枚举" class="headerlink" title="【24】C++ 枚举"></a>【24】C++ 枚举</h2><p>枚举只是一种命名值的方法，如果你有一个数值集合，而你想用数字来表示它们，枚举就是你想要的</p>
-<h2 id="【25】C-构造函数"><a href="#【25】C-构造函数" class="headerlink" title="【25】C++ 构造函数"></a>【25】C++ 构造函数</h2><p>当你不希望有人创建类实例时，有两种不同的解决方法：</p>
+<h2 id="类和结构体中的静态（static）"><a href="#类和结构体中的静态（static）" class="headerlink" title="类和结构体中的静态（static）"></a>类和结构体中的静态（static）</h2><p>当数据成员被声明为<code>static</code>时，只会为类的所有对象保留一份数据副本。静态数据成员不是给定的类类型的对象的一部分。因此，静态数据成员的声明不被视为一个定义。在类范围内声明数据成员，但在文件范围内执行定义。这些静态类成员具有外部链接。</p>
+<p>静态数据成员遵循类成员访问规则，因此只允许类成员函数和友元拥有对静态数据成员的私有访问权限。静态方法不能访问非静态变量，因为静态方法没有类实例。本质上在类中写的每一个方法总是获得当前类的一个实例作为参数，在类中你看不到这种东西，它们通过隐藏参数发挥作用，而静态方法不会得到这个隐藏参数。静态方法与在类外部编写方法相同</p>
+<h2 id="局部静态（static）"><a href="#局部静态（static）" class="headerlink" title="局部静态（static）"></a>局部静态（static）</h2><p>局部静态牵扯到了单例类，不了解单例类，暂时搁置</p>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>枚举只是一种命名值的方法，如果你有一个数值集合，而你想用数字来表示它们，枚举就是你想要的</p>
+<h2 id="构造、析构函数"><a href="#构造、析构函数" class="headerlink" title="构造、析构函数"></a>构造、析构函数</h2><p>默认构造函数通常没有参数，但它们可以具有带默认的参数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Entity</span>&#123;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="built_in">Entity</span>(<span class="type">int</span> w = <span class="number">1</span>, <span class="type">int</span> l = <span class="number">1</span>, <span class="type">int</span> h = <span class="number">1</span>) : <span class="built_in">m_width_</span>(w), <span class="built_in">m_length_</span>(h), <span class="built_in">m_height</span>(h) &#123;&#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>默认构造函数是特俗成员函数之一。如果类中未声明构造函数，则编译器提供隐式<code>inline</code>默认构造函数。如果你依赖于隐式默认构造函数，请确保在类定义中初始化成员。如果没有这些初始化表达式，成员会处于未初始化状态，Volume() 调用会生成垃圾值。一般而言，即使不依赖于默认构造函数，也最好以上述方式初始化成员。</p>
+<p>当你不希望有人创建类实例时，有两种不同的解决方法：</p>
 <ul>
 <li><p>可以通过设置为<code>private</code>来隐藏构造函数</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="built_in">Log</span>() &#123;&#125;</span><br></pre></td></tr></table></figure>
@@ -392,8 +380,8 @@ var _hmt = _hmt || [];
 <li><p>C++ 为我们提供了一个默认构造函数，我们可以告诉编译器，我不想要那个默认构造函数</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Log</span>() = <span class="keyword">delete</span>;</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="【26】C-析构函数"><a href="#【26】C-析构函数" class="headerlink" title="【26】C++ 析构函数"></a>【26】C++ 析构函数</h2><p>析构函数同时适用于堆和栈分配的对象，如果你使用<code>new</code>分配一个对象，当你调用<code>delete</code>时，析构函数就会被调用。而如果只是一个栈对象，当作用域结束，栈对象将被删除，析构函数也会被调用</p>
-<h2 id="【28】C-虚函数"><a href="#【28】C-虚函数" class="headerlink" title="【28】C++  虚函数"></a>【28】C++  虚函数</h2><p>虚函数引入了一种叫做 Dynamic Dispatch（动态联编）的东西，它通过虚函数表来实现编译，虚函数表就是一个表，它包含基类中所有虚函数的映射，这样我们可以在它运行时，将它们映射到正确的<code>override</code>函数</p>
+<p>析构函数同时适用于堆和栈分配的对象，如果你使用<code>new</code>分配一个对象，通过调用<code>delete</code>或<code>delete []</code>显示销毁对象时，析构函数就会被调用。而如果只是一个栈对象，当作用域结束对象超出范围时，栈对象将被删除，析构函数也会被调用</p>
+<h2 id="虚函数、纯虚函数（接口）"><a href="#虚函数、纯虚函数（接口）" class="headerlink" title="虚函数、纯虚函数（接口）"></a>虚函数、纯虚函数（接口）</h2><p>虚函数引入了一种叫做 Dynamic Dispatch（动态联编）的东西，它通过虚函数表来实现编译，虚函数表就是一个表，它包含基类中所有虚函数的映射，这样我们可以在它运行时，将它们映射到正确的<code>override</code>函数</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Entity</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> std::string <span class="title">GetName</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="string">&quot;Entity&quot;</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">player</span> : <span class="keyword">public</span> Entity &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	std::string m_name_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Player</span>(<span class="type">const</span> std::string &amp;name) : <span class="built_in">m_name_</span>(name) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">	<span class="function">std::string <span class="title">GetName</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> m_name_; &#125; <span class="comment">// C++11 引入`override`关键字来标记`override`函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -404,12 +392,12 @@ var _hmt = _hmt || [];
 <li>每次我们调用虚函数表时，我们需要遍历这个表，来确定要映射到哪个函数</li>
 </ul>
 <p>可能在一些嵌入式平台上 cpu 性能很差，避免使用虚函数，除此之外，它的影响小到你可能都不会注意到</p>
-<h2 id="【29】C-接口（纯虚函数）"><a href="#【29】C-接口（纯虚函数）" class="headerlink" title="【29】C++ 接口（纯虚函数）"></a>【29】C++ 接口（纯虚函数）</h2><p>纯虚函数本质上与其他语言（如Java或C#）中的抽象方法或接口相同，它允许我们在基类中定义一个没有实现的函数，然后强制子类去实现该函数，只有实现了纯虚函数之后，才能够实例化</p>
+<p>纯虚函数本质上与其他语言（如Java或C#）中的抽象方法或接口相同，它允许我们在基类中定义一个没有实现的函数，然后强制子类去实现该函数，只有实现了纯虚函数之后，才能够实例化</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Entity</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">virtual</span> std::string <span class="title">GetName</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">player</span> : <span class="keyword">public</span> Entity &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	std::string m_name_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Player</span>(<span class="type">const</span> std::string &amp;name) : <span class="built_in">m_name_</span>(name) &#123;&#125;</span><br><span class="line">    </span><br><span class="line">	<span class="function">std::string <span class="title">GetName</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123; <span class="keyword">return</span> m_name_; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="【31】C-数组"><a href="#【31】C-数组" class="headerlink" title="【31】C++ 数组"></a>【31】C++ 数组</h2><p>对于<code>for</code>循环，一般不采用 &lt;&#x3D; 或 &gt;&#x3D; ，这涉及到性能问题，因为你在做小于以及等于的比较，所以它必须做等于比较，而不仅是小于比较</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>对于<code>for</code>循环，一般不采用 &lt;&#x3D; 或 &gt;&#x3D; ，这涉及到性能问题，因为你在做小于以及等于的比较，所以它必须做等于比较，而不仅是小于比较</p>
 <p>在堆上创建数组，动态地用<code>new</code>来分配，最大的原因是生存期，用<code>new</code>分配的内存，它将一直存在，直到你删除它。在栈上创建数组可以避免间接寻址，因为在内存中跳跃肯定会影响性能。</p>
 <p>实际上没有办法计算出原始数组的大小，需要自己维护自己的数组大小</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">int</span> size = <span class="number">5</span>;</span><br><span class="line"><span class="type">int</span> example[size];</span><br><span class="line"><span class="type">int</span> *example = <span class="keyword">new</span> <span class="type">int</span>[size];</span><br></pre></td></tr></table></figure>
@@ -419,9 +407,9 @@ var _hmt = _hmt || [];
 
 
 
-<h2 id="【32】C-字符串"><a href="#【32】C-字符串" class="headerlink" title="【32】C++ 字符串"></a>【32】C++ 字符串</h2><p><code>std::string</code>的本质是一个<code>const char*</code>数组，很多<code>std::string</code>可行而<code>const char*</code>不可行的操作都是基于对操作符的重载后实现的</p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p><code>std::string</code>的本质是一个<code>const char*</code>数组，很多<code>std::string</code>可行而<code>const char*</code>不可行的操作都是基于对操作符的重载后实现的</p>
 <p>举个例子，不引入头文件<code>string</code>时<code>&lt;&lt;</code>会报错，这是因为<code>&lt;&lt;</code>允许我们发送字符串到流中的重载版本是在<code>string</code>头文件内部</p>
-<h2 id="【34】C-中的-CONST"><a href="#【34】C-中的-CONST" class="headerlink" title="【34】C++ 中的 CONST"></a>【34】C++ 中的 CONST</h2><p><code>const</code>是一种承诺，它承诺了一些东西是不变的，但并不意味着不可以违背，在这里提出来只是想告诉你在计算机中没有什么是真正一成不变的，话说回来这是一个承诺，你应该遵守承诺</p>
+<h2 id="const-关键字"><a href="#const-关键字" class="headerlink" title="const 关键字"></a>const 关键字</h2><p><code>const</code>是一种承诺，它承诺了一些东西是不变的，但并不意味着不可以违背，在这里提出来只是想告诉你在计算机中没有什么是真正一成不变的，话说回来这是一个承诺，你应该遵守承诺</p>
 <p>最基本的用法：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> kMaxAge = <span class="number">90</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> *ptr = <span class="keyword">new</span> <span class="type">int</span>;</span><br><span class="line"></span><br><span class="line">ptr = &amp;kMaxAge <span class="comment">// 这是不被允许的，kMaxAge 是常量</span></span><br><span class="line">ptr = (<span class="type">int</span> *)&amp;kMaxAge <span class="comment">// 这是可行的，正如我们所说`const`只是一个可以被绕过的承诺</span></span><br></pre></td></tr></table></figure>
 
@@ -442,7 +430,7 @@ var _hmt = _hmt || [];
 
 
 
-<h2 id="【35】C-的-mutable-关键字"><a href="#【35】C-的-mutable-关键字" class="headerlink" title="【35】C++ 的 mutable 关键字"></a>【35】C++ 的 mutable 关键字</h2><p>在类成员中使用<code>mutable</code>可能是唯一你会使用到它的情况了，例如为了调试，我们想计算一下函数在程序中被调用了多少次：</p>
+<h2 id="mutable-关键字"><a href="#mutable-关键字" class="headerlink" title="mutable 关键字"></a>mutable 关键字</h2><p>在类成员中使用<code>mutable</code>可能是唯一你会使用到它的情况了，例如为了调试，我们想计算一下函数在程序中被调用了多少次：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Entitty</span> &#123;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    	<span class="type">int</span> m_x_, m_y_;</span><br><span class="line">    	<span class="keyword">mutable</span> <span class="type">int</span> m_debug_count_;</span><br><span class="line">    pulic:</span><br><span class="line">    	<span class="function"><span class="type">int</span> <span class="title">get_m_x</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">            m_debug_count_++;</span><br><span class="line">            <span class="keyword">return</span> m_x_;</span><br><span class="line">        &#125;</span><br><span class="line">    	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
