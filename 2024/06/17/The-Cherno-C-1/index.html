@@ -41,7 +41,7 @@ var _hmt = _hmt || [];
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png">
 <meta property="article:published_time" content="2024-06-17T13:45:33.000Z">
-<meta property="article:modified_time" content="2024-07-19T11:59:09.439Z">
+<meta property="article:modified_time" content="2024-07-20T06:36:55.348Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -311,7 +311,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;4.6k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;6.1k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -341,8 +341,11 @@ var _hmt = _hmt || [];
 <p><a href="#%E8%99%9A%E5%87%BD%E6%95%B0%E3%80%81%E7%BA%AF%E8%99%9A%E5%87%BD%E6%95%B0%EF%BC%88%E6%8E%A5%E5%8F%A3%EF%BC%89">虚函数、纯虚函数（接口）</a></p>
 <p><a href="#%E6%95%B0%E7%BB%84">数组</a></p>
 <p><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2">字符串</a></p>
-<p>[const 关键字](#const 关键字)</p>
-<p>[mutable 关键字](#mutable 关键字)</p>
+<p><a href="#const-%E5%85%B3%E9%94%AE%E5%AD%97">const 关键字</a></p>
+<p><a href="#mutable-%E5%85%B3%E9%94%AE%E5%AD%97">mutable 关键字</a></p>
+<p><a href="#%E6%8E%92%E5%BA%8F">排序</a></p>
+<p><a href="#%E7%B1%BB%E5%9E%8B%E5%8F%8C%E5%85%B3">类型双关</a></p>
+<p><a href="#%E8%81%94%E5%90%88%E4%BD%93">联合体</a></p>
 <hr>
 <h2 id="头文件"><a href="#头文件" class="headerlink" title="头文件"></a>头文件</h2><p>C++ 采用了使用头文件来包含声明的约定。在一个头文件中进行声明，然后在每个<code>.cpp</code>文件或其他需要该声明的头文件中使用<code>#include</code>指令，<code>#include</code>指令在编译之前将头文件的副本插入<code>.cpp</code>文件。</p>
 <p>引号可以引用所有文件，但是一般用于源文件所在目录的头文件，而尖括号仅用于标准库标头。是否有<code>.h</code>扩展是一种区分 C 标准库和 C++ 标准库的方法。</p>
@@ -438,6 +441,40 @@ var _hmt = _hmt || [];
 <p>但是，还有一个用<code>mutable</code>的地方，就是<code>lambda</code>：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x = <span class="number">8</span>;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">auto f = [=]() &#123;</span></span><br><span class="line"><span class="comment">    int y = x;</span></span><br><span class="line"><span class="comment">    y++;</span></span><br><span class="line"><span class="comment">    std::cout &lt;&lt; x &lt;&lt; std::endl;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">auto</span> f = [=]() <span class="keyword">mutable</span> &#123;</span><br><span class="line">    x++;</span><br><span class="line">    std::cout &lt;&lt; x &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">f</span>();</span><br></pre></td></tr></table></figure>
 
+
+
+<h2 id="成员初始化列表"><a href="#成员初始化列表" class="headerlink" title="成员初始化列表"></a>成员初始化列表</h2><p>成员初始化列表不仅使代码非常干净，易于阅读，这实际上也有一个功能上的区别，在特定的类的情况下，会提升性能：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Entity</span> &#123;</span><br><span class="line">    <span class="keyword">private</span>:</span><br><span class="line">    	<span class="type">int</span> m_score_;</span><br><span class="line">    	std::string m_name_;</span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    	<span class="built_in">Entity</span>(<span class="type">const</span> std::string &amp;name) : <span class="built_in">m_score_</span>(<span class="number">0</span>), <span class="built_in">m_name_</span>(name) &#123; <span class="comment">// 初始化列表，确保与成员变量声明时的顺序一致</span></span><br><span class="line">            <span class="comment">// 使用`m_name_ = name;`，去掉在成员初始化列表中的赋值，实际上会发生的是 m_name_ 对象会被构造两次，首先是默认构造函数，然后是初始化的构造函数</span></span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>尽管对于整数这样的基本类型，它不会被初始化，除非你通过赋值来初始化它们，但是没有必要区分基本类型和类类型，你应该在所有地方都使用初始化列表</p>
+<h2 id="创建并初始化-C-对象"><a href="#创建并初始化-C-对象" class="headerlink" title="创建并初始化 C++ 对象"></a>创建并初始化 C++ 对象</h2><p>在栈上创建对象：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Entity e;</span><br><span class="line">Entity e = <span class="built_in">Entity</span>(<span class="string">&quot;cherno&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在堆上创建对象：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Entity e;</span><br><span class="line">&#123;</span><br><span class="line">    Entity *entity = <span class="keyword">new</span> <span class="built_in">Entity</span>(<span class="string">&quot;cherno&quot;</span>);</span><br><span class="line">    e = entity;</span><br><span class="line">    std::cout &lt;&lt; e-&gt;<span class="built_in">get_m_x_</span>() &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">std::cin.<span class="built_in">get</span>();</span><br><span class="line"><span class="keyword">delete</span> e;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这就是我们创建对象的两种方法，如何选择呢，如果对象太大或者你要显示的控制对象的生存期，那就在堆上创建。如果你忽略这两个选择的话，那就在栈上分配，栈上分配自动化而且更快，而在堆上分配，需要你手动<code>delete</code>，对此你可以使用智能指针，这点之后再谈</p>
+<h2 id="【39】C-new-关键字"><a href="#【39】C-new-关键字" class="headerlink" title="【39】C++ new 关键字"></a>【39】C++ new 关键字</h2><p><code>new</code>返回指向你分配的内存的空指针（空指针基本上是一个没有类型的指针，指针只是一个内存地址，指针之所以需要类型，是因为你需要类型来操纵它）</p>
+<p><code>new</code>不仅分配内存，它还调用构造函数，这背后的真相是它是一个操作符，这意味着你可以重载这个操作符，并改变它的行为。通常调用<code>new</code>，会调用隐藏在里面的 C 函数</p>
+<p>关于<code>new</code>想说的最后一点是当使用了<code>new</code>关键字时，得记住必须要用<code>delete</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Entity* e = <span class="keyword">new</span> <span class="built_in">Entity</span>();</span><br><span class="line">Entity* e = (Entity*) <span class="built_in">malloc</span> (<span class="built_in">sizeof</span>(Entity)); <span class="comment">// 这两行代码之间仅有的区别是`new`还调用了`Entity`构造函数</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="【40】C-隐式转换与explicit关键字"><a href="#【40】C-隐式转换与explicit关键字" class="headerlink" title="【40】C++ 隐式转换与explicit关键字"></a>【40】C++ 隐式转换与<code>explicit</code>关键字</h2><p>C++ 实际上允许编译器对代码执行一次隐式转换。当<code>explicit</code>放在构造函数前面，这意味着没有隐式转换，如果要构造对象则必须显示调用此构造函数</p>
+<h2 id="【42】C-的this关键字"><a href="#【42】C-的this关键字" class="headerlink" title="【42】C++ 的this关键字"></a>【42】C++ 的<code>this</code>关键字</h2><p>在 C++ 中为了调用一个非静态方法，需要首先要实例化一个对象，然后调用这个方法。而<code>this</code>是一个指向当前对象实例的指针，这实际上对方法的一般工作方式很重要，在类中你可以通过<code>this</code>创建对象来调用某个方法</p>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sort</span>(nums.<span class="built_in">begin</span>(), nums.<span class="built_in">end</span>(), [](<span class="type">int</span> a, <span class="type">int</span> b) &#123;</span><br><span class="line">    <span class="keyword">if</span> (a == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (b == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> ture;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="联合体"><a href="#联合体" class="headerlink" title="联合体"></a>联合体</h2><p>联合体一次只能占据一个成员的内存，假如 union 内定义了<code>float x, y, z, w;</code>，这里换成类或者结构体所占用的内存应该是 16 个字节，但是联合体所占内存为 4 个 字节，并且如果初始化 w 为 5.0f，那么其他三个成员数据的值均为 5.0f</p>
+<p>现在是不是有点眼熟啊，没错，这里联合体就是起到了类似类型双关的作用，将一块内存用不同的变量（或者类型）来解释。有一点需要提及的是，联合体通常是匿名使用，匿名联合体不能包含成员函数</p>
 
         
       </div>
