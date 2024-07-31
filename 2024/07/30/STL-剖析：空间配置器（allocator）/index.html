@@ -32,16 +32,16 @@ var _hmt = _hmt || [];
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现，本篇主要讲述 STL 中的空间配置器，其对于实现 STL 有着举足轻重的地位，虽然它总是掩藏在一切组件的背后，默默工作，但是 STL 操作实际均发生在容器之中，而容器是一定需要配置空间来放置的，所以你懂得:wink:  2024-07-30 23:29:17">
+  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现，本篇主要讲述 STL 中的空间配置器，其对于实现 STL 有着举足轻重的地位，虽然它总是掩藏在一切组件的背后，默默工作，但是 STL 操作实际均发生在容器之中，而容器是一定需要配置空间来放置的，所以你懂得:wink:  2024-07-31 22:59:36">
 <meta property="og:type" content="article">
 <meta property="og:title" content="STL 剖析：空间配置器（allocator）">
 <meta property="og:url" content="http://example.com/2024/07/30/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现，本篇主要讲述 STL 中的空间配置器，其对于实现 STL 有着举足轻重的地位，虽然它总是掩藏在一切组件的背后，默默工作，但是 STL 操作实际均发生在容器之中，而容器是一定需要配置空间来放置的，所以你懂得:wink:  2024-07-30 23:29:17">
+<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现，本篇主要讲述 STL 中的空间配置器，其对于实现 STL 有着举足轻重的地位，虽然它总是掩藏在一切组件的背后，默默工作，但是 STL 操作实际均发生在容器之中，而容器是一定需要配置空间来放置的，所以你懂得:wink:  2024-07-31 22:59:36">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17223511413691722351141350.png">
 <meta property="article:published_time" content="2024-07-30T13:26:01.000Z">
-<meta property="article:modified_time" content="2024-07-30T15:29:27.904Z">
+<meta property="article:modified_time" content="2024-07-31T14:59:50.395Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="STL">
 <meta name="twitter:card" content="summary">
@@ -311,7 +311,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;1.5k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;2.8k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -327,13 +327,14 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>，本篇主要讲述 STL 中的空间配置器，其对于实现 STL 有着举足轻重的地位，虽然它总是掩藏在一切组件的背后，默默工作，但是 STL 操作实际均发生在容器之中，而容器是一定需要配置空间来放置的，所以你懂得:wink:</p>
-<p><i class="fa-regular fa-clock"></i> 2024-07-30 23:29:17</p>
+<p><i class="fa-regular fa-clock"></i> 2024-07-31 22:59:36</p>
 <span id="more"></span>
 
 
 
-<h2 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h2><p>[SGI 标准的空间配置器，<code>std::allocator</code>](#SGI 标准的空间配置器，std::allocator)</p>
+<h2 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h2><p><a href="#SGI-%E6%A0%87%E5%87%86%E7%9A%84%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%8Cstd::allocator">SGI 标准的空间配置器，<code>std::allocator</code></a></p>
 <p><a href="#%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7%EF%BC%9Aconstruct()%E5%92%8Cdestroy()">构造和析构基本工具：<code>construct()</code>和<code>destroy()</code></a></p>
+<p><a href="#%E7%A9%BA%E9%97%B4%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%87%8A%E6%94%BE%EF%BC%8Cstd::alloc">空间的配置与释放，<code>std::alloc</code></a></p>
 <hr>
 <h2 id="SGI-标准的空间配置器，std-allocator"><a href="#SGI-标准的空间配置器，std-allocator" class="headerlink" title="SGI 标准的空间配置器，std::allocator"></a>SGI 标准的空间配置器，<code>std::allocator</code></h2><p>allocator 在 SGI 中从未使用过，也不建议我们使用。原因是 allocator 仅仅是对 C++ 的内存配置基本操作<code>::operator new</code>和<code>::operator delete</code>的一层薄薄的包装，并没有任何效率上的优化考虑。但是对于我们来说，还是值得实现一下的，一来是可以用来练手，熟悉熟悉 STL 规范的空间配置器的标准接口；二来只有经历了这样的做法后，在之后体验 SGI STL 对于空间配置器的美妙设计才能刻苦铭心:relaxed:</p>
 <p>其中值得一提的是，一般而言，我们所熟知的 C++ 的内存配置和释放操作是：</p>
@@ -344,6 +345,27 @@ var _hmt = _hmt || [];
 <p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17223511413691722351141350.png"></p>
 <h2 id="构造和析构基本工具：construct-和destroy"><a href="#构造和析构基本工具：construct-和destroy" class="headerlink" title="构造和析构基本工具：construct()和destroy()"></a>构造和析构基本工具：<code>construct()</code>和<code>destroy()</code></h2><p><code>construct()</code>函数的用途就是将初值设定到指针所指的空间上，这里的初值就是构建的对象，而所谓指针所指的空间则是配置器 allocator 中配置的内存空间。针对这一任务，C++ 的 placement new 可以很好的解决<code>::new(static_cast&lt;void *&gt;(ptr)) T();</code></p>
 <p><code>destroy()</code>有两个版本，第一个版本接受一个指针，直接调用该对象的析构函数即可；第二个版本接受<code>first</code>和<code>last</code>两个迭代器，由于是一个范围，这里会产生一个问题：我们不知道这范围究竟有多大，如果范围很大，一次次地调用即便每个对象的析构函数都无关痛痒（即 trivial destructor）对于效率都是一种伤害。因此这里会进行一些处理，首先对利用<code>value_type()</code>获得迭代器所指对象的型别（亦称类型），再利用<code>__type_traits&lt;T&gt;</code>判断该型别的析构函数是否无关痛痒，如果是（std::true_type），则什么都不做；如果不是（std::false_type），则循环整个范围，并在循环中每经历一个对象则调用版本一的<code>destroy()</code></p>
+<h2 id="空间的配置与释放，std-alloc"><a href="#空间的配置与释放，std-alloc" class="headerlink" title="空间的配置与释放，std::alloc"></a>空间的配置与释放，<code>std::alloc</code></h2><p>对于 &lt;std_alloc.h&gt;，SGI 有如下设计哲学：</p>
+<ul>
+<li>向 system heap 索要空间</li>
+<li>考虑多线程（multi-threads）状态</li>
+<li>考虑内存不足时的应变措施</li>
+<li>考虑过多“小型区块”可能造成的内存碎片（fragment）问题</li>
+</ul>
+<p>这里由于个人的能力有限，关于多线程状态的讨论暂时排除</p>
+<p>在《STL 源码剖析》中侯捷先生提到双层级配置器的设计处理了 fragment 问题，在这里提出一些个人的拙见以作补充，双层级配置器的设计，特别是第二级配置器对于其设计哲学做了很多处理，在 memory pool 的设计中得以具体的体现，有关 memory pool 下文会有所论述</p>
+<p>SGI 双层级配置器，第一级配置器以 <code>malloc()</code>，<code>free()</code>，<code>realloc()</code>等 C 函数执行实际的内存配置、释放、重配置操作，并实现类似 C++ new-handler 的机制。是的，不能直接使用 C++ new-handler 机制，因为 SGI 以<code>malloc()</code>而非<code>::operator new</code>来配置内存，也因此，SGI 不能直接使用 C++ 的<code>set_new_handler()</code>，必须仿真一个类似的<code>set_malloc_handler()</code>。这其中的原因，侯捷先生提出两个推测，一是历史因素，二来是 C++ 并未提供相应于<code>realloc()</code>的内存配置</p>
+<blockquote>
+<p>所谓 C++ new-handler 机制是，你可以要求系统在内存配置需求无法被满足时，调用一个你所指定的函数。换句话说，一旦<code>::operator new</code>无法完成任务，在抛出<code>std::bad_alloc</code>异常状态之前，会先调用由客端指定的处理例程。该处理例程通常即被称为 new-handler。</p>
+</blockquote>
+<p>请注意，SGI 第一级配置器的<code>allocate()</code>和<code>reallocate()</code>都是在调用<code>malloc()</code>和<code>realloc()</code>不成功后，改调用<code>oom_malloc()</code>和<code>oom_realloc()</code>（oom 即 out of memory）。后两者都有内循环，不断调用<code>set_malloc_handler()</code>，期望在某次调用之后，获得足够的内存而圆满完成任务。如果客端并没有设置<code>set_malloc_handler()</code>，后两者则毫不客气地调用<code>__THROW_BAD_ALLOC</code>，抛出 bad_alloc 信息，或利用<code>exit(1)</code>硬生生终止程序</p>
+<blockquote>
+<p>请记住，设计和设定 out-of-memory 机制是客端的责任，并且 out-of-memory 机制（处理例程）解决问题的做法有特定的模式，具体请参考《Effective C++》2e 条款 7</p>
+</blockquote>
+<p>SGI 第二级配置器则视情况的不同采用不同的策略，如果区块够大，超过 128 bytes 时，就移交第一级配置器处理。当区块小于 128 bytes 时，则以 memory pool 管理，并且在极特殊的情况下 memory pool 会调用第一级配置器的 out-of-memory 机制，这一点会在之后 memory pool 的剖析中提及</p>
+<blockquote>
+<p>通过 memory pool 管理又被称为次层配置：每次配置一大块内存，并维护对应的自由链表（free-list）。下次若再有相同大小的内存需求，就直接从 free-lists 中拨出。如果客端释还小额区块，就由配置器回收到 free-lists 中。为了管理方便 SGI 第二级配置器会主动把任何小额区块的内存需求量上调至 8 的倍数</p>
+</blockquote>
 
         
       </div>
