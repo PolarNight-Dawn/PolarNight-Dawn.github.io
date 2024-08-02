@@ -41,7 +41,7 @@ var _hmt = _hmt || [];
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17223511413691722351141350.png">
 <meta property="article:published_time" content="2024-07-30T13:26:01.000Z">
-<meta property="article:modified_time" content="2024-08-02T14:47:51.233Z">
+<meta property="article:modified_time" content="2024-08-02T14:51:44.286Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="STL">
 <meta name="twitter:card" content="summary">
@@ -311,7 +311,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;3.5k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;3.6k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -332,9 +332,9 @@ var _hmt = _hmt || [];
 
 
 
-<h2 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h2><p><a href="#SGI-%E6%A0%87%E5%87%86%E7%9A%84%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%8Cstd::allocator">SGI 标准的空间配置器，<code>std::allocator</code></a></p>
+<h2 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h2><p><a href="#SGI-%E6%A0%87%E5%87%86%E7%9A%84%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%8Cstd-allocator">SGI 标准的空间配置器，<code>std::allocator</code></a></p>
 <p><a href="#%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7%EF%BC%9Aconstruct()%E5%92%8Cdestroy()">构造和析构基本工具：<code>construct()</code>和<code>destroy()</code></a></p>
-<p><a href="#%E7%A9%BA%E9%97%B4%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%87%8A%E6%94%BE%EF%BC%8Cstd::alloc">空间的配置与释放，<code>std::alloc</code></a></p>
+<p><a href="#%E7%A9%BA%E9%97%B4%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%87%8A%E6%94%BE%EF%BC%8Cstd::alloc">空间的配置与释放，<code>std-alloc</code></a></p>
 <hr>
 <h2 id="SGI-标准的空间配置器，std-allocator"><a href="#SGI-标准的空间配置器，std-allocator" class="headerlink" title="SGI 标准的空间配置器，std::allocator"></a>SGI 标准的空间配置器，<code>std::allocator</code></h2><p>allocator 在 SGI 中从未使用过，也不建议我们使用。原因是 allocator 仅仅是对 C++ 的内存配置基本操作<code>::operator new</code>和<code>::operator delete</code>的一层薄薄的包装，并没有任何效率上的优化考虑。但是对于我们来说，还是值得实现一下的，一来是可以用来练手，熟悉熟悉 STL 规范的空间配置器的标准接口；二来只有经历了这样的做法后，在之后体验 SGI STL 对于空间配置器的美妙设计才能刻苦铭心😊</p>
 <p>其中值得一提的是，一般而言，我们所熟知的 C++ 的内存配置和释放操作是：</p>
@@ -364,7 +364,12 @@ var _hmt = _hmt || [];
 </blockquote>
 <p>SGI 第二级配置器则视情况的不同采用不同的策略，如果区块够大，超过 128 bytes 时，就移交第一级配置器处理。当区块小于 128 bytes 时，则以 memory pool 管理，并且在极特殊的情况下 memory pool 会调用第一级配置器的 out-of-memory 机制，这一点会在之后 memory pool 的剖析中提及。通过 memory pool 管理又被称为次层配置：每次配置一大块内存，并维护对应的自由链表（free-list）。下次若再有相同大小的内存需求，就直接从 free-lists 中拨出。如果客端释还小额区块，就由配置器回收到 free-lists 中。为了管理方便 SGI 第二级配置器会主动把任何小额区块的内存需求量上调至 8 的倍数</p>
 <blockquote>
-<p>这里有关 free-lists 的结构设计很有意思，通过<code>union</code>实现了类型双关这一编程技巧。在使用类型双关后，节点既可视为一个指针指向下一个节点用以链接下一个节点，又可视为一个指针指向实际区块用以存储数据，一物二用，节点不再需要存储一个额外的指针（指向下一个节点）。由于<code>union</code>特性，同一时间只能存储其中一个成员的数据，因此我们得以一窥区块释放的本质，其就是区块在重新加入 free-lists 时存储在区块中的实际数据被节点地址覆盖了</p>
+<p>这里有关 free-lists 的结构设计很有意思，通过<code>union</code>实现了类型双关这一编程技巧：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> <span class="title class_">obj</span> &#123;</span><br><span class="line">    <span class="keyword">union</span> <span class="title class_">obj</span> *next;</span><br><span class="line">    <span class="type">char</span> client_data[<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在使用类型双关后，节点既可视为一个指针指向下一个节点用以链接下一个节点，又可视为一个指针指向实际区块用以存储数据，一物二用，节点不再需要存储一个额外的指针（指向下一个节点）。由于<code>union</code>特性，同一时间只能存储其中一个成员的数据，因此我们得以一窥区块释放的本质，其就是区块在重新加入 free-lists 时存储在区块中的实际数据被节点地址覆盖了</p>
 </blockquote>
 <p>从 memory pool 取空间可以说是第二级配置器的精髓所在，将 memory pool 的内存空间比作水量。如果水量充足，直接划拨 20 个区块给 free list。如果水量不足划拨 20 个区块，但足以划拨一个及以上的区块，就尽可能的将这部分空间划拨出去。但如果连一个区块都无法提供，这对客端显然无法交代，此时便利用<code>malloc()</code>从 heap 配置内存，为 memory pool 注入源头活水以应付需求。新水量的大小为需求量的 2 倍，再加上一个随着配置次数增加而越来越大的附加量（也就是 历史需求量 &#x2F; 16）。其中一半区块留存在 memory pool 中，另一半区块除去抽取一个交给客端，剩余的交给 free list 维护</p>
 <p>如果 system heap 空间山穷水尽（以至无法为 memory pool 注入源头活水），<code>malloc()</code>失败，memory pool 就四处寻找 free list 中“尚有未用且够大的区块”。找到了交付一块给客端，其余的存入 memory pool 中。找不到就调用第一级配置器寻求 out of memory 处理机制的帮助，试试看能不能释放其它的内存拿来此处使用，如果失败，就抛出 bad_alloc 异常</p>
