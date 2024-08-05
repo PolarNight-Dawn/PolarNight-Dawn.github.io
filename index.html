@@ -175,7 +175,7 @@ var _hmt = _hmt || [];
         
             <a class="category-link" href="/categories/C/">
                 C++
-                <div class="category-count">4</div>
+                <div class="category-count">5</div>
             </a>
         
             <a class="category-link" href="/categories/Linux/">
@@ -204,6 +204,11 @@ var _hmt = _hmt || [];
       <h3 class="widget-title">Archives</h3>
       
       
+        <a class="archive-link" href="/archives/2024/08 ">
+          August 2024 
+          <div class="archive-count">1 </div>
+        </a>
+      
         <a class="archive-link" href="/archives/2024/07 ">
           July 2024 
           <div class="archive-count">2 </div>
@@ -230,6 +235,12 @@ var _hmt = _hmt || [];
       <h3 class="widget-title">Recent Posts</h3>
       <ul>
         
+          <a class="recent-link" href="/2024/08/05/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89/" title="STL 剖析：迭代器（iterators）" >
+            <div class="recent-link-text">
+              STL 剖析：迭代器（iterators）
+            </div>
+          </a>
+        
           <a class="recent-link" href="/2024/07/30/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/" title="STL 剖析：空间配置器（allocator）" >
             <div class="recent-link-text">
               STL 剖析：空间配置器（allocator）
@@ -254,12 +265,6 @@ var _hmt = _hmt || [];
             </div>
           </a>
         
-          <a class="recent-link" href="/2024/06/17/The-Cherno-C-1/" title="C++ 基础篇" >
-            <div class="recent-link-text">
-              C++ 基础篇
-            </div>
-          </a>
-        
       </ul>
     </div>
   </div>
@@ -270,6 +275,79 @@ var _hmt = _hmt || [];
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-STL-剖析：迭代器（iterators）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/08/05/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89/">STL 剖析：迭代器（iterators）</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <i class="fa-regular fa-clock"></i>&nbsp;<time class="dt-published" datetime="2024-08-05T13:16:08.000Z" itemprop="datePublished">2024-08-05</time>
+</div>
+          <div class="need-seperator meta-info">
+            <i class="fa-solid fa-list"></i>&nbsp;<div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/C/">C++</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;984
+          </div>
+          <!-- busuanzi -->
+          
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STL/" rel="tag">STL</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>。本篇主要讲述 STL 中的迭代器，迭代器是一种抽象概念，在《Design Patterns》（23 种设计模式的出处）一书中有关于 iterator 模式的完整描述，想要了解文字定义的就自己去搜吧😏</p>
+<p><i class="fa-regular fa-clock"></i> 2024-08-05 22:50:25</p>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  with-pic  "
+       style="background-image: url(https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1722613632282e9eee087-b3bf-47d1-96a2-7e49f0a774f8.jpg)" 
+      href="/2024/08/05/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89/" 
+    >
+       
+      <div class="overlay">
+        <i class="fa-solid fa-angle-right with-pic"></i>
+      </div>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
    
 
 
@@ -314,7 +392,7 @@ var _hmt = _hmt || [];
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>，本篇主要讲述 STL 中的空间配置器，其对于实现 STL 有着举足轻重的地位，虽然它总是掩藏在一切组件的背后，默默工作，但是 STL 操作实际均发生在容器之中，而容器是一定需要配置空间来放置的，所以这地位你懂得😉</p>
+          <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>。本篇主要讲述 STL 中的空间配置器，其对于实现 STL 有着举足轻重的地位，虽然它总是掩藏在一切组件的背后，默默工作，但是 STL 操作实际均发生在容器之中，而容器是一定需要配置空间来放置的，所以这地位你懂得😉</p>
 <p><i class="fa-regular fa-clock"></i> 2024-08-02 22:47:19</p>
         
       </div>
@@ -918,91 +996,19 @@ var _hmt = _hmt || [];
 
 
 
-   
 
-
-<article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2024/05/01/hello-world/">Hello World</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <i class="fa-regular fa-clock"></i>&nbsp;<time class="dt-published" datetime="2024-05-01T04:22:40.085Z" itemprop="datePublished">2024-05-01</time>
-</div>
-          <div class="need-seperator meta-info">
-            <i class="fa-solid fa-list"></i>&nbsp;<div class="meta-cate-flex">
-  
-    Uncategorized 
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;367
-          </div>
-          <!-- busuanzi -->
-          
-        </div>
-        
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <div class="truncate-text">
-            
-              Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new post1$ hexo new &quot;My New Post&quot;
-
-More info: Writing
-Run server1$ hexo server
-
-More info: Server
-Generate static files1$ hexo generate
-
-More info: Generating
-Deploy to remote sites1$ hexo deploy
-
-More info: Deployment
-
-            
-          </div>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  non-pic  "
-      
-      href="/2024/05/01/hello-world/" 
-    >
-       
-      <i class="fa-solid fa-angle-right non-pic"></i>
-       
+  <nav id="page-nav">
+    <!-- 在第二页时 page.prev_link 不知为何无法返回正确的链接 -->
+    <a id="prev-btn" class="page-nav-btn disabled" href=" /  ">
+      <i class="fa-solid fa-angle-left"></i>
     </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
+    <div id="num-bar">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a>  
+    </div>
+    <a id="next-btn" class="page-nav-btn " href="/page/2/">
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+  </nav>
 
 
     </div>
