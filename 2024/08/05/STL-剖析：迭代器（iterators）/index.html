@@ -32,16 +32,16 @@ var _hmt = _hmt || [];
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。本篇主要讲述 STL 中的迭代器，迭代器是一种抽象概念，在《Design Patterns》（23 种设计模式的出处）一书中有关于 iterator 模式的完整描述，想要了解文字定义的就自己去搜吧😏  2024-08-05 22:50:25">
+  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。本篇主要讲述 STL 中的迭代器，迭代器是一种抽象概念，在《Design Patterns》（23 种设计模式的出处）一书中有关于 iterator 模式的完整描述，想要了解文字定义的就自己去搜吧😏  2024-08-06 12:05:11">
 <meta property="og:type" content="article">
 <meta property="og:title" content="STL 剖析：迭代器（iterators）">
 <meta property="og:url" content="http://example.com/2024/08/05/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。本篇主要讲述 STL 中的迭代器，迭代器是一种抽象概念，在《Design Patterns》（23 种设计模式的出处）一书中有关于 iterator 模式的完整描述，想要了解文字定义的就自己去搜吧😏  2024-08-05 22:50:25">
+<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。本篇主要讲述 STL 中的迭代器，迭代器是一种抽象概念，在《Design Patterns》（23 种设计模式的出处）一书中有关于 iterator 模式的完整描述，想要了解文字定义的就自己去搜吧😏  2024-08-06 12:05:11">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1722613632282e9eee087-b3bf-47d1-96a2-7e49f0a774f8.jpg">
 <meta property="article:published_time" content="2024-08-05T13:16:08.000Z">
-<meta property="article:modified_time" content="2024-08-05T14:50:38.216Z">
+<meta property="article:modified_time" content="2024-08-06T04:05:23.102Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="STL">
 <meta name="twitter:card" content="summary">
@@ -326,7 +326,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;984
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;1.9k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -342,13 +342,13 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>。本篇主要讲述 STL 中的迭代器，迭代器是一种抽象概念，在《Design Patterns》（23 种设计模式的出处）一书中有关于 iterator 模式的完整描述，想要了解文字定义的就自己去搜吧😏</p>
-<p><i class="fa-regular fa-clock"></i> 2024-08-05 22:50:25</p>
+<p><i class="fa-regular fa-clock"></i> 2024-08-06 12:05:11</p>
 <span id="more"></span>
 
 
 
-<h2 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h2><p><a href="#SGI-%E6%A0%87%E5%87%86%E7%9A%84%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%8Cstd-allocator">SGI 标准的空间配置器，<code>std::allocator</code></a></p>
-<p><a href="#%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7%EF%BC%9Aconstruct()%E5%92%8Cdestroy()">构造和析构基本工具：<code>construct()</code>和<code>destroy()</code></a></p>
+<h2 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h2><p><a href="#%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4-STL-%E7%9A%84%E5%85%B3%E9%94%AE%E6%89%80%E5%9C%A8">迭代器设计思维——STL 的关键所在</a></p>
+<p><a href="#Traits-%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7-STL-%E6%BA%90%E4%BB%A3%E7%A0%81%E9%97%A8%E9%92%A5">Traits 编程技巧——STL 源代码门钥</a></p>
 <p><a href="#%E7%A9%BA%E9%97%B4%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%87%8A%E6%94%BE%EF%BC%8Cstd-alloc">空间的配置与释放，<code>std::alloc</code></a></p>
 <hr>
 <h2 id="迭代器设计思维——STL-的关键所在"><a href="#迭代器设计思维——STL-的关键所在" class="headerlink" title="迭代器设计思维——STL 的关键所在"></a>迭代器设计思维——STL 的关键所在</h2><p>STL 的中心思想在于：将容器（containers）和算法（algorithms）分开，彼此独立设计，最后再以一剂粘合剂将它们粘在一起。</p>
@@ -359,6 +359,25 @@ var _hmt = _hmt || [];
 <h2 id="Traits-编程技巧——STL-源代码门钥"><a href="#Traits-编程技巧——STL-源代码门钥" class="headerlink" title="Traits 编程技巧——STL 源代码门钥"></a>Traits 编程技巧——STL 源代码门钥</h2><p>在算法中运用迭代器时，很可能会用到其相应型别，什么是相应型别？</p>
 <h3 id="迭代器相应型别之一：value-type"><a href="#迭代器相应型别之一：value-type" class="headerlink" title="迭代器相应型别之一：value type"></a>迭代器相应型别之一：value type</h3><p>所谓 value type，是指迭代器所指对象的型别</p>
 <h3 id="迭代器相应型别之二：difference-type"><a href="#迭代器相应型别之二：difference-type" class="headerlink" title="迭代器相应型别之二：difference type"></a>迭代器相应型别之二：difference type</h3><p>difference type 用来表示两个迭代器之间的距离，因此它也可以用来表示一个容器的最大容量，因为对于连续空间的容器而言，头尾之间的距离就是其最大容量。如果一个泛型算法提供计数功能，例如 STL <code>count()</code>，其传回值就必须使用迭代器的 difference type</p>
+<h3 id="迭代器相应型别之三：reference-type"><a href="#迭代器相应型别之三：reference-type" class="headerlink" title="迭代器相应型别之三：reference type"></a>迭代器相应型别之三：reference type</h3><h3 id="迭代器相应型别之四：pointer-type"><a href="#迭代器相应型别之四：pointer-type" class="headerlink" title="迭代器相应型别之四：pointer type"></a>迭代器相应型别之四：pointer type</h3><h3 id="迭代器相应性别之五：iterator-category"><a href="#迭代器相应性别之五：iterator-category" class="headerlink" title="迭代器相应性别之五：iterator_category"></a>迭代器相应性别之五：iterator_category</h3><p>根据移动特性与施行操作，迭代器被分为五类：</p>
+<ul>
+<li>Input Iterator：这种迭代器的对象，不允许外界改变。只读</li>
+<li>Output Iterator：只写</li>
+<li>Forward Iterator：允许“写入型”算法（例如<code>replace()</code>）在此种迭代器所形成的区间上进行读写操作</li>
+<li>Bidirectional Iterator：可双向移动</li>
+<li>Random Access Iterator：前四种迭代器都只提供一部分指针算术能力（前三种支持<code>operator++</code>，第四种再加上<code>operator--</code>），第五种则涵盖所有指针算术能力，包括<code>p + n</code>， <code>p - n</code>，<code>p[n]</code>，<code>p1 - p2</code>，<code>p1 &lt; p2</code></li>
+</ul>
+<p>迭代器的分类和从属关系如下图，其中直线与箭头代表的并非 C++ 的继承关系，而是所谓 concept（概念）与 refinement（强化）的关系</p>
+<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/172291598388617229144529421722914452785.png" alt="172291598388617229144529421722914452785.png"></p>
+<blockquote>
+<p><strong>concept</strong> 是一种用于指定模板参数要求的抽象。它们允许我们定义模板参数的约束条件，从而使得模板更加健壮和易于理解。概念可以看作是模板参数必须满足的一组条件或属性</p>
+<p><strong>强化</strong> 是指一个概念（concept）对另一个概念进行扩展或增强，从而定义一个更具体的概念。强化的概念必须满足被强化的概念的所有要求，并可能添加更多的约束</p>
+</blockquote>
+<p>任何一个迭代器，其类型永远应该落在“该迭代器所隶属之各种类型中，最强化的那个”，例如<code>int*</code>既是 Random Access Iterator，又是 BIdirectional Iterator，同时也是 Forward Iterator，而且也是 Input Iterator，那么其类型应该归属为 Random Access Iterator</p>
+<blockquote>
+<p>STL 算法有一个命名规则：以算法所能接受的最低阶迭代器类型来为其迭代器型别参数命名</p>
+</blockquote>
+<p>为了符合规范，任何迭代器都应该提供五个内嵌相应型别，以利于 traits 萃取，否则便是自别于整个 STL 架构，可能无法与其它 STL 组件顺利搭配。写代码难免会有粗心大意的时候，导致缺少一些规范中的型别定义。如何解决呢？STL 提供了一个 iterator class如下，如果每个新设计的迭代器都继承自它，就可保证符合 STL 所需之规范</p>
 
         
       </div>
