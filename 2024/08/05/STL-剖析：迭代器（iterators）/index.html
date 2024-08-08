@@ -32,16 +32,16 @@ var _hmt = _hmt || [];
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。本篇主要讲述 STL 中的迭代器，迭代器是一种抽象概念，在《Design Patterns》（23 种设计模式的出处）一书中有关于 iterator 模式的完整描述，想要了解文字定义的就自己去搜吧😏  2024-08-07 02:54:15">
+  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。本篇主要讲述 STL 中的迭代器，迭代器是一种抽象概念，在《Design Patterns》（23 种设计模式的出处）一书中有关于 iterator 模式的完整描述，想要了解文字定义的就自己去搜吧😏  2024-08-08 21:28:54">
 <meta property="og:type" content="article">
 <meta property="og:title" content="STL 剖析：迭代器（iterators）">
 <meta property="og:url" content="http://example.com/2024/08/05/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。本篇主要讲述 STL 中的迭代器，迭代器是一种抽象概念，在《Design Patterns》（23 种设计模式的出处）一书中有关于 iterator 模式的完整描述，想要了解文字定义的就自己去搜吧😏  2024-08-07 02:54:15">
+<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。本篇主要讲述 STL 中的迭代器，迭代器是一种抽象概念，在《Design Patterns》（23 种设计模式的出处）一书中有关于 iterator 模式的完整描述，想要了解文字定义的就自己去搜吧😏  2024-08-08 21:28:54">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1722613632282e9eee087-b3bf-47d1-96a2-7e49f0a774f8.jpg">
 <meta property="article:published_time" content="2024-08-05T13:16:08.000Z">
-<meta property="article:modified_time" content="2024-08-06T19:13:44.213Z">
+<meta property="article:modified_time" content="2024-08-08T13:30:06.784Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="STL">
 <meta name="twitter:card" content="summary">
@@ -326,7 +326,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;5k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;5.6k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -342,7 +342,7 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>。本篇主要讲述 STL 中的迭代器，迭代器是一种抽象概念，在《Design Patterns》（23 种设计模式的出处）一书中有关于 iterator 模式的完整描述，想要了解文字定义的就自己去搜吧😏</p>
-<p><i class="fa-regular fa-clock"></i> 2024-08-07 02:54:15</p>
+<p><i class="fa-regular fa-clock"></i> 2024-08-08 21:28:54</p>
 <span id="more"></span>
 
 
@@ -354,6 +354,7 @@ var _hmt = _hmt || [];
 <p>​	<a href="#2-3-%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9B%B8%E5%BA%94%E5%9E%8B%E5%88%AB%E4%B9%8B%E4%B8%89%EF%BC%9Areference-type">2.3 迭代器相应型别之三：reference type</a></p>
 <p>​	<a href="#2-4-%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9B%B8%E5%BA%94%E5%9E%8B%E5%88%AB%E4%B9%8B%E5%9B%9B%EF%BC%9Apointer-type">2.4 迭代器相应型别之四：pointer type</a></p>
 <p>​	<a href="#2-5-%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9B%B8%E5%BA%94%E6%80%A7%E5%88%AB%E4%B9%8B%E4%BA%94%EF%BC%9Aiterator-category">2.5 迭代器相应性别之五：iterator_category</a></p>
+<p><a href="3-SGI-STL-%E7%9A%84%E7%A7%81%E6%88%BF%E8%8F%9C%EF%BC%9A-type-traits">3 SGI STL 的私房菜：<code>__type_traits</code></a></p>
 <hr>
 <h2 id="1-迭代器设计思维——STL-的关键所在"><a href="#1-迭代器设计思维——STL-的关键所在" class="headerlink" title="1 迭代器设计思维——STL 的关键所在"></a>1 迭代器设计思维——STL 的关键所在</h2><p>STL 的中心思想在于：将容器（containers）和算法（algorithms）分开，彼此独立设计，最后再以一剂粘合剂将它们粘在一起。</p>
 <p>迭代器（iterators）的作用就是充当两者之间的粘合剂，在《STL 源码剖析》中侯捷先生提到：迭代器是一种 smart poiner，也就是<code>auto_ptr</code>。这里将迭代器类比为智能指针只是为了理解它们的指针行为，它们都是一种行为类似指针的对象，可以被赋值、比较和传递。需要明确的是，迭代器并不管理对象的生命周期（内存管理）。指针的各种行为中最重要也是最常见的是内容解引用和成员访问，因此，迭代器最重要的编程工作就是对<code>operator*</code>和<code>operator-&gt;</code>进行重载工作</p>
@@ -421,6 +422,11 @@ var _hmt = _hmt || [];
 
 <p><strong>总结</strong></p>
 <p>设计适当的相应型别（associated type），是迭代器的责任。设计适当的迭代器，则是容器的责任。唯有容器本身才找到设计出怎样的迭代器遍历自己，并执行迭代器该有的各种行为（前进，后退，取值，取用成员···）。至于算法完全可以独立于容器和迭代器之外自行发展，只要设计时以迭代器为为对外接口就行</p>
+<h2 id="3-SGI-STL-的私房菜：-type-traits"><a href="#3-SGI-STL-的私房菜：-type-traits" class="headerlink" title="3 SGI STL 的私房菜：__type_traits"></a>3 SGI STL 的私房菜：<code>__type_traits</code></h2><p>SGI 将 traits 技法进一步扩展到迭代器以外的世界，于是有了所谓的<code>__type_traits</code>。<code>iterator_traits</code>负责萃取迭代器的特性，<code>__type_traits</code>则负责萃取型别的特性。这里所关注的特性是指：这个型别是否具有 trivial default constructor，是否具备 trivial copy constructor，是否具备 trivial assignment operator，是否具备 trivial destructor？如果答案是肯定，那么我们就可以直接采用内存直接处理操作如<code>malloc()</code>、<code>memcpy()</code>等等，获得最高效率，而不是调用身居高位、不谋实事的那些<code>constructor()</code>、<code>destructor()</code></p>
+<blockquote>
+<p>trivial 是指这些特殊成员函数由编译器自动生成，且只执行最简单的操作，不涉及复杂的初始化、拷贝、赋值或析构逻辑。它们主要保证对象的基础生命周期管理，但不进行任何资源管理或自定义行为</p>
+</blockquote>
+<p>这里稍微讲述一下 POD 型别，因为<code>__type_traits</code>的代码设计中涉及到了。POD 是指 Plain Old Data，也就是标量型别（scalar types）或传统的 C struct 型别。POD 型别必然拥有 trivial constructor&#x2F;copy&#x2F;assignment&#x2F;destructor 函数，因此，对于 POD 型别同样采用内存直接处理操作，获取最大效率</p>
 
         
       </div>
