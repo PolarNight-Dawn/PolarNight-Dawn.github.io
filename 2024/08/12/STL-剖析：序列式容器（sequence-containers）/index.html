@@ -26,22 +26,22 @@ var _hmt = _hmt || [];
   
 
   
-  <title>STL 剖析：空间配置器（allocator） | Dawn&#39;s Blog</title>
+  <title>STL 剖析：序列式容器（sequence containers） | Dawn&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。本篇主要讲述 STL 中的空间配置器，其对于实现 STL 有着举足轻重的地位，虽然它总是掩藏在一切组件的背后，默默工作，但是 STL 操作实际均发生在容器之中，而容器是一定需要配置空间来放置的，所以这地位你懂得😉  2024-08-02 22:47:19">
+  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。所谓序列式容器，其中的元素都可序，但未必有序。很绕是吧，换句话说，序列式容器中的元素就像字典一样可以按索引依次访问，但是又跟字典不太一样，因为它不一定按某种排序规律（例如递增、递减）来存储，元素存储顺序仅仅与插入顺序一致，除非手动排序  2024-08-12 16:58:03">
 <meta property="og:type" content="article">
-<meta property="og:title" content="STL 剖析：空间配置器（allocator）">
-<meta property="og:url" content="http://example.com/2024/07/30/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%88allocator%EF%BC%89/index.html">
+<meta property="og:title" content="STL 剖析：序列式容器（sequence containers）">
+<meta property="og:url" content="http://example.com/2024/08/12/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence-containers%EF%BC%89/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。本篇主要讲述 STL 中的空间配置器，其对于实现 STL 有着举足轻重的地位，虽然它总是掩藏在一切组件的背后，默默工作，但是 STL 操作实际均发生在容器之中，而容器是一定需要配置空间来放置的，所以这地位你懂得😉  2024-08-02 22:47:19">
+<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。所谓序列式容器，其中的元素都可序，但未必有序。很绕是吧，换句话说，序列式容器中的元素就像字典一样可以按索引依次访问，但是又跟字典不太一样，因为它不一定按某种排序规律（例如递增、递减）来存储，元素存储顺序仅仅与插入顺序一致，除非手动排序  2024-08-12 16:58:03">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1722613632282e9eee087-b3bf-47d1-96a2-7e49f0a774f8.jpg">
-<meta property="article:published_time" content="2024-07-30T13:26:01.000Z">
-<meta property="article:modified_time" content="2024-08-05T13:38:37.325Z">
+<meta property="article:published_time" content="2024-08-12T01:42:19.000Z">
+<meta property="article:modified_time" content="2024-08-12T08:58:13.292Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="STL">
 <meta name="twitter:card" content="summary">
@@ -284,13 +284,13 @@ var _hmt = _hmt || [];
        
 
 
-<article id="post-STL-剖析：空间配置器（allocator）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-STL-剖析：序列式容器（sequence-containers）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   
     
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_clz8kq8qs00005mc22tzd4s52">
+      <a class="article-gallery-img" rel="gallery_clzqrh9vv0000qfc2c31c5efm">
         <img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1722613632282e9eee087-b3bf-47d1-96a2-7e49f0a774f8.jpg" itemprop="image">
       </a>
     
@@ -307,7 +307,7 @@ var _hmt = _hmt || [];
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        STL 剖析：空间配置器（allocator）
+        STL 剖析：序列式容器（sequence containers）
       </h1>
     
   
@@ -315,7 +315,7 @@ var _hmt = _hmt || [];
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <i class="fa-regular fa-clock"></i>&nbsp;<time class="dt-published" datetime="2024-07-30T13:26:01.000Z" itemprop="datePublished">2024-07-30</time>
+  <i class="fa-regular fa-clock"></i>&nbsp;<time class="dt-published" datetime="2024-08-12T01:42:19.000Z" itemprop="datePublished">2024-08-12</time>
 </div>
           <div class="need-seperator meta-info">
             <i class="fa-solid fa-list"></i>&nbsp;<div class="meta-cate-flex">
@@ -326,7 +326,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;3.6k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;1.6k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -341,51 +341,42 @@ var _hmt = _hmt || [];
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>。本篇主要讲述 STL 中的空间配置器，其对于实现 STL 有着举足轻重的地位，虽然它总是掩藏在一切组件的背后，默默工作，但是 STL 操作实际均发生在容器之中，而容器是一定需要配置空间来放置的，所以这地位你懂得😉</p>
-<p><i class="fa-regular fa-clock"></i> 2024-08-02 22:47:19</p>
+          <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>。所谓序列式容器，其中的元素都可序，但未必有序。很绕是吧，换句话说，序列式容器中的元素就像字典一样可以按索引依次访问，但是又跟字典不太一样，因为它不一定按某种排序规律（例如递增、递减）来存储，元素存储顺序仅仅与插入顺序一致，除非手动排序</p>
+<p><i class="fa-regular fa-clock"></i> 2024-08-12 16:58:03</p>
 <span id="more"></span>
 
 
 
-<h2 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h2><p><a href="#SGI-%E6%A0%87%E5%87%86%E7%9A%84%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE%E5%99%A8%EF%BC%8Cstd-allocator">SGI 标准的空间配置器，<code>std::allocator</code></a></p>
-<p><a href="#%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7%EF%BC%9Aconstruct()%E5%92%8Cdestroy()">构造和析构基本工具：<code>construct()</code>和<code>destroy()</code></a></p>
-<p><a href="#%E7%A9%BA%E9%97%B4%E7%9A%84%E9%85%8D%E7%BD%AE%E4%B8%8E%E9%87%8A%E6%94%BE%EF%BC%8Cstd-alloc">空间的配置与释放，<code>std::alloc</code></a></p>
+<h2 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h2><p>[1  <code>vector</code>](#1- vector)</p>
+<p>​	<a href="#1-1-%E6%A6%82%E8%BF%B0">1.1 概述</a></p>
+<p>​	<a href="#1-2-%E8%BF%AD%E4%BB%A3%E5%99%A8">1.2 迭代器</a></p>
+<p>​	<a href="#1-3-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86">1.3 数据结构与内存管理</a></p>
+<p>​	<a href="#1-4-%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C%E4%B8%8E%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE">1.4 元素操作与空间配置</a></p>
 <hr>
-<h2 id="SGI-标准的空间配置器，std-allocator"><a href="#SGI-标准的空间配置器，std-allocator" class="headerlink" title="SGI 标准的空间配置器，std::allocator"></a>SGI 标准的空间配置器，<code>std::allocator</code></h2><p>allocator 在 SGI 中从未使用过，也不建议我们使用。原因是 allocator 仅仅是对 C++ 的内存配置基本操作<code>::operator new</code>和<code>::operator delete</code>的一层薄薄的包装，并没有任何效率上的优化考虑。但是对于我们来说，还是值得实现一下的，一来是可以用来练手，熟悉熟悉 STL 规范的空间配置器的标准接口；二来只有经历了这样的做法后，在之后体验 SGI STL 对于空间配置器的美妙设计才能刻苦铭心😊</p>
-<p>其中值得一提的是，一般而言，我们所熟知的 C++ 的内存配置和释放操作是：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Entity</span> &#123;...&#125;;</span><br><span class="line">Entity *entity = <span class="keyword">new</span> Entity; <span class="comment">// 这里的 new 包含内存配置和构造对象两个操作</span></span><br><span class="line"><span class="keyword">delete</span> *entity; <span class="comment">// 同理，delete 也包含析构对象和释放内存两个操作</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-vector"><a href="#1-vector" class="headerlink" title="1 vector"></a>1 <code>vector</code></h2><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h3><p><code>vector</code>与<code>array</code>非常相似，二者唯一的差别在于对空间运用的灵活性。<code>array</code>是静态空间，一旦配置了就不能改变，但不是说一定不可，只是如果我们要扩容，只能手动去 “配置新空间 &#x2F; 数据移动 &#x2F; 释放旧空间”，<code>array</code>内部是没有设置相应处理机制的。<code>vector</code>是动态空间，随着元素的加入，它的内部机制会自行扩充空间以容纳新元素。因此，<code>vector</code>的实现技术关键在于其对空间大小的控制以及重新配置时的数据移动效率，稍后我们便可以看到 SGI vector 的空间配置策略</p>
+<h3 id="1-2-迭代器"><a href="#1-2-迭代器" class="headerlink" title="1.2 迭代器"></a>1.2 迭代器</h3><p><code>vector</code>维护的是一个连续线性空间，所以不论其元素型别为何，普通指针都可以作为<code>vector</code>的迭代器而满足所有必要条件，所有，<code>vector</code>提供的是 Random Access Iterator</p>
+<h3 id="1-3-数据结构与内存管理"><a href="#1-3-数据结构与内存管理" class="headerlink" title="1.3 数据结构与内存管理"></a>1.3 数据结构与内存管理</h3><p><code>vector</code>所采用的数据结构非常简单：线性连续空间。它以两个迭代器 start 和 finish 分别指向配置而来的连续空间中目前已使用的范围（大小），并以迭代器 end_of_storage 指向整块连续空间的尾端（容量）。容量通常会比大小大，以便预留一些备用空间来应对可能的扩充，一旦大小等于容量，便是满载，此时已经没有备用空间了，需要动态增加大小，也就是以原来大小的两倍另外配置一块空间，然后将原内容拷贝过来，并在原内容之后构造新元素，最后释放原来的空间。因此，对<code>vector</code>的任何操作，一旦引起空间重新配置，指向原<code>vector</code>的所有迭代器都失效，这是一个容易犯错的地方：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">   std::vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line">   <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; ++i) &#123;</span><br><span class="line">       vec.<span class="built_in">push_back</span>(i);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">// 假设你现在有一个迭代器指向 vector 的某个元素</span></span><br><span class="line">   <span class="keyword">auto</span> it = vec.<span class="built_in">begin</span>() + <span class="number">2</span>;  <span class="comment">// 指向元素 &#x27;3&#x27;</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// 输出迭代器指向的元素</span></span><br><span class="line">   std::cout &lt;&lt; <span class="string">&quot;Before reallocation: &quot;</span> &lt;&lt; *it &lt;&lt; std::endl;  <span class="comment">// 输出 3</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// 进行一个可能引发重新配置的操作</span></span><br><span class="line">   vec.<span class="built_in">push_back</span>(<span class="number">6</span>);</span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 正确的做法</span></span><br><span class="line"><span class="comment">it = vec.begin() + 2;  // 重新获取迭代器 */</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">// 试图再次使用之前的迭代器</span></span><br><span class="line">   std::cout &lt;&lt; <span class="string">&quot;After reallocation: &quot;</span> &lt;&lt; *it &lt;&lt; std::endl;   <span class="comment">// 未定义行为！</span></span><br><span class="line">   </span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
 
-<p><code>new</code>操作符包含两阶段操作：（1）调用<code>::operator new</code>配置内存；（2）调用<code>Entity::Entity()</code>构造对象，<code>delete</code>操作符包含两阶段操作：（1）调用<code>Entity::~Entity()</code>析构对象；（2）调用<code>::operator delete</code>释放内存</p>
-<p>在 STL allocator 中将这两阶段操作分开了，以便更加精细的操作。其中<code>alloc::allocate()</code>和<code>alloc::deallocate()</code>负责内存的配置和释放，而<code>::construct()</code>和<code>::destroy()</code>负责构造和析构对象，并且于 stl_construct.h 定义全局函数<code>construct()</code>和<code>destroy()</code>。至此大致目录结构为：</p>
-<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17223511413691722351141350.png"></p>
-<h2 id="构造和析构基本工具：construct-和destroy"><a href="#构造和析构基本工具：construct-和destroy" class="headerlink" title="构造和析构基本工具：construct()和destroy()"></a>构造和析构基本工具：<code>construct()</code>和<code>destroy()</code></h2><p><code>construct()</code>函数的用途就是将初值设定到指针所指的空间上，这里的初值就是构建的对象，而所谓指针所指的空间则是配置器 allocator 中配置的内存空间。针对这一任务，C++ 的 placement new 可以很好的解决<code>::new(static_cast&lt;void *&gt;(ptr)) T();</code></p>
-<p><code>destroy()</code>有两个版本，第一个版本接受一个指针，直接调用该对象的析构函数即可；第二个版本接受<code>first</code>和<code>last</code>两个迭代器，由于是一个范围，这里会产生一个问题：我们不知道这范围究竟有多大，如果范围很大，一次次地调用即便每个对象的析构函数都无关痛痒（即 trivial destructor）对于效率都是一种伤害。因此这里会进行一些处理，首先对利用<code>value_type()</code>获得迭代器所指对象的型别（亦称类型），再利用<code>__type_traits&lt;T&gt;</code>判断该型别的析构函数是否无关痛痒，如果是（std::true_type），则什么都不做；如果不是（std::false_type），则循环整个范围，并在循环中每经历一个对象则调用版本一的<code>destroy()</code></p>
-<h2 id="空间的配置与释放，std-alloc"><a href="#空间的配置与释放，std-alloc" class="headerlink" title="空间的配置与释放，std::alloc"></a>空间的配置与释放，<code>std::alloc</code></h2><p>对于 &lt;std_alloc.h&gt;，SGI 有如下设计哲学：</p>
+
+
+<h3 id="1-4-元素操作与空间配置"><a href="#1-4-元素操作与空间配置" class="headerlink" title="1.4 元素操作与空间配置"></a>1.4 元素操作与空间配置</h3><p><code>vector</code>的元素操作对于理解其空间策略有着巨大的帮助，如<code>vector::insert()</code>，从以下关于<code>insert(position, n, x)</code>的示例图中你可以得以一窥：</p>
+<ol>
+<li><p>备用空间 2 &gt;&#x3D; 新增元素 2</p>
 <ul>
-<li>向 system heap 索要空间</li>
-<li>考虑多线程（multi-threads）状态</li>
-<li>考虑内存不足时的应变措施</li>
-<li>考虑过多“小型区块”可能造成的内存碎片（fragment）问题</li>
+<li><p>插入点之后的现有元素个数 3 &gt; 新增元素个数 2</p>
+<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17234502873811723450287193.png" alt="17234502873811723450287193.png"></p>
+</li>
+<li><p>插入点之后的现有元素个数 2  &lt;&#x3D; 新增元素个数 3</p>
+<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17234526953321723452695203.png" alt="17234526953321723452695203.png"></p>
+</li>
 </ul>
-<p>这里由于个人的能力有限，关于多线程状态的讨论暂时排除</p>
-<p>在《STL 源码剖析》中侯捷先生提到双层级配置器的设计处理了 fragment 问题，在这里提出一些个人的拙见以作补充，双层级配置器的设计，特别是第二级配置器对于整个设计哲学做了很多处理，在 memory pool 的设计中得以具体的体现，有关 memory pool 下文会有所论述</p>
-<p>SGI 双层级配置器，第一级配置器以 <code>malloc()</code>，<code>free()</code>，<code>realloc()</code>等 C 函数执行实际的内存配置、释放、重配置操作，并实现类似 C++ new-handler 的机制。是的，不能直接使用 C++ new-handler 机制，因为 SGI 以<code>malloc()</code>而非<code>::operator new</code>来配置内存，也因此，SGI 不能直接使用 C++ 的<code>set_new_handler()</code>，必须仿真一个类似的<code>set_malloc_handler()</code>。这其中的原因，侯捷先生提出两个推测，一是历史因素，二来是 C++ 并未提供相应于<code>realloc()</code>的内存配置</p>
-<blockquote>
-<p>所谓 C++ new-handler 机制是，你可以要求系统在内存配置需求无法被满足时，调用一个你所指定的函数。换句话说，一旦<code>::operator new</code>无法完成任务，在抛出<code>std::bad_alloc</code>异常状态之前，会先调用由客端指定的处理例程。该处理例程通常即被称为 new-handler。</p>
-</blockquote>
-<p>请注意，SGI 第一级配置器的<code>allocate()</code>和<code>reallocate()</code>都是在调用<code>malloc()</code>和<code>realloc()</code>不成功后，改调用<code>oom_malloc()</code>和<code>oom_realloc()</code>（oom 即 out of memory）。后两者都有内循环，不断调用<code>set_malloc_handler()</code>，期望在某次调用之后，获得足够的内存而圆满完成任务。如果客端并没有设置<code>set_malloc_handler()</code>，后两者则毫不客气地调用<code>__THROW_BAD_ALLOC</code>，抛出 bad_alloc 信息，或利用<code>exit(1)</code>硬生生终止程序</p>
-<blockquote>
-<p>请记住，设计和设定 out-of-memory 机制是客端的责任，并且 out-of-memory 机制（处理例程）解决问题的做法有特定的模式，具体请参考《Effective C++》2e 条款 7</p>
-</blockquote>
-<p>SGI 第二级配置器则视情况的不同采用不同的策略，如果区块够大，超过 128 bytes 时，就移交第一级配置器处理。当区块小于 128 bytes 时，则以 memory pool 管理，并且在极特殊的情况下 memory pool 会调用第一级配置器的 out-of-memory 机制，这一点会在之后 memory pool 的剖析中提及。通过 memory pool 管理又被称为次层配置：每次配置一大块内存，并维护对应的自由链表（free-list）。下次若再有相同大小的内存需求，就直接从 free-lists 中拨出。如果客端释还小额区块，就由配置器回收到 free-lists 中。为了管理方便 SGI 第二级配置器会主动把任何小额区块的内存需求量上调至 8 的倍数</p>
-<p>这里有关 free-lists 的结构设计很有意思，通过<code>union</code>实现了类型双关这一编程技巧：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> <span class="title class_">obj</span> &#123;</span><br><span class="line">    <span class="keyword">union</span> <span class="title class_">obj</span> *next;</span><br><span class="line">    <span class="type">char</span> client_data[<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>在使用类型双关后，节点既可视为一个指针指向下一个节点用以链接下一个节点，又可视为一个指针指向实际区块用以存储数据，一物二用，节点不再需要存储一个额外的指针（指向下一个节点）。由于<code>union</code>特性，同一时间只能存储其中一个成员的数据，因此我们得以一窥区块释放的本质，其就是区块在重新加入 free-lists 时存储在区块中的实际数据被节点地址覆盖了</p>
-</blockquote>
-<p>从 memory pool 取空间可以说是第二级配置器的精髓所在，将 memory pool 的内存空间比作水量。如果水量充足，直接划拨 20 个区块给 free list。如果水量不足划拨 20 个区块，但足以划拨一个及以上的区块，就尽可能的将这部分空间划拨出去。但如果连一个区块都无法提供，这对客端显然无法交代，此时便利用<code>malloc()</code>从 heap 配置内存，为 memory pool 注入源头活水以应付需求。新水量的大小为需求量的 2 倍，再加上一个随着配置次数增加而越来越大的附加量（也就是 历史需求量 &#x2F; 16）。其中一半区块留存在 memory pool 中，另一半区块除去抽取一个交给客端，剩余的交给 free list 维护</p>
-<p>如果 system heap 空间山穷水尽（以至无法为 memory pool 注入源头活水），<code>malloc()</code>失败，memory pool 就四处寻找 free list 中“尚有未用且够大的区块”。找到了交付一块给客端，其余的存入 memory pool 中。找不到就调用第一级配置器寻求 out of memory 处理机制的帮助，试试看能不能释放其它的内存拿来此处使用，如果失败，就抛出 bad_alloc 异常</p>
+</li>
+<li><p>备用空间 &lt; 新增元素，n &#x3D;&#x3D; 3</p>
+<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17234525893311723452589224.png" alt="17234525893311723452589224.png"></p>
+</li>
+</ol>
+<p>注意，插入完成后，新节点将位于哨兵迭代器之上（position，标识出插入点）所指之节点的前方——这是 STL 对于 “插入操作” 的标准规范</p>
 
         
       </div>
@@ -398,27 +389,22 @@ var _hmt = _hmt || [];
   
     
 <nav id="article-nav">
-  <a class="article-nav-btn left "
-    
-      href="/2024/08/05/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89/"
-      title="STL 剖析：迭代器（iterators）"
+  <a class="article-nav-btn left  disabled "
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
-      
-        STL 剖析：迭代器（iterators）
         
     </p>
   </a>
   <a class="article-nav-btn right "
     
-      href="/2024/07/10/%E6%88%91%E8%B0%A2%E8%B0%A2-Ubuntu-%E7%9A%84%E4%B8%80%E5%A4%A9/"
-      title="我谢谢 Ubuntu 的一天"
+      href="/2024/08/05/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E8%BF%AD%E4%BB%A3%E5%99%A8%EF%BC%88iterators%EF%BC%89/"
+      title="STL 剖析：迭代器（iterators）"
      >
 
     <p class="title-text">
       
-        我谢谢 Ubuntu 的一天
+        STL 剖析：迭代器（iterators）
         
     </p>
     <i class="fa-solid fa-angle-right"></i>
