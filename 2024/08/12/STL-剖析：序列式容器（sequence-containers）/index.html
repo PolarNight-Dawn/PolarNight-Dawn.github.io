@@ -32,16 +32,16 @@ var _hmt = _hmt || [];
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。所谓序列式容器，其中的元素都可序，但未必有序。很绕是吧，换句话说，序列式容器中的元素就像字典一样可以按索引依次访问，但是又跟字典不太一样，因为它不一定按某种排序规律（例如递增、递减）来存储，元素存储顺序仅仅与插入顺序一致，除非手动排序  2024-08-12 16:58:03">
+  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。所谓序列式容器，其中的元素都可序，但未必有序。很绕是吧，换句话说，序列式容器中的元素就像字典一样可以按索引依次访问，但是又跟字典不太一样，因为它不一定按某种排序规律（例如递增、递减）来存储，元素存储顺序仅仅与插入顺序一致，除非手动排序😉  2024-08-14 11:03:04">
 <meta property="og:type" content="article">
 <meta property="og:title" content="STL 剖析：序列式容器（sequence containers）">
 <meta property="og:url" content="http://example.com/2024/08/12/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence-containers%EF%BC%89/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。所谓序列式容器，其中的元素都可序，但未必有序。很绕是吧，换句话说，序列式容器中的元素就像字典一样可以按索引依次访问，但是又跟字典不太一样，因为它不一定按某种排序规律（例如递增、递减）来存储，元素存储顺序仅仅与插入顺序一致，除非手动排序  2024-08-12 16:58:03">
+<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。所谓序列式容器，其中的元素都可序，但未必有序。很绕是吧，换句话说，序列式容器中的元素就像字典一样可以按索引依次访问，但是又跟字典不太一样，因为它不一定按某种排序规律（例如递增、递减）来存储，元素存储顺序仅仅与插入顺序一致，除非手动排序😉  2024-08-14 11:03:04">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1722613632282e9eee087-b3bf-47d1-96a2-7e49f0a774f8.jpg">
 <meta property="article:published_time" content="2024-08-12T01:42:19.000Z">
-<meta property="article:modified_time" content="2024-08-12T10:20:45.470Z">
+<meta property="article:modified_time" content="2024-08-14T03:06:52.303Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="STL">
 <meta name="twitter:card" content="summary">
@@ -326,7 +326,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;1.7k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;2.6k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -341,8 +341,8 @@ var _hmt = _hmt || [];
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>。所谓序列式容器，其中的元素都可序，但未必有序。很绕是吧，换句话说，序列式容器中的元素就像字典一样可以按索引依次访问，但是又跟字典不太一样，因为它不一定按某种排序规律（例如递增、递减）来存储，元素存储顺序仅仅与插入顺序一致，除非手动排序</p>
-<p><i class="fa-regular fa-clock"></i> 2024-08-12 16:58:03</p>
+          <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>。所谓序列式容器，其中的元素都可序，但未必有序。很绕是吧，换句话说，序列式容器中的元素就像字典一样可以按索引依次访问，但是又跟字典不太一样，因为它不一定按某种排序规律（例如递增、递减）来存储，元素存储顺序仅仅与插入顺序一致，除非手动排序😉</p>
+<p><i class="fa-regular fa-clock"></i> 2024-08-14 11:03:04</p>
 <span id="more"></span>
 
 
@@ -352,14 +352,20 @@ var _hmt = _hmt || [];
 <p>​	<a href="#1-2-%E8%BF%AD%E4%BB%A3%E5%99%A8">1.2 迭代器</a></p>
 <p>​	<a href="#1-3-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86">1.3 数据结构与内存管理</a></p>
 <p>​	<a href="#1-4-%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C%E4%B8%8E%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE">1.4 元素操作与空间配置</a></p>
+<p><a href="#2-list">2 <code>list</code></a></p>
+<p>​	<a href="#2-1-%E6%A6%82%E8%BF%B0">2.1 概述</a></p>
+<p>​	<a href="#2-2-%E8%BF%AD%E4%BB%A3%E5%99%A8">2.2 迭代器</a></p>
+<p>​	<a href="#2-3-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86">2.3 数据结构与内存管理</a></p>
+<p>​	<a href="#2-4-%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C%E4%B8%8E%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE">2.4 元素操作与空间配置</a></p>
 <hr>
 <h2 id="1-vector"><a href="#1-vector" class="headerlink" title="1 vector"></a>1 <code>vector</code></h2><h3 id="1-1-概述"><a href="#1-1-概述" class="headerlink" title="1.1 概述"></a>1.1 概述</h3><p><code>vector</code>与<code>array</code>非常相似，二者唯一的差别在于对空间运用的灵活性。<code>array</code>是静态空间，一旦配置了就不能改变，但不是说一定不可，只是如果我们要扩容，只能手动去 “配置新空间 &#x2F; 数据移动 &#x2F; 释放旧空间”，<code>array</code>内部是没有设置相应处理机制的。<code>vector</code>是动态空间，随着元素的加入，它的内部机制会自行扩充空间以容纳新元素。因此，<code>vector</code>的实现技术关键在于其对空间大小的控制以及重新配置时的数据移动效率，稍后我们便可以看到 SGI vector 的空间配置策略</p>
-<h3 id="1-2-迭代器"><a href="#1-2-迭代器" class="headerlink" title="1.2 迭代器"></a>1.2 迭代器</h3><p><code>vector</code>维护的是一个连续线性空间，所以不论其元素型别为何，普通指针都可以作为<code>vector</code>的迭代器而满足所有必要条件，所有，<code>vector</code>提供的是 Random Access Iterator</p>
+<h3 id="1-2-迭代器"><a href="#1-2-迭代器" class="headerlink" title="1.2 迭代器"></a>1.2 迭代器</h3><p><code>vector</code>维护的是一个连续线性空间，所以不论其元素型别为何，普通指针都可以作为<code>vector</code>的迭代器而满足所有必要条件，所以，<code>vector</code>提供的是 Random Access Iterator</p>
 <h3 id="1-3-数据结构与内存管理"><a href="#1-3-数据结构与内存管理" class="headerlink" title="1.3 数据结构与内存管理"></a>1.3 数据结构与内存管理</h3><p><code>vector</code>所采用的数据结构非常简单：线性连续空间。它以两个迭代器 start 和 finish 分别指向配置而来的连续空间中目前已使用的范围（大小），并以迭代器 end_of_storage 指向整块连续空间的尾端（容量）。容量通常会比大小大，以便预留一些备用空间来应对可能的扩充，一旦大小等于容量，便是满载，此时已经没有备用空间了，需要动态增加大小，也就是以原来大小的两倍另外配置一块空间，然后将原内容拷贝过来，并在原内容之后构造新元素，最后释放原来的空间。因此，对<code>vector</code>的任何操作，一旦引起空间重新配置，指向原<code>vector</code>的所有迭代器都失效，这是一个容易犯错的地方：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;<span class="type">int</span>&gt; vec;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; ++i) &#123;</span><br><span class="line">    vec.<span class="built_in">push_back</span>(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 假设你现在有一个迭代器指向 vector 的某个元素</span></span><br><span class="line"><span class="keyword">auto</span> it = vec.<span class="built_in">begin</span>() + <span class="number">2</span>;  <span class="comment">// 指向元素 &#x27;3&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出迭代器指向的元素</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;Before reallocation: &quot;</span> &lt;&lt; *it &lt;&lt; std::endl;  <span class="comment">// 输出 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 进行一个可能引发重新配置的操作</span></span><br><span class="line">vec.<span class="built_in">push_back</span>(<span class="number">6</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 正确的做法</span></span><br><span class="line"><span class="comment">it = vec.begin() + 2;  // 重新获取迭代器 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 试图再次使用之前的迭代器</span></span><br><span class="line">std::cout &lt;&lt; <span class="string">&quot;After reallocation: &quot;</span> &lt;&lt; *it &lt;&lt; std::endl;   <span class="comment">// 未定义行为！</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
 
 
 
+<p>注意，<code>vector</code>是以元素大小为配置单位的</p>
 <h3 id="1-4-元素操作与空间配置"><a href="#1-4-元素操作与空间配置" class="headerlink" title="1.4 元素操作与空间配置"></a>1.4 元素操作与空间配置</h3><p><code>vector</code>的元素操作对于理解其空间策略有着巨大的帮助，如<code>insert()</code>，从以下关于<code>insert(position, n, x)</code>的示例图中你可以得以一窥：</p>
 <ol>
 <li><p>备用空间 2 &gt;&#x3D; 新增元素 2</p>
@@ -379,6 +385,15 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>《STL 源码剖析》中有这么一句话：注意，插入完成后，新节点将位于哨兵迭代器（上例之position，标识出插入点）所指之节点的前方——这是 STL 对于 “插入操作” 的标准规范。稍微有些绕，举个例子会好理解一些，例如<code>insert(position, 3)</code>，它是在 position 这个迭代器所指的元素前面插入的，最终展示出来的元素顺序是 {…，3，position指向的元素，…}，而不是 {…，position 指向的元素，3，…}</p>
 </blockquote>
+<h2 id="2-list"><a href="#2-list" class="headerlink" title="2 list"></a>2 <code>list</code></h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><p>相较于<code>vector</code>的连续线性空间，<code>list</code>就显得复杂许多，它是由双向链表（double linked-list）实现的非连续线性空间。<code>list</code>对于空间的使用十分吝啬，一点也不浪费，每次插入或删除一个元素，就配置或释放一个元素空间。而且，在任何位置的元素插入或删除，<code>list</code>都是常数时间</p>
+<h3 id="2-2-迭代器"><a href="#2-2-迭代器" class="headerlink" title="2.2 迭代器"></a>2.2 迭代器</h3><p>这里简单提及一下，由于<code>list</code>和<code>list</code>的节点是不同的结构，需要分开设计</p>
+<p><code>list</code>不能像<code>vector</code>一样使用普通指针作为迭代器，因为其节点不保证在存储空间中连续存在。<code>list</code>迭代器必须指向<code>list</code>的节点，并且其迭代器的行为必须进行重载，因为它的递增、递减、取值、成员存取等行为均是基于节点的结构的操作</p>
+<p>由于<code>list</code>是双向链表，迭代器必须具备前移、后移的功能，所以<code>list</code>提供的是 BIdirectional Iterator</p>
+<p><code>list</code>有一个重要性质：<code>insert()</code>和<code>splice()</code>都不会造成原有的<code>list</code>迭代器失效。这对<code>vector</code>来说是不可思议的，根据上文的讲述，<code>vector</code>的操作一旦引起空间的重新配置，之前所有的迭代器都会失效，而<code>list</code>并不会在空间不足时做重新配置，这是由于<code>list</code>是非连续空间，当需要添加元素时直接将配置好的节点连接到<code>list</code>尾端即可，并不像<code>vector</code>需要 “配置新空间 &#x2F; 数据移动 &#x2F; 释放旧空间”</p>
+<h3 id="2-3-数据结构与内存管理"><a href="#2-3-数据结构与内存管理" class="headerlink" title="2.3 数据结构与内存管理"></a>2.3 数据结构与内存管理</h3><p>我们需要注意的是，<code>list</code>不仅仅是双向链表，它还是环状的，而为了符合 STL 规范的 “前闭后开”区间，还刻意在环状链表的尾端加上了一个空白节点。并且，<code>list</code>是以节点大小为配置单位的</p>
+<h3 id="2-4-元素操作与空间配置"><a href="#2-4-元素操作与空间配置" class="headerlink" title="2.4 元素操作与空间配置"></a>2.4 元素操作与空间配置</h3><p><code>list</code>内部提供了一个所谓的迁移操作（transfer）：将某连续范围内的元素迁移到某个特定位置之前。这个操作是<code>list</code>很多复杂操作如 <code>splice()</code>、<code>sort()</code>、<code>merge()</code>的基础，并且理解了这个操作的实现细节，也就明白了<code>list</code>绝大数操作的原理，无非是节点间的指针移动而已</p>
+<p>以下是<code>transfer()</code>的操作示意图：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17236044778241723604477711.png" alt="17236044778241723604477711.png"></p>
 
         
       </div>
