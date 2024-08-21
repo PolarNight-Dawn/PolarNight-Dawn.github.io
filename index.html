@@ -175,7 +175,7 @@ var _hmt = _hmt || [];
         
             <a class="category-link" href="/categories/C/">
                 C++
-                <div class="category-count">6</div>
+                <div class="category-count">7</div>
             </a>
         
             <a class="category-link" href="/categories/Linux/">
@@ -206,7 +206,7 @@ var _hmt = _hmt || [];
       
         <a class="archive-link" href="/archives/2024/08 ">
           August 2024 
-          <div class="archive-count">2 </div>
+          <div class="archive-count">3 </div>
         </a>
       
         <a class="archive-link" href="/archives/2024/07 ">
@@ -235,6 +235,12 @@ var _hmt = _hmt || [];
       <h3 class="widget-title">Recent Posts</h3>
       <ul>
         
+          <a class="recent-link" href="/2024/08/21/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative-containers%EF%BC%89/" title="STL 剖析：关联式容器（associative containers）" >
+            <div class="recent-link-text">
+              STL 剖析：关联式容器（associative containers）
+            </div>
+          </a>
+        
           <a class="recent-link" href="/2024/08/12/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E5%BA%8F%E5%88%97%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88sequence-containers%EF%BC%89/" title="STL 剖析：序列式容器（sequence containers）" >
             <div class="recent-link-text">
               STL 剖析：序列式容器（sequence containers）
@@ -259,12 +265,6 @@ var _hmt = _hmt || [];
             </div>
           </a>
         
-          <a class="recent-link" href="/2024/06/28/Google-C-%E5%91%BD%E5%90%8D%E9%A3%8E%E6%A0%BC/" title="Google C++ 命名风格" >
-            <div class="recent-link-text">
-              Google C++ 命名风格
-            </div>
-          </a>
-        
       </ul>
     </div>
   </div>
@@ -275,6 +275,79 @@ var _hmt = _hmt || [];
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-STL-剖析：关联式容器（associative-containers）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/08/21/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative-containers%EF%BC%89/">STL 剖析：关联式容器（associative containers）</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <i class="fa-regular fa-clock"></i>&nbsp;<time class="dt-published" datetime="2024-08-21T08:37:20.000Z" itemprop="datePublished">2024-08-21</time>
+</div>
+          <div class="need-seperator meta-info">
+            <i class="fa-solid fa-list"></i>&nbsp;<div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/C/">C++</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;1.2k
+          </div>
+          <!-- busuanzi -->
+          
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/STL/" rel="tag">STL</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>。关联式容器每个元素都有一个键值（key）和一个实值（value），当插入元素时，容器内部结构（可能是 RB-tree，也可能是 hashtable）便依照其键值大小，以某种特定规则将这个元素放置于适当位置😉</p>
+<p><i class="fa-regular fa-clock"></i> 2024-08-21 23:48:35</p>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  with-pic  "
+       style="background-image: url(https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1722613632282e9eee087-b3bf-47d1-96a2-7e49f0a774f8.jpg)" 
+      href="/2024/08/21/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative-containers%EF%BC%89/" 
+    >
+       
+      <div class="overlay">
+        <i class="fa-solid fa-angle-right with-pic"></i>
+      </div>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
    
 
 
@@ -907,79 +980,6 @@ var _hmt = _hmt || [];
     <a class="right-panel  with-pic  "
        style="background-image: url(https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png)" 
       href="/2024/05/29/The-Cherno-C-3/" 
-    >
-       
-      <div class="overlay">
-        <i class="fa-solid fa-angle-right with-pic"></i>
-      </div>
-       
-    </a>
-     
-  </div>
-  
-</article>
-
-
-
-
-
-
-   
-
-
-<article id="post-The-Cherno-C-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-   
-  <div class="article-inner">
-    <div class="article-main">
-      <header class="article-header">
-        
-<div class="main-title-bar">
-  <div class="main-title-dot"></div>
-  
-    
-      <h1 itemprop="name">
-        <a class="p-name article-title" href="/2024/05/02/The-Cherno-C-2/">C++ 技巧篇</a>
-      </h1>
-    
-  
-</div>
-
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <i class="fa-regular fa-clock"></i>&nbsp;<time class="dt-published" datetime="2024-05-02T08:28:18.000Z" itemprop="datePublished">2024-05-02</time>
-</div>
-          <div class="need-seperator meta-info">
-            <i class="fa-solid fa-list"></i>&nbsp;<div class="meta-cate-flex">
-  
-  <a class="meta-cate-link" href="/categories/C/">C++</a>
-   
-</div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;4.1k
-          </div>
-          <!-- busuanzi -->
-          
-        </div>
-        
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Primer/" rel="tag">C++ Primer</a></li></ul>
-
-      </header>
-      <div class="e-content article-entry" itemprop="articleBody">
-        
-          <p>在观看了 Cherno 的 C++ 系列视频后的一些记录——技巧篇，囊括了有关 C++ 的性能操作、功能性操作</p>
-<p><i class="fa-regular fa-clock"></i> 2024-07-27 11:06:29</p>
-        
-      </div>
-
-         
-    </div>
-    
-     
-    <a class="right-panel  with-pic  "
-       style="background-image: url(https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1714642661091wallhaven-jxl31y.png)" 
-      href="/2024/05/02/The-Cherno-C-2/" 
     >
        
       <div class="overlay">
