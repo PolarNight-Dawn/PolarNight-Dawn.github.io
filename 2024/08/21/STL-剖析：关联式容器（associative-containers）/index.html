@@ -32,16 +32,16 @@ var _hmt = _hmt || [];
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。关联式容器每个元素都有一个键值（key）和一个实值（value），当插入元素时，容器内部结构（可能是 RB-tree，也可能是 hashtable）便依照其键值大小，以某种特定规则将这个元素放置于适当位置😉  2024-08-21 23:48:35">
+  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。关联式容器每个元素都有一个键值（key）和一个实值（value），当插入元素时，容器内部结构（可能是 RB-tree，也可能是 hashtable）便依照其键值大小，以某种特定规则将这个元素放置于适当位置😉  2024-08-23 17:29:57">
 <meta property="og:type" content="article">
 <meta property="og:title" content="STL 剖析：关联式容器（associative containers）">
 <meta property="og:url" content="http://example.com/2024/08/21/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative-containers%EF%BC%89/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。关联式容器每个元素都有一个键值（key）和一个实值（value），当插入元素时，容器内部结构（可能是 RB-tree，也可能是 hashtable）便依照其键值大小，以某种特定规则将这个元素放置于适当位置😉  2024-08-21 23:48:35">
+<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。关联式容器每个元素都有一个键值（key）和一个实值（value），当插入元素时，容器内部结构（可能是 RB-tree，也可能是 hashtable）便依照其键值大小，以某种特定规则将这个元素放置于适当位置😉  2024-08-23 17:29:57">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1722613632282e9eee087-b3bf-47d1-96a2-7e49f0a774f8.jpg">
 <meta property="article:published_time" content="2024-08-21T08:37:20.000Z">
-<meta property="article:modified_time" content="2024-08-21T15:48:42.493Z">
+<meta property="article:modified_time" content="2024-08-23T09:31:36.295Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="STL">
 <meta name="twitter:card" content="summary">
@@ -326,7 +326,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;1.2k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;3.6k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -342,13 +342,16 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>。关联式容器每个元素都有一个键值（key）和一个实值（value），当插入元素时，容器内部结构（可能是 RB-tree，也可能是 hashtable）便依照其键值大小，以某种特定规则将这个元素放置于适当位置😉</p>
-<p><i class="fa-regular fa-clock"></i> 2024-08-21 23:48:35</p>
+<p><i class="fa-regular fa-clock"></i> 2024-08-23 17:29:57</p>
 <span id="more"></span>
 
 
 
 <h2 id="目录："><a href="#目录：" class="headerlink" title="目录："></a>目录：</h2><p><a href="#1-RB-tree">1 <code>RB-tree</code></a></p>
 <p>​	<a href="#1-1-%E6%A6%82%E8%BF%B0">1.1 概述</a></p>
+<p>​	<a href="#1-2-%E8%BF%AD%E4%BB%A3%E5%99%A8">1.2 迭代器</a></p>
+<p>​	<a href="#1-3-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">1.3 数据结构</a></p>
+<p>​	<a href="#1-4-%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C%E4%B8%8E%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE">1.4 元素操作与空间配置</a></p>
 <hr>
 <p>标准的 STL 关联式容器分为 set（集合）和 map（映射表），以及这两大类的衍生体，其实都是 adapter（配接器），其底层机制可能是 RB-tree（红黑树），也可能是 hashtable（散列表）。RB-tree 和 hashtable 也是独立容器，只是并不对外开放。说白了，理解关联式容器就在于对于 RB-tree 和 hashtable 这两种容器的探究</p>
 <blockquote>
@@ -370,9 +373,9 @@ var _hmt = _hmt || [];
 <p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17242350058851724235005603.png" alt="17242350058851724235005603.png"></p>
 </li>
 <li><p>状况2：S 为黑且 X 为内侧插入</p>
-<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17242482098851724248209613.png" alt="17242482098851724248209613.png"></p>
+<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17242440628851724244062240.png" alt="17242440628851724244062240.png"></p>
 <blockquote>
-<p>这里的旋转过程与《STL 源码剖析》中的不一致。书中第一个单旋转需要改变节点颜色（我怎么想这个颜色改变都是不符合规则4的），这个颜色改变后就不再需要调整树形了。为了逻辑的顺畅，我觉得在双旋转过程中，第一个单旋转是不改变颜色的，这样才会因为不满足规则3，从而再次单旋转并改变颜色</p>
+<p>如果你仔细观察的话，你就会发现这里的旋转过程很不符合逻辑，首先就是在左旋（第一个单旋转）的过程中节点的颜色改变，这个颜色改变是不符合规则4的，其次是经过左旋的颜色改变后实则就不再需要调整树形了。出于逻辑的考虑，这里应该是在双旋转过程中，左旋不改变颜色，这样才会因为不满足规则3，从而右旋并改变颜色。实际上这是因为代码实现的问题，在元素操作的调整树形函数中会有所体现。</p>
 </blockquote>
 </li>
 <li><p>状况3：S 为红且 X 为外侧插入，如果 GG 为黑</p>
@@ -384,7 +387,33 @@ var _hmt = _hmt || [];
 </ul>
 <p>为了避免状况4 “父子节点均为红色” 需要持续向上发展的处理，这里采用了一个由上而下的程序：假设新增节点为 A，那么沿着 A 的路径由上而下修改节点颜色，如果某个节点 X 的两个子节点均为红色，就把 X 改为红色，并把两个子节点改为黑色</p>
 <p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17242470538851724247053203.png" alt="17242470538851724247053203.png"></p>
-<h3 id="1-2-迭代器"><a href="#1-2-迭代器" class="headerlink" title="1.2 迭代器"></a>1.2 迭代器</h3>
+<h3 id="1-2-迭代器"><a href="#1-2-迭代器" class="headerlink" title="1.2 迭代器"></a>1.2 迭代器</h3><p>RB-tree 迭代器的实现被分为两层，以下示例图展示了双层节点结构和双层迭代器结构之间的关系</p>
+<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17244016731161724401673079.png" alt="17244016731161724401673079.png"></p>
+<p>这样的设计在保持接口简洁的同时，隐藏了红黑树内部的复杂性，从而为用户提供一个功能强大又便于使用的迭代器。RB-tree 的迭代器属于双向迭代器，但不具备随机定位能力。其中特殊的是<code>operator++</code>和<code>operator--()</code>，它们分别调用的是基类迭代器的<code>increment()</code>和<code>decrement()</code>。这两个函数的实现有一些特殊技巧，稍后会说明</p>
+<h3 id="1-3-数据结构"><a href="#1-3-数据结构" class="headerlink" title="1.3 数据结构"></a>1.3 数据结构</h3><p>RB-tree 只以三笔数据表现表现整棵树</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">size_type node_count; <span class="comment">// 追踪记录树的大小，也就是节点数量</span></span><br><span class="line">link_type header; <span class="comment">// 实现上的特殊技巧</span></span><br><span class="line">Compare key_compare; <span class="comment">// 节点间的键值大小比较准则，应该是个 function object</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>RB-tree 以节点大小为配置单位</p>
+</blockquote>
+<h3 id="1-4-元素操作与空间配置"><a href="#1-4-元素操作与空间配置" class="headerlink" title="1.4 元素操作与空间配置"></a>1.4 元素操作与空间配置</h3><p>树状结构的各种操作，最需要注意的就是边界情况的发生，也就是到根节点时要有特殊处理。这里 SGI STL 采用了哨兵节点的方法简化处理，为根节点在设计一个父节点，命名为 header，并令其初始状态为示例图所示：</p>
+<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17244039175571724403916941.png" alt="17244039175571724403916941.png"></p>
+<blockquote>
+<p>header 和 root 互为对方的父节点，这是一种实现技巧</p>
+</blockquote>
+<p>每次插入节点时，不仅要调整树形来符合红黑树的规则，还要维护 header 的正确性，使其父节点指向根节点，左子节点指向最小节点，右子节点指向最大节点。树形调整稍后会说明</p>
+<p>RB-tree 提供两种插入操作：<code>insert_unique()</code>和<code>insert_equal()</code>，前者要求被插入节点的键值在整棵树中必须独一无二，后者表示被插入节点的键值在整棵树中可以重复，这也是容器 set 和 map 的立身之本</p>
+<p>在前文插入节点的状况2中我们产生过疑惑，这里粘贴一下调整树形的函数代码就能理解这其中的缘由了：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">rb_tree_rebalance</span><span class="params">(rb_tree_node_base *x, rb_tree_node_base *&amp;root)</span> </span>&#123;</span><br><span class="line">  x-&gt;color = rb_tree_red; <span class="comment">// 新节点 X 必为红 </span></span><br><span class="line">  <span class="keyword">while</span> (x != root &amp;&amp; x-&gt;parent-&gt;color == rb_tree_red) &#123; <span class="comment">// 父节点 P 为红</span></span><br><span class="line">	<span class="keyword">if</span> (x-&gt;parent == x-&gt;parent-&gt;parent-&gt;left) &#123; <span class="comment">// P 为祖父节点 G 的左子节点</span></span><br><span class="line">	  rb_tree_node_base *y = x-&gt;parent-&gt;parent-&gt;right; <span class="comment">// 令 y 为伯父节点 S</span></span><br><span class="line">	  <span class="keyword">if</span> (y &amp;&amp; y-&gt;color == rb_tree_red) &#123; <span class="comment">// S 存在并且为红</span></span><br><span class="line">		x-&gt;parent-&gt;color = rb_tree_black; <span class="comment">// 更改 P 为黑</span></span><br><span class="line">		y-&gt;color = rb_tree_black; <span class="comment">// 更改 S 为 黑</span></span><br><span class="line">		x-&gt;parent-&gt;parent-&gt;color = rb_tree_red; <span class="comment">// 更改 G 为红</span></span><br><span class="line">		x = x-&gt;parent-&gt;parent; <span class="comment">// 向上层检测</span></span><br><span class="line">	  &#125; <span class="keyword">else</span> &#123; <span class="comment">// S 不存在，或者为黑</span></span><br><span class="line">		<span class="keyword">if</span> (x == x-&gt;parent-&gt;right) &#123; <span class="comment">// 如果 X 为 P 的右子节点，左旋</span></span><br><span class="line">		  x = x-&gt;parent;</span><br><span class="line">		  <span class="built_in">rb_tree_rotate_left</span>(x, root); <span class="comment">// 第一参数为左旋点</span></span><br><span class="line">		&#125;</span><br><span class="line">		x-&gt;parent-&gt;color = rb_tree_black; <span class="comment">// 改变颜色</span></span><br><span class="line">		x-&gt;parent-&gt;parent-&gt;color = rb_tree_red;</span><br><span class="line">		<span class="built_in">rb_tree_rotate_right</span>(x-&gt;parent-&gt;parent, root); <span class="comment">// 右旋</span></span><br><span class="line">	  &#125;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123; <span class="comment">// P 为祖父节点 G 的右子节点 </span></span><br><span class="line">	  rb_tree_node_base *y = x-&gt;parent-&gt;parent-&gt;left; <span class="comment">// 令 y 为伯父节点 S</span></span><br><span class="line">	  <span class="keyword">if</span> (y &amp;&amp; y-&gt;color == rb_tree_red) &#123; <span class="comment">// S 存在并且为红</span></span><br><span class="line">		x-&gt;parent-&gt;color = rb_tree_black; <span class="comment">// 更改 P 为黑</span></span><br><span class="line">		y-&gt;color = rb_tree_black; <span class="comment">// 更改 S 为 黑</span></span><br><span class="line">		x-&gt;parent-&gt;parent-&gt;color = rb_tree_red; <span class="comment">// 更改 G 为红</span></span><br><span class="line">		x = x-&gt;parent-&gt;parent; <span class="comment">// 向上层检测</span></span><br><span class="line">	  &#125; <span class="keyword">else</span> &#123; <span class="comment">// S 不存在，或者为黑</span></span><br><span class="line">		<span class="keyword">if</span> (x == x-&gt;parent-&gt;left) &#123; <span class="comment">// 如果 X 为 P 的左子节点，右旋</span></span><br><span class="line">		  x = x-&gt;parent;</span><br><span class="line">		  <span class="built_in">rb_tree_rotate_right</span>(x, root); <span class="comment">// 第一参数为右旋点</span></span><br><span class="line">		&#125;</span><br><span class="line">		x-&gt;parent-&gt;color = rb_tree_black; <span class="comment">// 改变颜色</span></span><br><span class="line">		x-&gt;parent-&gt;parent-&gt;color = rb_tree_red;</span><br><span class="line">		<span class="built_in">rb_tree_rotate_left</span>(x-&gt;parent-&gt;parent, root); <span class="comment">// 左旋</span></span><br><span class="line">	  &#125;</span><br><span class="line">	&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  root-&gt;color = rb_tree_black;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>注意，涉及向上检测的处理情况就是之前提到的由上而下的程序</p>
+</blockquote>
+
         
       </div>
 
