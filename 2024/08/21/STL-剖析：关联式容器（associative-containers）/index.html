@@ -32,16 +32,16 @@ var _hmt = _hmt || [];
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。关联式容器每个元素都有一个键值（key）和一个实值（value），当插入元素时，容器内部结构（可能是 RB-tree，也可能是 hashtable）便依照其键值大小，以某种特定规则将这个元素放置于适当位置😉  2024-08-23 17:29:57">
+  <meta name="description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。关联式容器每个元素都有一个键值（key）和一个实值（value），当插入元素时，容器内部结构（可能是 RB-tree，也可能是 hashtable）便依照其键值大小，以某种特定规则将这个元素放置于适当位置😉  2024-08-26 12:01:06">
 <meta property="og:type" content="article">
 <meta property="og:title" content="STL 剖析：关联式容器（associative containers）">
 <meta property="og:url" content="http://example.com/2024/08/21/STL-%E5%89%96%E6%9E%90%EF%BC%9A%E5%85%B3%E8%81%94%E5%BC%8F%E5%AE%B9%E5%99%A8%EF%BC%88associative-containers%EF%BC%89/index.html">
 <meta property="og:site_name" content="Dawn&#39;s Blog">
-<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。关联式容器每个元素都有一个键值（key）和一个实值（value），当插入元素时，容器内部结构（可能是 RB-tree，也可能是 hashtable）便依照其键值大小，以某种特定规则将这个元素放置于适当位置😉  2024-08-23 17:29:57">
+<meta property="og:description" content="在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至相关实现。关联式容器每个元素都有一个键值（key）和一个实值（value），当插入元素时，容器内部结构（可能是 RB-tree，也可能是 hashtable）便依照其键值大小，以某种特定规则将这个元素放置于适当位置😉  2024-08-26 12:01:06">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/1722613632282e9eee087-b3bf-47d1-96a2-7e49f0a774f8.jpg">
 <meta property="article:published_time" content="2024-08-21T08:37:20.000Z">
-<meta property="article:modified_time" content="2024-08-23T09:31:36.295Z">
+<meta property="article:modified_time" content="2024-08-26T04:01:18.223Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="STL">
 <meta name="twitter:card" content="summary">
@@ -326,7 +326,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;3.6k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;4.9k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -342,7 +342,7 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>在实现 TinySTL 过程中对思路的一些梳理，并不涉及代码（大概），如有兴趣可以跳至<a target="_blank" rel="noopener" href="https://github.com/PolarNight-Dawn/TinySTL">相关实现</a>。关联式容器每个元素都有一个键值（key）和一个实值（value），当插入元素时，容器内部结构（可能是 RB-tree，也可能是 hashtable）便依照其键值大小，以某种特定规则将这个元素放置于适当位置😉</p>
-<p><i class="fa-regular fa-clock"></i> 2024-08-23 17:29:57</p>
+<p><i class="fa-regular fa-clock"></i> 2024-08-26 12:01:06</p>
 <span id="more"></span>
 
 
@@ -352,6 +352,9 @@ var _hmt = _hmt || [];
 <p>​	<a href="#1-2-%E8%BF%AD%E4%BB%A3%E5%99%A8">1.2 迭代器</a></p>
 <p>​	<a href="#1-3-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">1.3 数据结构</a></p>
 <p>​	<a href="#1-4-%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C%E4%B8%8E%E7%A9%BA%E9%97%B4%E9%85%8D%E7%BD%AE">1.4 元素操作与空间配置</a></p>
+<p><a href="#2-hashtable">2 <code>hashtable</code></a></p>
+<p>​	<a href="#2-1-%E6%A6%82%E8%BF%B0">2.1 概述</a></p>
+<p>​	<a href="#2-2-%E5%BC%80%E9%93%BE">2.2 开链</a></p>
 <hr>
 <p>标准的 STL 关联式容器分为 set（集合）和 map（映射表），以及这两大类的衍生体，其实都是 adapter（配接器），其底层机制可能是 RB-tree（红黑树），也可能是 hashtable（散列表）。RB-tree 和 hashtable 也是独立容器，只是并不对外开放。说白了，理解关联式容器就在于对于 RB-tree 和 hashtable 这两种容器的探究</p>
 <blockquote>
@@ -375,7 +378,7 @@ var _hmt = _hmt || [];
 <li><p>状况2：S 为黑且 X 为内侧插入</p>
 <p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17242440628851724244062240.png" alt="17242440628851724244062240.png"></p>
 <blockquote>
-<p>如果你仔细观察的话，你就会发现这里的旋转过程很不符合逻辑，首先就是在左旋（第一个单旋转）的过程中节点的颜色改变，这个颜色改变是不符合规则4的，其次是经过左旋的颜色改变后实则就不再需要调整树形了。出于逻辑的考虑，这里应该是在双旋转过程中，左旋不改变颜色，这样才会因为不满足规则3，从而右旋并改变颜色。实际上这是因为代码实现的问题，在元素操作的调整树形函数中会有所体现。</p>
+<p>如果你仔细观察的话，你就会发现这里的旋转过程很不符合逻辑，首先就是在左旋（第一个单旋转）的过程中节点的颜色改变，这个颜色改变是不符合规则4的，其次是经过左旋的颜色改变后实则就不再需要调整树形了。出于逻辑的考虑，这里应该是在双旋转过程中，左旋不改变颜色，这样才会因为不满足规则3，继而右旋并改变颜色。实际上这是因为代码实现的问题，在元素操作的调整树形函数中会有所体现</p>
 </blockquote>
 </li>
 <li><p>状况3：S 为红且 X 为外侧插入，如果 GG 为黑</p>
@@ -387,7 +390,7 @@ var _hmt = _hmt || [];
 </ul>
 <p>为了避免状况4 “父子节点均为红色” 需要持续向上发展的处理，这里采用了一个由上而下的程序：假设新增节点为 A，那么沿着 A 的路径由上而下修改节点颜色，如果某个节点 X 的两个子节点均为红色，就把 X 改为红色，并把两个子节点改为黑色</p>
 <p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17242470538851724247053203.png" alt="17242470538851724247053203.png"></p>
-<h3 id="1-2-迭代器"><a href="#1-2-迭代器" class="headerlink" title="1.2 迭代器"></a>1.2 迭代器</h3><p>RB-tree 迭代器的实现被分为两层，以下示例图展示了双层节点结构和双层迭代器结构之间的关系</p>
+<h3 id="1-2-迭代器"><a href="#1-2-迭代器" class="headerlink" title="1.2 迭代器"></a>1.2 迭代器</h3><p>RB-tree 迭代器的实现被分为两层，以下示例图展示了双层节点结构和双层迭代器结构之间的关系：</p>
 <p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17244016731161724401673079.png" alt="17244016731161724401673079.png"></p>
 <p>这样的设计在保持接口简洁的同时，隐藏了红黑树内部的复杂性，从而为用户提供一个功能强大又便于使用的迭代器。RB-tree 的迭代器属于双向迭代器，但不具备随机定位能力。其中特殊的是<code>operator++</code>和<code>operator--()</code>，它们分别调用的是基类迭代器的<code>increment()</code>和<code>decrement()</code>。这两个函数的实现有一些特殊技巧，稍后会说明</p>
 <h3 id="1-3-数据结构"><a href="#1-3-数据结构" class="headerlink" title="1.3 数据结构"></a>1.3 数据结构</h3><p>RB-tree 只以三笔数据表现表现整棵树</p>
@@ -413,6 +416,33 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>注意，涉及向上检测的处理情况就是之前提到的由上而下的程序</p>
 </blockquote>
+<h2 id="2-hashtable"><a href="#2-hashtable" class="headerlink" title="2 hashtable"></a>2 <code>hashtable</code></h2><h3 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h3><p>二叉搜索树具有对数平均时间（O(log n）），但这样的表现需要建立在输入的数据要有足够的随机性。这里就要引出一种名为<code>hashtable</code>的数据结构，它具有常数平均时间（O(n)），而且这种表现是以统计为基础的，并不依赖输入数据的随机性</p>
+<blockquote>
+<p>如果输入的数据为有序，那么在插入时，每次新元素都会倾向树的某一侧，从而导致树失去平衡。RB-tree 具有自平衡机制，所以对于输入的数据并没有过多的要求</p>
+</blockquote>
+<p><code>hashtable</code>被视为一种字典结构，因为它的操作对象是有名项。关于<code>hashtable</code>的实现，可以从一个简单粗暴的想法开始：</p>
+<p>如果插入的元素都是 16-bits 且不带正负号的整数，我们可以申请一个拥有 65535 的 array，初值全为 0，每个元素的值表示该元素出现的次数</p>
+<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17246424575101724642456764.png" alt="17246424575101724642456764.png"></p>
+<p>这种解法存在两个问题，一是如果元素是 32-bits，我们不可能去准备一个大小为 2<sup>32</sup> &#x3D; 4 GB 的 array，二是如果元素为字符串或者其他而非整数。第二个问题比较好解决，那就是使用 ASCII 编码，这样字符就能转换成一个 7-bits 的数值来表示。但是这样又会回到第一个问题：array 的大小，因为字符串稍长就会导致很大的索引值。怎么解决呢？办法之一就是采用某种映射函数，将大数映射为小数，即所谓的哈希函数（hash function）</p>
+<p>但是使用 hash function 一样会带来问题：可能会有不同的元素被映射到相同的位置，即有相同的索引。这便是碰撞（collision）问题。解决碰撞问题的方法有很多种，如线性探测（linear probing）、二次探测（quadratic probing）、开链（separate chaining）等</p>
+<blockquote>
+<p>碰撞 是无法避免的，毕竟元素个数是大于 array 的容量的。</p>
+</blockquote>
+<p>这里这会简单提及一下线性探测和二次探测，不会做过多的讲述：</p>
+<p>线性探测：当 hash function 计算出某个元素的插入位置，而该位置上的空间已被占用，那就循环往下一一寻找。线性探测会存在主集团（primary clustering）问题，感兴趣的你可以去网上了解😉</p>
+<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17246429165101724642916161.png" alt="17246429165101724642916161.png"></p>
+<blockquote>
+<p>如果到达尾端，就绕到头部继续寻找</p>
+</blockquote>
+<p>二次探测：当 hash function 计算出某个元素的插入位置 H，而该位置上的空间已被占用，那么就依次尝试 H + 1<sup>2</sup>，H + 2<sup>2</sup>，H + 3<sup>2</sup>，… ，H + i<sup>2</sup>。二次探测主要用来解决主集团问题，但却可能造成次集团（secondary clustering）问题，解决的办法也有，例如复式散列（double hashing）</p>
+<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17246436985101724643698377.png" alt="17246436985101724643698377.png"></p>
+<h3 id="2-2-开链"><a href="#2-2-开链" class="headerlink" title="2.2 开链"></a>2.2 开链</h3><p>SGI STL 中的<code>hashtable</code>就是采用开链实现的，所谓开链，就是在每一个表格元素中维护一个 list</p>
+<p><img src="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17246445225101724644522293.png" alt="17246445225101724644522293.png"></p>
+<p>注意，bucket 维护的 linked list，并不采用 STL 的 list 或 slist，而是自行维护的 hashtable node。至于 buckets 聚合体则以 vector 完成的，以便有动态扩充能力</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Value&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">hashtable_node</span> &#123;</span><br><span class="line">    hashtable_node* next;</span><br><span class="line">    Value val;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
 
         
       </div>
