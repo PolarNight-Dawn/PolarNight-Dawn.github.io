@@ -41,7 +41,7 @@ var _hmt = _hmt || [];
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17249251198362b635dec-28b3-4fd5-a428-4608a07f5276.jpg">
 <meta property="article:published_time" content="2024-08-29T08:10:26.000Z">
-<meta property="article:modified_time" content="2024-08-30T04:21:20.198Z">
+<meta property="article:modified_time" content="2024-08-31T03:54:37.013Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Effective C++">
 <meta name="twitter:card" content="summary">
@@ -326,7 +326,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;1.9k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;2.8k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -342,7 +342,7 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>我动手写这篇博文，主要是出于三个原因：一是，我希望可以将《Effective C++》在读完后形成一本手册——可以短时间抓住核心进行使用；二是，可能是语言习惯的问题（译者是中国台湾的同胞侯捷先生），我在阅读本书时会有不少难以理解的地方，我尽量用自己的逻辑去梳理；三是，书中并未涉及 C++11，因此会在这里进行适当的填补。但是出于个人能力的有限，如果你想深入探究其中的细节，还请将原著反复研读😇</p>
-<p><i class="fa-regular fa-clock"></i> 2024-08-30 12:11:43</p>
+<p><i class="fa-regular fa-clock"></i> 2024-08-31 11:54:23</p>
 <span id="more"></span>
 
 
@@ -389,10 +389,21 @@ var _hmt = _hmt || [];
 <h3 id="条款07：为多态基类声明virtual析构函数"><a href="#条款07：为多态基类声明virtual析构函数" class="headerlink" title="条款07：为多态基类声明virtual析构函数"></a>条款07：为多态基类声明<code>virtual</code>析构函数</h3><p>当一个 derived class 对象经由一个 base class 指针被删除，而该 base class 带有一个 non-virtual 析构函数，实际执行时通常仅仅执行了 base class 的析构函数，发生的是 “局部销毁”——对象的 derived 成分未被销毁， base class 成分被销毁</p>
 <p>消除这个问题的做法很简单：给 base class 一个<code>virtual</code>析构函数。需要注意的是<code>virtual</code>函数是有代价的，因此给所有的 base class 带上一个<code>virtual</code>析构函数是不可取的</p>
 <blockquote>
-<p><code>virtual</code>函数的代价💡 为了实现<code>virtual</code>，对象必须携带一个所谓的 vptr（virtual table pointer）。vptr 指向一个由函数指针构成的数组，称为 vtbl（virtual table）每一个带有<code>virtual</code>函数的 class 都有一个相应的 vtbl。当对象调用某一<code>virtual</code>函数，实际被调用的函数取决于对象的 vptr 所指的那个 vtbl——编译器在其中寻找合适的函数指针</p>
+<p><code>virtual</code>函数的代价💡 为了实现<code>virtual</code>函数，对象必须携带一个所谓的 vptr（virtual table pointer）。vptr 指向一个由函数指针构成的数组，称为 vtbl（virtual table）。每一个带有<code>virtual</code>函数的 class 都有一个相应的 vtbl。当对象调用某一<code>virtual</code>函数，实际被调用的函数取决于对象的 vptr 所指的那个 vtbl——编译器在其中寻找合适的函数指针</p>
 </blockquote>
-<p>请记住，polymorphic base class 应该声明一个<code>virtual</code>析构函数。如果 class 带有任何<code>virtual</code>函数，它就应该带有一个<code>virtual</code>析构函数。如果 base class 并不是为了多态用途，就不需要<code>virtual</code>析构函数（见条款 6 和条款 40）</p>
+<p>这里直接说明结论，polymorphic base class 应该声明一个<code>virtual</code>析构函数。如果 class 带有任何<code>virtual</code>函数，它就应该带有一个<code>virtual</code>析构函数。如果 base class 并不是为了多态用途，就不需要<code>virtual</code>析构函数（见条款 6 和条款 40）</p>
 <p>如果一个 class 没有被设计为 polymorphic base class，又有被误继承的风险，在 C++11 中可以通过在 class 声明为<code>final</code>，以禁止派生来防止 “局部销毁”</p>
+<h3 id="条款08：别让异常逃离析构函数"><a href="#条款08：别让异常逃离析构函数" class="headerlink" title="条款08：别让异常逃离析构函数"></a>条款08：别让异常逃离析构函数</h3><p>析构函数绝对不要抛出异常，那会导致程序出现未定义行为。如果一个被析构函数调用的函数可能抛出异常，析构函数应该捕捉任何异常，然后吞下它们（不传播）或结束程序</p>
+<p>吞下它们（不传播）或结束程序其实都没什么吸引力，因为两者都无法对抛出的异常做出反应</p>
+<p>如果客户需要对某个操作函数运行期间抛出的异常做出反应，那么 class 应该提供一个普通函数（而非在析构函数中）执行该操作</p>
+<h3 id="条款09：绝不在构造和析构过程中调用virtual函数"><a href="#条款09：绝不在构造和析构过程中调用virtual函数" class="headerlink" title="条款09：绝不在构造和析构过程中调用virtual函数"></a>条款09：绝不在构造和析构过程中调用<code>virtual</code>函数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Transaction</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">Transaction</span>() &#123; <span class="built_in">init</span>(); &#125;</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">LogTransaction</span><span class="params">()</span> <span class="type">const</span> </span>&#123; std::cout &lt;&lt; <span class="string">&quot;base class&quot;</span> &lt;&lt; std::endl; &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123; <span class="built_in">LogTransaction</span>(); &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BuyTransaction</span> : <span class="keyword">public</span> Transaction &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">LogTransaction</span><span class="params">()</span> <span class="type">const</span> </span>&#123; std::cout &lt;&lt; <span class="string">&quot;derived class&quot;</span> &lt;&lt; std::endl; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>现在执行以下这行代码，会发生什么：</p>
+<p><code>BuyTransaction b;</code></p>
+<p>derived class 对象内的 base class 成分一定会在 derived class 成分被构造之前先构造妥当。这里Transaction 构造函数调用<code>virtual</code>函数，即使当前即将建立的对象类型是 BuyTransaction，这时被调用的 LogTransaction 也是 Transaction 内的版本。这是因为，base class 构造期间 virtual 函数绝不会下降到 derived class 阶层。也就是说，这里的<code>virtual</code>函数表现的不再是<code>virtual</code>函数，建立 derived class 对象时会调用错误版本的 LogTransaction</p>
+<p>因此，在构造和析构期间绝对不要调用<code>virtual</code>函数</p>
 
         
       </div>
