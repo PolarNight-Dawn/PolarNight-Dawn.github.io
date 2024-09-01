@@ -41,7 +41,7 @@ var _hmt = _hmt || [];
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17249251198362b635dec-28b3-4fd5-a428-4608a07f5276.jpg">
 <meta property="article:published_time" content="2024-08-29T08:10:26.000Z">
-<meta property="article:modified_time" content="2024-08-31T03:56:26.229Z">
+<meta property="article:modified_time" content="2024-09-01T04:36:45.549Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Effective C++">
 <meta name="twitter:card" content="summary">
@@ -326,7 +326,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;2.9k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;4.1k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -342,7 +342,7 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>我动手写这篇博文，主要是出于三个原因：一是，我希望可以将《Effective C++》在读完后形成一本手册——可以短时间抓住核心进行使用；二是，可能是语言习惯的问题（译者是中国台湾的同胞侯捷先生），我在阅读本书时会有不少难以理解的地方，我尽量用自己的逻辑去梳理；三是，书中并未涉及 C++11，因此会在这里进行适当的填补。但是出于个人能力的有限，如果你想深入探究其中的细节，还请将原著反复研读😇</p>
-<p><i class="fa-regular fa-clock"></i> 2024-08-31 11:54:23</p>
+<p><i class="fa-regular fa-clock"></i> 2024-09-01 12:35:05</p>
 <span id="more"></span>
 
 
@@ -353,6 +353,8 @@ var _hmt = _hmt || [];
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE07%EF%BC%9A%E4%B8%BA%E5%A4%9A%E6%80%81%E5%9F%BA%E7%B1%BB%E5%A3%B0%E6%98%8Evirtual%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0">条款07：为多态基类声明<code>virtual</code>析构函数</a></p>
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE08%EF%BC%9A%E5%88%AB%E8%AE%A9%E5%BC%82%E5%B8%B8%E9%80%83%E7%A6%BB%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0">条款08：别让异常逃离析构函数</a></p>
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE09%EF%BC%9A%E7%BB%9D%E4%B8%8D%E5%9C%A8%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%B0%83%E7%94%A8virtual%E5%87%BD%E6%95%B0">条款09：绝不在构造和析构过程中调用<code>virtual</code>函数</a></p>
+<p>​	<a href="#%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4operator=%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA-reference-to-*this">条款10：令<code>operator=</code>返回一个 reference to *this</a></p>
+<p>​	<a href="#%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator=%E4%B8%AD%E5%A4%84%E7%90%86-%E2%80%9C%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E2%80%9D">条款11：在<code>operator=</code>中处理 “自我赋值”</a></p>
 <hr>
 <h2 id="2-构造-析构-赋值运算"><a href="#2-构造-析构-赋值运算" class="headerlink" title="2 构造&#x2F;析构&#x2F;赋值运算"></a>2 构造&#x2F;析构&#x2F;赋值运算</h2><h3 id="条款05：了解-C-默默编写并调用哪些函数"><a href="#条款05：了解-C-默默编写并调用哪些函数" class="headerlink" title="条款05：了解 C++ 默默编写并调用哪些函数"></a>条款05：了解 C++ 默默编写并调用哪些函数</h3><p>当你声明了一个 empty class（空类）时，如果你自己没有声明下述的函数，编译器会为你声明：</p>
 <ul>
@@ -391,7 +393,7 @@ var _hmt = _hmt || [];
 <h3 id="条款07：为多态基类声明virtual析构函数"><a href="#条款07：为多态基类声明virtual析构函数" class="headerlink" title="条款07：为多态基类声明virtual析构函数"></a>条款07：为多态基类声明<code>virtual</code>析构函数</h3><p>当一个 derived class 对象经由一个 base class 指针被删除，而该 base class 带有一个 non-virtual 析构函数，实际执行时通常仅仅执行了 base class 的析构函数，发生的是 “局部销毁”——对象的 derived 成分未被销毁， base class 成分被销毁</p>
 <p>消除这个问题的做法很简单：给 base class 一个<code>virtual</code>析构函数。需要注意的是<code>virtual</code>函数是有代价的，因此给所有的 base class 带上一个<code>virtual</code>析构函数是不可取的</p>
 <blockquote>
-<p><code>virtual</code>函数的代价💡 为了实现<code>virtual</code>函数，对象必须携带一个所谓的 vptr（virtual table pointer）。vptr 指向一个由函数指针构成的数组，称为 vtbl（virtual table）。每一个带有<code>virtual</code>函数的 class 都有一个相应的 vtbl。当对象调用某一<code>virtual</code>函数，实际被调用的函数取决于对象的 vptr 所指的那个 vtbl——编译器在其中寻找合适的函数指针</p>
+<p><code>virtual</code>函数的代价：为了实现<code>virtual</code>函数，对象必须携带一个所谓的 vptr（virtual table pointer）。vptr 指向一个由函数指针构成的数组，称为 vtbl（virtual table）。每一个带有<code>virtual</code>函数的 class 都有一个相应的 vtbl。当对象调用某一<code>virtual</code>函数，实际被调用的函数取决于对象的 vptr 所指的那个 vtbl——编译器在其中寻找合适的函数指针</p>
 </blockquote>
 <p>这里直接说明结论，polymorphic base class 应该声明一个<code>virtual</code>析构函数。如果 class 带有任何<code>virtual</code>函数，它就应该带有一个<code>virtual</code>析构函数。如果 base class 并不是为了多态用途，就不需要<code>virtual</code>析构函数（见条款 6 和条款 40）</p>
 <p>如果一个 class 没有被设计为 polymorphic base class，又有被误继承的风险，在 C++11 中可以通过在 class 声明为<code>final</code>，以禁止派生来防止 “局部销毁”</p>
@@ -404,8 +406,41 @@ var _hmt = _hmt || [];
 
 <p>现在执行以下这行代码，会发生什么：</p>
 <p><code>BuyTransaction b;</code></p>
-<p>derived class 对象内的 base class 成分一定会在 derived class 成分被构造之前先构造妥当。这里Transaction 构造函数调用<code>virtual</code>函数，即使当前即将建立的对象类型是 BuyTransaction，这时被调用的 LogTransaction 也是 Transaction 内的版本。这是因为，base class 构造期间 virtual 函数绝不会下降到 derived class 阶层。也就是说，这里的<code>virtual</code>函数表现的不再是<code>virtual</code>函数，建立 derived class 对象时会调用错误版本的 LogTransaction</p>
+<p>derived class 对象内的 base class 成分一定会在 derived class 成分被构造之前先构造妥当。这里 Transaction 构造函数调用<code>virtual</code>函数，即使当前即将建立的对象类型是 BuyTransaction，这时被调用的 LogTransaction 也是 Transaction 内的版本。这是因为，base class 构造期间 virtual 函数绝不会下降到 derived class 阶层。也就是说，这里的<code>virtual</code>函数表现的不再是<code>virtual</code>函数，建立 derived class 对象时会调用错误版本的 LogTransaction</p>
 <p>因此，在构造和析构期间绝对不要调用<code>virtual</code>函数</p>
+<h3 id="条款10：令operator-返回一个-reference-to-this"><a href="#条款10：令operator-返回一个-reference-to-this" class="headerlink" title="条款10：令operator=返回一个 reference to *this"></a>条款10：令<code>operator=</code>返回一个 reference to *this</h3><p>为了实现 “连锁赋值”：</p>
+<p><code>x=y=z=15;</code></p>
+<p>赋值操作符必须返回一个 reference 指向操作符的左侧实参：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Entity&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Entity&amp; rhs) &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="条款11：在operator-中处理-“自我赋值”"><a href="#条款11：在operator-中处理-“自我赋值”" class="headerlink" title="条款11：在operator=中处理 “自我赋值”"></a>条款11：在<code>operator=</code>中处理 “自我赋值”</h3><p>一般而言，如果某段代码操作 pointers 或 references 而它们被用来 “指向多个相同类型的对象”，就需要考虑这些对象是否为同一个：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a[i] = a[j];  <span class="comment">// 如果 i == j，自我赋值</span></span><br><span class="line">*px = *py;  <span class="comment">// 如果 px 和 py 指向同一个东西，自我赋值</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>实际上，两个对象只要来自同一个继承体系，它们甚至不需要声明为相同类型就可能造成 “别名”，即 “有一个以上的方法指向某对象”：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span> &#123; ... &#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Derived</span> : <span class="keyword">public</span> Base &#123; ... &#125;;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">DoSomething</span><span class="params">(<span class="type">const</span> Base &amp;rb, Derived *pd)</span></span>;  <span class="comment">// rb 和 *pd 有可能其实是同一对象</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>“在停止使用资源之前意外释放了它” 的陷阱：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Bitmap</span> &#123; ... &#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Widget</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    Bitmap *pb;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Widget&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Widget &amp;rhs) &#123;</span><br><span class="line">    <span class="keyword">delete</span> pb;  <span class="comment">// 这里 rhs 和 *this 有可能是同一对象，那么会发生一个错误：持有一个指向已被删除对象的指针！</span></span><br><span class="line">    pb = <span class="keyword">new</span> <span class="built_in">Bitmap</span>(*rhs.pb);</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>传统的解决方法，增加一个 “证同测试（identity test）” 来达到 “自我赋值” 的检验目的：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Widget&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Widget &amp;rhs) &#123;</span><br><span class="line">    <span class="comment">// 证同测试</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == &amp;rhs) <span class="keyword">return</span> *<span class="keyword">this</span>;  <span class="comment">// 这种方法存在异常方面的麻烦，不具备 “异常安全性”</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">delete</span> pb;</span><br><span class="line">    pb = <span class="keyword">new</span> <span class="built_in">Bitmap</span>(*rhs.pb);</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>通常让<code>operator=</code>具备 “异常安全性” 往往自动获得 “自我赋值安全性” 的回报，而许多时候精心排列的语句就可以导出异常安全（见条款 29）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Widget&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Widget &amp;rhs) &#123;</span><br><span class="line">    Bitmap *tmp = pb;</span><br><span class="line">    pb = <span class="keyword">new</span> <span class="built_in">Bitmap</span>(*rhs.pb);</span><br><span class="line">    <span class="keyword">delete</span> tmp;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>手工排列语句有一个替代方案，就是使用所谓的 copy and swap 技术（见条款 29）</p>
 
         
       </div>
