@@ -41,7 +41,7 @@ var _hmt = _hmt || [];
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17249251198362b635dec-28b3-4fd5-a428-4608a07f5276.jpg">
 <meta property="article:published_time" content="2024-08-29T08:10:26.000Z">
-<meta property="article:modified_time" content="2024-09-01T04:36:45.549Z">
+<meta property="article:modified_time" content="2024-09-02T04:37:29.346Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Effective C++">
 <meta name="twitter:card" content="summary">
@@ -326,7 +326,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;4.1k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;5.5k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -342,7 +342,7 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>我动手写这篇博文，主要是出于三个原因：一是，我希望可以将《Effective C++》在读完后形成一本手册——可以短时间抓住核心进行使用；二是，可能是语言习惯的问题（译者是中国台湾的同胞侯捷先生），我在阅读本书时会有不少难以理解的地方，我尽量用自己的逻辑去梳理；三是，书中并未涉及 C++11，因此会在这里进行适当的填补。但是出于个人能力的有限，如果你想深入探究其中的细节，还请将原著反复研读😇</p>
-<p><i class="fa-regular fa-clock"></i> 2024-09-01 12:35:05</p>
+<p><i class="fa-regular fa-clock"></i> 2024-09-02 12:37:20</p>
 <span id="more"></span>
 
 
@@ -353,8 +353,13 @@ var _hmt = _hmt || [];
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE07%EF%BC%9A%E4%B8%BA%E5%A4%9A%E6%80%81%E5%9F%BA%E7%B1%BB%E5%A3%B0%E6%98%8Evirtual%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0">条款07：为多态基类声明<code>virtual</code>析构函数</a></p>
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE08%EF%BC%9A%E5%88%AB%E8%AE%A9%E5%BC%82%E5%B8%B8%E9%80%83%E7%A6%BB%E6%9E%90%E6%9E%84%E5%87%BD%E6%95%B0">条款08：别让异常逃离析构函数</a></p>
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE09%EF%BC%9A%E7%BB%9D%E4%B8%8D%E5%9C%A8%E6%9E%84%E9%80%A0%E5%92%8C%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E8%B0%83%E7%94%A8virtual%E5%87%BD%E6%95%B0">条款09：绝不在构造和析构过程中调用<code>virtual</code>函数</a></p>
-<p>​	<a href="#%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4operator=%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA-reference-to-*this">条款10：令<code>operator=</code>返回一个 reference to *this</a></p>
-<p>​	<a href="#%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator=%E4%B8%AD%E5%A4%84%E7%90%86-%E2%80%9C%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC%E2%80%9D">条款11：在<code>operator=</code>中处理 “自我赋值”</a></p>
+<p>​	<a href="#%E6%9D%A1%E6%AC%BE10%EF%BC%9A%E4%BB%A4operator=%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA-reference-to-this">条款10：令<code>operator=</code>返回一个 reference to *this</a></p>
+<p>​	<a href="#%E6%9D%A1%E6%AC%BE11%EF%BC%9A%E5%9C%A8operator=%E4%B8%AD%E5%A4%84%E7%90%86-%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC">条款11：在<code>operator=</code>中处理 “自我赋值”</a></p>
+<p>​	<a href="#%E6%9D%A1%E6%AC%BE12%EF%BC%9A%E5%A4%8D%E5%88%B6%E5%AF%B9%E8%B1%A1%E6%97%B6%E5%8B%BF%E5%BF%98%E4%BA%86%E5%85%B6%E6%AF%8F%E4%B8%80%E4%B8%AA%E6%88%90%E5%88%86">条款12：复制对象时勿忘了其每一个成分</a></p>
+<p><a href="#3-%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86">3 资源管理</a></p>
+<p>​	<a href="#%E6%9D%A1%E6%AC%BE13%EF%BC%9A%E4%BB%A5%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E8%B5%84%E6%BA%90">条款13：以对象管理资源</a></p>
+<p>​	<a href="#%E6%9D%A1%E6%AC%BE14%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E5%B0%8F%E5%BF%83-copying-%E8%A1%8C%E4%B8%BA">条款14：在资源管理类中小心 copying 行为</a></p>
+<p>​	<a href="#%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE">条款15：在资源管理类中提供对原始资源的访问</a></p>
 <hr>
 <h2 id="2-构造-析构-赋值运算"><a href="#2-构造-析构-赋值运算" class="headerlink" title="2 构造&#x2F;析构&#x2F;赋值运算"></a>2 构造&#x2F;析构&#x2F;赋值运算</h2><h3 id="条款05：了解-C-默默编写并调用哪些函数"><a href="#条款05：了解-C-默默编写并调用哪些函数" class="headerlink" title="条款05：了解 C++ 默默编写并调用哪些函数"></a>条款05：了解 C++ 默默编写并调用哪些函数</h3><p>当你声明了一个 empty class（空类）时，如果你自己没有声明下述的函数，编译器会为你声明：</p>
 <ul>
@@ -441,6 +446,21 @@ var _hmt = _hmt || [];
 
 
 <p>手工排列语句有一个替代方案，就是使用所谓的 copy and swap 技术（见条款 29）</p>
+<h3 id="条款12：复制对象时勿忘了其每一个成分"><a href="#条款12：复制对象时勿忘了其每一个成分" class="headerlink" title="条款12：复制对象时勿忘了其每一个成分"></a>条款12：复制对象时勿忘了其每一个成分</h3><p>当你每为 class 添加一个成员变量，你必须同时修改 copying 函数，否则会出现局部拷贝（partial copy）的现象，更可怕是由于你拒绝了编译器缺省实现的 copying 函数，编译器将不会提醒你忘记复制了某个成员变量</p>
+<p>一旦发生继承，问题会变得更加隐匿且麻烦。任何时候只要你承担 “为 derived class 实现 copying 函数”，你必须确保复制 “derived class 对象内的所有成员变量” 以及 “所有 base class 成分”。那些 base class 成分往往是<code>private</code>的，因此你需要让 derived class 的 copying 函数调用相应的 base class 函数</p>
+<p>切记，不要尝试某个 copying 函数调用另一个 copying 函数，虽然这看上去是一个避免代码重复的方法。例如，令 copy assignment 操作符调用 copy 构造函数，这件事看起来十分荒谬，因为这就像是试图构造一个已经存在的对象；令 copy 构造函数调用 copy assignment 操作符，同样没有意义，因为这像是对一个尚未构造好的对象赋值。如果 copy 构造函数和 copy assignment 操作符有重复的代码，建立第三者函数<code>init()</code>放置重复代码，由两个 copying 函数共同调用不失为一个好方法</p>
+<h2 id="3-资源管理"><a href="#3-资源管理" class="headerlink" title="3 资源管理"></a>3 资源管理</h2><p>所谓资源就是，一旦使用了它，将来就得返还给系统，不然就会发生大问题。资源不仅仅只是内存，其它常见的还包括文件描述符（file descriptors）、互斥锁（mutex locks）、图形界面中的字型和笔刷、数据库连接、以及网络 sockets</p>
+<h3 id="条款13：以对象管理资源"><a href="#条款13：以对象管理资源" class="headerlink" title="条款13：以对象管理资源"></a>条款13：以对象管理资源</h3><p>“以对象管理资源” 的观念常被称为 RAII，即 “资源获取即初始化”。为什么提出这种观念呢？这是因为以面向过程的方式管理资源是存在很大缺陷的，它意味着调用者承担了过多的责任：</p>
+<ul>
+<li>调用者是否会记得释放资源</li>
+<li>调用者是否能合理地释放资源</li>
+</ul>
+<p>RAII 的想法是将资源放进对象内，在构造函数中获取资源，在析构函数中释放资源，借助 C++ 的 “析构函数自动调用机制确保资源被释放。许多资源被动态分配于 heap 内而后被用于单一区块或函数内，当控制流离开了当前的区块或者函数时对象会被销毁，一旦对象被销毁会自动调用其析构函数进行资源的释放，如果释放资源动作导致抛出异常，事情将变得棘手，但无需过多担心（见条款 8）</p>
+<p>常见的 RAII class 可见 C++11 的智能指针，如<code>std::shared_ptr</code></p>
+<h3 id="条款14：在资源管理类中小心-copying-行为"><a href="#条款14：在资源管理类中小心-copying-行为" class="headerlink" title="条款14：在资源管理类中小心 copying 行为"></a>条款14：在资源管理类中小心 copying 行为</h3><p>大多数情况，我们所面对的是 heap-base 资源，掌握智能指针尽心管理已经够用了。但是并非所有处理的资源都是 heap-base 资源，因此你可能偶尔会需要自己建立资源管理类</p>
+<p>普遍而常见的 RAII class copying 行为是：禁止 copying 操作（见条款 6），实施 “引用计数法”（reference count）</p>
+<h3 id="条款15：在资源管理类中提供对原始资源的访问"><a href="#条款15：在资源管理类中提供对原始资源的访问" class="headerlink" title="条款15：在资源管理类中提供对原始资源的访问"></a>条款15：在资源管理类中提供对原始资源的访问</h3><p>每一个 RAII class 应该提供一个 “取得其所管理的资源”的方法</p>
+<p>对原始资源的访问可能经由显示转换（一般命名为<code>get()</code>）或隐式转换。一般而言，显示转换比较安全，但隐式转换对客户比较方便</p>
 
         
       </div>
