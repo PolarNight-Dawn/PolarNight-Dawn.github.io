@@ -41,7 +41,7 @@ var _hmt = _hmt || [];
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17249251198362b635dec-28b3-4fd5-a428-4608a07f5276.jpg">
 <meta property="article:published_time" content="2024-08-29T08:10:26.000Z">
-<meta property="article:modified_time" content="2024-09-03T07:50:43.420Z">
+<meta property="article:modified_time" content="2024-09-14T14:28:22.853Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Effective C++">
 <meta name="twitter:card" content="summary">
@@ -326,7 +326,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;6.5k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;7.2k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -342,7 +342,7 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>我动手写这篇博文，主要是出于三个原因：一是，我希望可以将《Effective C++》在读完后形成一本手册——可以短时间抓住核心进行使用；二是，可能是语言习惯的问题（译者是中国台湾的同胞侯捷先生），我在阅读本书时会有不少难以理解的地方，我尽量用自己的逻辑去梳理；三是，书中并未涉及 C++11，因此会在这里进行适当的填补。但是出于个人能力的有限，如果你想深入探究其中的细节，还请将原著反复研读😇</p>
-<p><i class="fa-regular fa-clock"></i> 2024-09-03 15:38:30</p>
+<p><i class="fa-regular fa-clock"></i> 2024-09-14 22:28:09</p>
 <span id="more"></span>
 
 
@@ -362,6 +362,8 @@ var _hmt = _hmt || [];
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE">条款15：在资源管理类中提供对原始资源的访问</a></p>
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE16%EF%BC%9A%E6%88%90%E5%AF%B9%E4%BD%BF%E7%94%A8new%E5%92%8Cdelete%E6%97%B6%E8%A6%81%E9%87%87%E7%94%A8%E7%9B%B8%E5%90%8C%E5%BD%A2%E5%BC%8F">条款16：成对使用<code>new</code>和<code>delete</code>时要采用相同形式</a></p>
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE17%EF%BC%9A%E4%BB%A5%E7%8B%AC%E7%AB%8B%E8%AF%AD%E5%8F%A5%E5%B0%86-newed-%E5%AF%B9%E8%B1%A1%E7%BD%AE%E5%85%A5%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88">条款17：以独立语句将 newed 对象置入智能指针</a></p>
+<p><a href="#7-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B">7 模板与泛型编程</a></p>
+<p>​	<a href="#%E6%9D%A1%E6%AC%BE42%EF%BC%9A%E4%BA%86%E8%A7%A3typename%E7%9A%84%E5%8F%8C%E9%87%8D%E6%84%8F%E4%B9%89">条款42：了解<code>typename</code>的双重意义</a></p>
 <p>​	</p>
 <hr>
 <h2 id="2-构造-析构-赋值运算"><a href="#2-构造-析构-赋值运算" class="headerlink" title="2 构造&#x2F;析构&#x2F;赋值运算"></a>2 构造&#x2F;析构&#x2F;赋值运算</h2><p>它们控制着类的基本操作，像是产出新对象并确保它被初始化、摆脱旧对象并确保它被适当清理、以及赋予对象新值。如果这些函数犯错，会导致深远且令人不愉快的后果，遍及你的整个 class。因此将这些函数正确良好地集结在一起形成 class 的脊柱，是 “生死攸关” 的大事</p>
@@ -489,7 +491,17 @@ var _hmt = _hmt || [];
 
 
 
-<h2 id="8-定制new和delete"><a href="#8-定制new和delete" class="headerlink" title="8 定制new和delete"></a>8 定制<code>new</code>和<code>delete</code></h2>
+<h2 id="7-模板与泛型编程"><a href="#7-模板与泛型编程" class="headerlink" title="7 模板与泛型编程"></a>7 模板与泛型编程</h2><p>泛型编程（generic programming）——写出的代码和其所处理的对象类型彼此独立</p>
+<h3 id="条款42：了解typename的双重意义"><a href="#条款42：了解typename的双重意义" class="headerlink" title="条款42：了解typename的双重意义"></a>条款42：了解<code>typename</code>的双重意义</h3><p>当我们声明 template 类型参数时， <code>class</code>和<code>typename</code>的意义完全相同。然而 C++ 并不是总是把<code>class</code>和<code>typename</code>视为等价，有时候一定得使用<code>typename</code></p>
+<p>任何时候当你想要在 template 中涉及一个嵌套从属类型名称时，就必须在紧邻它的前面放上关键词<code>typename</code>。嵌套从属类型名称可能会导致解析困难，这是由于 C++ 有条解析规则：如果解析器在 template 中遭遇一个嵌套从属名称，它便假设这名称不是个类型，除非你告诉它它是一个类型。而我们通常是将嵌套从属类型名称视为类型使用的，如<code>T::const_iterator iter;</code>,这样就会产生矛盾引发解析错误</p>
+<blockquote>
+<p>从属名称：template 内出现的依赖于某个 template 参数的名称</p>
+<p>嵌套从属名称：从属名称在 class 内成嵌套状</p>
+<p>嵌套从属类型名称（nested dependent type name）：嵌套从属名称涉及某类型</p>
+</blockquote>
+<p>“<code>typename</code>必须作为嵌套从属类型名称的前缀词” 这一条规则是有例外的，<code>typename</code>不可以出现在 base classes list 内的嵌套从属类型名称之前，也不可以在 member initialization list 中作为 base class 修饰符</p>
+<p><code>typename</code>在不同编译器上会有不同的实践，因此<code>typename</code>和 “嵌套从属类型名称” 之间的互动会在移植性方面存在一些问题</p>
+
         
       </div>
 
