@@ -41,7 +41,7 @@ var _hmt = _hmt || [];
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://fastly.jsdelivr.net/gh/PolarNight-Dawn/ImageHost@main/17249251198362b635dec-28b3-4fd5-a428-4608a07f5276.jpg">
 <meta property="article:published_time" content="2024-08-29T08:10:26.000Z">
-<meta property="article:modified_time" content="2024-09-14T14:28:22.853Z">
+<meta property="article:modified_time" content="2024-09-26T03:57:29.729Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="Effective C++">
 <meta name="twitter:card" content="summary">
@@ -326,7 +326,7 @@ var _hmt = _hmt || [];
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            <i class="fa-solid fa-pen-nib"></i>&nbsp;7.2k
+            <i class="fa-solid fa-pen-nib"></i>&nbsp;7.9k
           </div>
           <!-- busuanzi -->
            <!-- 只有在非索引页时渲染 -->
@@ -342,7 +342,7 @@ var _hmt = _hmt || [];
       <div class="e-content article-entry" itemprop="articleBody">
         
           <p>我动手写这篇博文，主要是出于三个原因：一是，我希望可以将《Effective C++》在读完后形成一本手册——可以短时间抓住核心进行使用；二是，可能是语言习惯的问题（译者是中国台湾的同胞侯捷先生），我在阅读本书时会有不少难以理解的地方，我尽量用自己的逻辑去梳理；三是，书中并未涉及 C++11，因此会在这里进行适当的填补。但是出于个人能力的有限，如果你想深入探究其中的细节，还请将原著反复研读😇</p>
-<p><i class="fa-regular fa-clock"></i> 2024-09-14 22:28:09</p>
+<p><i class="fa-regular fa-clock"></i> 2024-09-26 11:57:21</p>
 <span id="more"></span>
 
 
@@ -362,7 +362,10 @@ var _hmt = _hmt || [];
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE15%EF%BC%9A%E5%9C%A8%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86%E7%B1%BB%E4%B8%AD%E6%8F%90%E4%BE%9B%E5%AF%B9%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%BA%90%E7%9A%84%E8%AE%BF%E9%97%AE">条款15：在资源管理类中提供对原始资源的访问</a></p>
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE16%EF%BC%9A%E6%88%90%E5%AF%B9%E4%BD%BF%E7%94%A8new%E5%92%8Cdelete%E6%97%B6%E8%A6%81%E9%87%87%E7%94%A8%E7%9B%B8%E5%90%8C%E5%BD%A2%E5%BC%8F">条款16：成对使用<code>new</code>和<code>delete</code>时要采用相同形式</a></p>
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE17%EF%BC%9A%E4%BB%A5%E7%8B%AC%E7%AB%8B%E8%AF%AD%E5%8F%A5%E5%B0%86-newed-%E5%AF%B9%E8%B1%A1%E7%BD%AE%E5%85%A5%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88">条款17：以独立语句将 newed 对象置入智能指针</a></p>
+<p><a href="#4-%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%A3%B0%E6%98%8E">4 设计与声明</a></p>
+<p>​	<a href="#%E6%9D%A1%E6%AC%BE22%EF%BC%9A%E5%B0%86%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E%E4%B8%BAprivate">条款22：将成员变量声明为<code>private</code></a></p>
 <p><a href="#7-%E6%A8%A1%E6%9D%BF%E4%B8%8E%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B">7 模板与泛型编程</a></p>
+<p>​	<a href="#%E6%9D%A1%E6%AC%BE41%EF%BC%9A%E4%BA%86%E8%A7%A3%E9%9A%90%E5%BC%8F%E6%8E%A5%E5%8F%A3%E5%92%8C%E7%BC%96%E8%AF%91%E5%99%A8%E5%A4%9A%E6%80%81">条款41：了解隐式接口和编译器多态</a></p>
 <p>​	<a href="#%E6%9D%A1%E6%AC%BE42%EF%BC%9A%E4%BA%86%E8%A7%A3typename%E7%9A%84%E5%8F%8C%E9%87%8D%E6%84%8F%E4%B9%89">条款42：了解<code>typename</code>的双重意义</a></p>
 <p>​	</p>
 <hr>
@@ -491,7 +494,14 @@ var _hmt = _hmt || [];
 
 
 
+<h2 id="4-设计与声明"><a href="#4-设计与声明" class="headerlink" title="4 设计与声明"></a>4 设计与声明</h2><h3 id="条款22：将成员变量声明为private"><a href="#条款22：将成员变量声明为private" class="headerlink" title="条款22：将成员变量声明为private"></a>条款22：将成员变量声明为<code>private</code></h3><p>声明成员变量为<code>priavte</code>的理由主要有三：语法一致性、访问控制细微划分以及最重要的封装</p>
+<p>语法一致性可见于条款 18，这里不做过多解释。至于访问控制的细微划分，如果你令成员变量为 <code>public</code>，那么所有人都可以读写它，也就没有什么访问控制的说法了。但如果令成员变量为<code>private</code>，以函数取得或设定其值，就可以实现 “不准访问”、”只读访问” 以及 “读写访问” 等访问控制级别</p>
+<p>将成员变量隐藏在函数接口的背后（也就是封装），可以为 “所有可能的实现” 提供弹性。这是因为，从条款 23 中我们可知：成员变量的封装性与成员变量的内容改变时破坏的代码数量成反比，因此封装成员变量可以保留日后变更实现的权利</p>
+<p>语法一致性和访问控制细微划分显然也适用于<code>protected</code>，但是封装呢，<code>protected</code>其实并不比<code>public</code>更具封装性。假设我们有一个<code>public</code>成员变量，取消它会导致所有使用它的客户码都会被破坏，这是一个不可估量的极大值。假设我们有一个<code>protected</code>成员变量，取消它会导致所有使用它的 derived classes 都会被破坏，这往往也是一个不可估量的极大值</p>
 <h2 id="7-模板与泛型编程"><a href="#7-模板与泛型编程" class="headerlink" title="7 模板与泛型编程"></a>7 模板与泛型编程</h2><p>泛型编程（generic programming）——写出的代码和其所处理的对象类型彼此独立</p>
+<h3 id="条款41：了解隐式接口和编译器多态"><a href="#条款41：了解隐式接口和编译器多态" class="headerlink" title="条款41：了解隐式接口和编译器多态"></a>条款41：了解隐式接口和编译器多态</h3><p>没看懂，暂且记下结论。。。</p>
+<p>面向对象编程世界：对 classes 而言接口是显示的（explicit），以函数签名为中心。多态则是通过 virtual  函数发生于运行期</p>
+<p>泛型编程世界：对 template 参数而言，接口是隐式的（implicit），基于有效表达式。多态则是通过 template 具现化和函数重载解析发生于编译期</p>
 <h3 id="条款42：了解typename的双重意义"><a href="#条款42：了解typename的双重意义" class="headerlink" title="条款42：了解typename的双重意义"></a>条款42：了解<code>typename</code>的双重意义</h3><p>当我们声明 template 类型参数时， <code>class</code>和<code>typename</code>的意义完全相同。然而 C++ 并不是总是把<code>class</code>和<code>typename</code>视为等价，有时候一定得使用<code>typename</code></p>
 <p>任何时候当你想要在 template 中涉及一个嵌套从属类型名称时，就必须在紧邻它的前面放上关键词<code>typename</code>。嵌套从属类型名称可能会导致解析困难，这是由于 C++ 有条解析规则：如果解析器在 template 中遭遇一个嵌套从属名称，它便假设这名称不是个类型，除非你告诉它它是一个类型。而我们通常是将嵌套从属类型名称视为类型使用的，如<code>T::const_iterator iter;</code>,这样就会产生矛盾引发解析错误</p>
 <blockquote>
